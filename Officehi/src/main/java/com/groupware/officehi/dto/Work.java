@@ -29,11 +29,12 @@ public class Work {
 	}
 
 	public String getWorkTimeHour() {
-		if (!leaveTime.equals("00:00:00")) {
+		if (!(leaveTime == null)) {
 			LocalTime arrival = LocalTime.parse(arrivalTime);
 			LocalTime leave = LocalTime.parse(leaveTime);
 			return String.valueOf(arrival.until(leave, java.time.temporal.ChronoUnit.HOURS)+"H");
 		} else
 			return " - ";
 	}
+
 }

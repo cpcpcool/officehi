@@ -5,20 +5,31 @@
   
 <mapper namespace="com.groupware.officehi.repository.WorkRepository">
 	<insert id="arrivalTimeCheck" keyProperty="userNo">
-		INSERT INTO WORK(user_no, date, arrival_time, leave_time) 
-		values(#{userNo}, curdate(), curtime(), "00:00:00")
+		INSERT INTO WORK(user_no, date, arrival_time) 
+		values(#{userNo}, curdate(), curtime())
 	</insert>
 	
 	<update id="leaveTimeCheck" keyProperty="userNo">
 		UPDATE WORK SET leave_time = curtime()
-		WHERE user_no = #{userNo} AND date = curdate();
+		WHERE user_no = #{userNo} AND date = curdate()
 	</update>
 	
+	<select id="checkDateDuplicte" resultType="java.lang.Integer">
+		SELECT * FROM WORK 
+		WHERE user_no = #{userNo} AND date = curdate() AND arrival_time IS NOT NULL
+	</select>
+	
+	<select id="workTimesByUserNo" resultType="Work" parameterType="java.lang.Long">
+        SELECT w.date, u.name, w.user_no, w.arrival_time, w.leave_time
+        FROM work w
+        JOIN user u ON w.user_no = u.user_no
+        WHERE w.user_no = #{userNo}
+    </select>
+
+	<!-- 확인용 전체조회 -->    
 	<select id="workTimes" resultType="Work">
 		SELECT w.date, name, w.user_no, arrival_time, leave_time
 		FROM work w, user u
-		WHERE w.user_no = u.user_no;
+		WHERE w.user_no = u.user_no
 	</select>
-	
-		
 </mapper>
