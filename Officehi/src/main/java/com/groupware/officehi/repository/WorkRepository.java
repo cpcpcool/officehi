@@ -7,7 +7,9 @@ import com.groupware.officehi.dto.Work;
 public interface WorkRepository {
 	
 	
-	void timeCheck();
+	void arrivalTimeCheck();
+	
+	void leaveTimeCheck();
 	
 	List<Work> workTimes();
 	

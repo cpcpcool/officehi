@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- 
+	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/officehi?useSSL=false&amp;serverTimezone=UTC" />
@@ -19,7 +19,7 @@
 	</bean>
 	
 	<bean id="repository" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.groupware.officehi.repository.ApprovalRepository" />
+		<property name="mapperInterface" value="com.groupware.officehi.repository.WorkRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean> -->
+	</bean>
 </beans>

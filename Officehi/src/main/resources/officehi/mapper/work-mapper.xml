@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.groupware.officehi.repository.WorkRepository">
+<!-- 	<insert id="arrivalTimeCheck" keyProperty="userNo">
+		INSERT INTO WORK(user_no, date, arrival_time, leave_time) 
+		values(#{userNo}, curdate(), curtime(), "00:00:00")
+	</insert>
+	
+	<update id="leaveTimeCheck" keyProperty="userNo">
+		UPDATE WORK SET leave_time = curtime()
+		WHERE user_no = #{userNo} AND date = curdate();
+	</update> -->
+	
+	<select id="workTimes">
+			
+		select * from work
+	</select>
+	
+	
+</mapper>

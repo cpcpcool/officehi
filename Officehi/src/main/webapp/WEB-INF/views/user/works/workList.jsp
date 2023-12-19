@@ -60,11 +60,14 @@
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
+						<%
+							request.getAttribute("works");
+						%>
 							<tr>
 								<td>2023-12-18</td>
 								<td>박재용</td>
 								<td>12-012026</td>
-								<td>09:25:30</td>
+								<td>${works.arrivalTime}</td>
 								<td>20:00:00</td>
 								<td>8H</td>
 							</tr>
