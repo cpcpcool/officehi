@@ -1,4 +1,6 @@
-<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.LocalTime"%>
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@ page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="context" value="/" />
@@ -21,9 +23,17 @@
 	font-weight: 800;
 	color: #345de3;
 }
+
+/* thead {
+	text-align: center;
+}
+td {
+	text-align: center;
+} */
 </style>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -60,22 +70,22 @@
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
-						<%
-							request.getAttribute("works");
-						%>
-							<tr>
-								<td>2023-12-18</td>
-								<td>박재용</td>
-								<td>12-012026</td>
-								<td>${works.arrivalTime}</td>
-								<td>20:00:00</td>
-								<td>8H</td>
-							</tr>
+							<c:forEach var="work" items="${works}">
+								<tr>
+									<td>${work.date}</td>
+									<td>${work.name}</td>
+									<td>${work.userNo}</td>
+									<td>${work.arrivalTime}</td>
+									<td>${work.leaveTime}</td>
+									<td>${work.getWorkTimeHour()}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</main>
+	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
 </body>
 </html>

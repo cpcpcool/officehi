@@ -123,7 +123,7 @@
 		</div>
 	</main>
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	// 현재 로컬 시간을 가져와서 표시
 	function updateLocalTime() {
 		const currentDateTime = new Date();
@@ -136,5 +136,5 @@
 		updateLocalTime();
 		setInterval(updateLocalTime, 1000); // 1초마다 업데이트
 	};
-</script>
+</script> -->
 </html>

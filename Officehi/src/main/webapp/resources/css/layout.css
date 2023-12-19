@@ -141,7 +141,7 @@ header {
 	color: #222;
 }
 .header-right a span:after {
-	content:url("${resPath}/img/logout.svg");
+	content:url("/officehi/resources/img/logout.svg");
 	margin-left: 6px;
 	vertical-align: top;
 }

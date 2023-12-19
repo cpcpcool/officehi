@@ -2,6 +2,7 @@ package com.groupware.officehi.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +17,13 @@ public class WorkController {
 	
 	private final WorkRepository workRepository;
 	
+	@Autowired
 	public WorkController(WorkRepository workRepository) {
 		this.workRepository = workRepository;
 	}
 
 	@GetMapping("/works")
-	public String workTime(Model model) {
-		List<Work> works = workRepository.workTimes();
-		model.addAttribute("works", works);
+	public String workTime() {
 		return "/user/works/workTime";
 	}
 	
@@ -33,14 +33,16 @@ public class WorkController {
 		return "redirect:/works";
 	}
 	
-	@PostMapping("/works/arrival")
+	@PostMapping("/works/leave")
 	public String leave(){
 		
 		return "redirect:/works";
 	}
 	
 	@GetMapping("/works/list")
-	public String workList() {
+	public String workList(Model model) {
+		List<Work> works = workRepository.workTimes();
+		model.addAttribute("works", works);
 		return "/user/works/workList";
 	}
 	
