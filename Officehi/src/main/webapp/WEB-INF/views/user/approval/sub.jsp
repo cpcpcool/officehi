@@ -134,7 +134,7 @@ select::-ms-expand {
 }
 
 
-
+/* layout */
 html {
 	font-family: 'SUIT', sans-serif;
 }
@@ -142,11 +142,15 @@ body {
 	background-color: #f6f6f6;
 }
 main {
-	padding: 40px 360px;
+	height: calc(100vh - 210px - 80px); /* 전체화면 높이에서 헤더 높이와 푸터 높이를 뺌 */
+	min-height: 500px;
+	padding: 40px 20px;
 	font-size: 20px;
 }
-.main-container {
+.main-container, .header-container, .footer-container {
 	display: flex;
+    max-width: 1200px;
+	margin: 0 auto;
 }
 .main-aside {
 }
@@ -157,6 +161,8 @@ main {
 	min-width: 240px;
 	padding: 2em;
 	margin-right: 1em;
+	font-size: 20px;
+	box-sizing: border-box;
 	background-color: #fff;
 }
 .main-box {
@@ -176,21 +182,28 @@ main {
 .quick-menu {
 	width: 50%;
 }
-.aside {
-	font-size: 20px;
-}
 .aside span {
 	font-size: 0.9em;
 	font-weight: 700;
 	line-height: 1.4;
 }
+.aside > li {
+	margin-top:12px;
+}
+.aside > li:first-of-type {
+	margin-top: 0;
+}
+.aside ul {
+	margin-top: 12px;
+}
 .aside ul li {
-	display: flex;
 	padding: 0.3em 1em;
 }
 .aside ul span {
+	display: inline-block;
 	font-size: 0.8em;
 	font-weight: 600;
+	line-height: 1;
 }
 h2 {
 	font-size: 24px;
@@ -223,9 +236,122 @@ tbody tr td{
 tbody tr:first-of-type td {
 	padding-top: 16px;
 }
+
+/* Header */
+header {
+	padding: 0 20px;
+	height: 80px;
+	background-color: #fff;
+	box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.05);
+}
+.header-container {
+	height: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+.logo-box {
+	width: 240px;
+	margin-right: 20px;
+}
+.header-left {
+	display: flex;
+	align-items: center;
+}
+.header-menu {
+	display: flex;
+}
+.header-menu li {
+	margin-right: 48px;
+}
+.header-menu li:last-of-type {
+	margin-right: 0;
+}
+.header-menu a {
+	font-size: 18px;
+	font-weight: 600;
+	color: #222;
+}
+.header-right a {
+	font-size: 16px;
+	font-weight: 600;
+	color: #222;
+}
+.header-right a span:after {
+	content:url("${resPath}/img/logout.svg");
+	margin-left: 6px;
+	vertical-align: top;
+}
+
+/* Footer */
+footer {
+	background-color: #fff;
+}
+.footer-top {
+	padding: 0 20px;
+	border: 1px solid #c7c7c7;
+	border-left: none;
+	border-right: none;
+}
+.footer-top .footer-container {
+	padding: 24px 0;
+}
+.footer-menu {
+	display: flex;
+}
+.footer-menu li {
+	margin-right: 40px;
+}
+.footer-menu li:last-of-type {
+	margin-right: 0;
+}
+.footer-menu a {
+	font-size: 18px;
+	font-weight: 600;
+	color: #222;
+}
+.footer-bottom {
+	padding: 0 20px;
+}
+.footer-bottom .footer-container {
+	padding: 32px 0;
+	flex-direction: column;
+}
+.footer-bottom p {
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: 600;
+}
 </style>
 </head>
 <body>
+	<header>
+		<div class="header-container">
+			<div class="header-left">
+				<h1 class="logo-box">
+					<a href="#">
+						<img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고">
+					</a>
+				</h1>
+				<ul class="header-menu">
+					<li>
+						<a href="#">공지사항</a>
+					</li>
+					<li>
+						<a href="#">전자 결재</a>
+					</li>
+					<li>
+						<a href="#">근태 관리</a>
+					</li>
+					<li>
+						<a href="#">마이페이지</a>
+					</li>
+				</ul>
+			</div>
+			<div class="header-right">
+				<a href="#"><span>로그아웃</span></a>
+			</div>
+		</div>
+	</header>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -302,5 +428,33 @@ tbody tr:first-of-type td {
 			</div>
 		</div>
 	</main>
+	<footer>
+		<div class="footer-top">
+			<div class="footer-container">
+				<ul class="footer-menu">
+					<li>
+						<a href="#">공지사항</a>
+					</li>
+					<li>
+						<a href="#">전자 결재</a>
+					</li>
+					<li>
+						<a href="#">근태 관리</a>
+					</li>
+					<li>
+						<a href="#">마이페이지</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="footer-container">
+				<div>
+					<img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고">
+				</div>
+				<p>Copyright &copy; OfficeHi, All right reserved</p>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
