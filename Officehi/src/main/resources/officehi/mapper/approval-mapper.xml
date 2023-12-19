@@ -8,6 +8,10 @@
 		INSERT INTO approval(user_no, date, title, content, category, checker_1)
 		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
 	</insert>
+	
+	<select id="findByUserNo">
+		select name from user where user_no = #{userNo}
+	</select>
 
 	<select id="findByUserIdApprovalList">
 		select (select name as user_name
@@ -25,6 +29,12 @@
 	
 	<select id="findByUserNameAndDeptName">
 		select user_no, name, dept_name from user;
+	</select>
+	
+	<select id="findByApprovalNo">
+		select approval_no, date, title, content, status, category, check_date, (select name from user where user_no = a.user_no) as checker1
+		from approval a
+		where approval_no = #{userNo};
 	</select>
 
 </mapper>

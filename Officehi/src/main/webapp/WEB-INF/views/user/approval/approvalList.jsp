@@ -55,7 +55,7 @@
 							<c:forEach var="approval" items="${approvals}">
 								<tr>
 									<td>${approval.userName}</td>
-									<td><a href="${context}/approvals/${approval.approvalNo}">${approval.title}</a></td>
+									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
 									<td>${approval.deptName}</td>
 									<td>${approval.date}</td>
 									<td>
