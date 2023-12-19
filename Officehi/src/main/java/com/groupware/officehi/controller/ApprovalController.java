@@ -26,9 +26,7 @@ public class ApprovalController {
 	@GetMapping("")
 	public String getApprovals(Model model) {
 		List<ApprovalDTO.ApprovalListDTO> approvals = service.approvalList();
-		
 		model.addAttribute("approvals", approvals);
-		
 		return "user/approval/approvalList";
 	}
 	
@@ -52,15 +50,14 @@ public class ApprovalController {
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
-		log.info("{}", approval.getChecker1());
 		
 		return "user/approval/approval";
 	}
 	
 	@PostMapping("/{approval_no}")
-	public String setApprovalNo(@PathVariable Long approval_no) {
-		
-		
+	public String setApprovalNo(@PathVariable Long approval_no, @ModelAttribute ApprovalDTO updateDTO) {
+		updateDTO.setApprovalNo(approval_no);
+		service.update(updateDTO);
 		return "redirect:/approvals";
 	}
 	

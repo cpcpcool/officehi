@@ -45,13 +45,13 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 문서 상세</h2>
-					<form action="${context}approvals/add" method="post">
+					<form action="${context}approvals/${approval.approvalNo}" method="post">
 						<div class="row mb-3">
 							<div class="col-2">
 								<label class="form-label mt-2" for="category">서식</label>
 							</div>
 							<div class="col-3">
-								<input type="text" class="form-control" id="category" name="category" value="${approval.category}">
+								<input type="text" class="form-control" id="category" name="category" value="${approval.category}" readonly>
 							</div>
 							<div class="col-2 mb-2">	
 								<label class="form-label mt-2" for="checker">참조자</label>

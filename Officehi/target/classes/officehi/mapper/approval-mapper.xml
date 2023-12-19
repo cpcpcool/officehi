@@ -5,7 +5,7 @@
 <mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
 	<insert id="save" useGeneratedKeys="true" keyProperty="approvalNo"
 		parameterType="com.groupware.officehi.dto.ApprovalDTO$ApprovalSaveDTO">
-		INSERT INTO approval(user_no, date, title, content, category, checker_1)
+		INSERT INTO approval(user_no, date, title, content, category, checker1)
 		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
 	</insert>
 	
@@ -36,5 +36,11 @@
 		from approval a
 		where approval_no = #{userNo};
 	</select>
-
+	
+	<update id="update" parameterType="ApprovalDTO">
+		UPDATE approval
+		SET title = #{title}, content = #{content}, checker1 = (select user_no from user where name like #{checker1}) 
+		where approval_no = #{approvalNo};
+	</update>
+	
 </mapper>

@@ -34,4 +34,8 @@ public class ApprovalService {
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
 		return repository.findByApprovalNo(approvalNo);
 	}
+	
+	public void update(ApprovalDTO updateDTO) {
+		repository.update(updateDTO);
+	}
 }

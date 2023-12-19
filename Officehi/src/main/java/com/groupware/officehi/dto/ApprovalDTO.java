@@ -20,7 +20,7 @@ public class ApprovalDTO {
 	private Integer status;
 	private String category;
 	private String checkDate;
-	private String checker1; 
+	private String checker1;
 	
 	@Getter @Setter
 	@NoArgsConstructor @AllArgsConstructor
@@ -51,7 +51,7 @@ public class ApprovalDTO {
 		private String name;
 		private String deptName;
 	}
-
+	
 }
 
 /*
