@@ -45,7 +45,7 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 문서 상세</h2>
-					<form action="${context}approvals/${approval.approvalNo}" method="post">
+					<form id="approvalForm" action="${context}approvals/${approval.approvalNo}" method="post">
 						<div class="row mb-3">
 							<div class="col-2">
 								<label class="form-label mt-2" for="category">서식</label>
@@ -84,7 +84,7 @@
 								<label class="form-label mt-2" for="checkDate">완료일</label>
 							</div>
 							<div class="col">
-								<input class="form-control" type="date" id="checkDate" name="checkDate" value="${approval.checkDate}">
+								<input class="form-control" type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -96,13 +96,21 @@
 							</div>
 						</div>
 						<div>
-							<input class="btn btn-dark btn-small me-2" type="submit" value="수정">
-							<button class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">뒤로 가기</button>
+							<c:set var="status" value="${approval.status}" />
+							<c:choose>
+									<c:when test="${status == 1}"><c:set var="display" value=""/></c:when>
+									<c:otherwise><c:set var="display" value="none"/></c:otherwise>
+							</c:choose>
+							<input class="btn btn-dark btn-small me-2" style="display: ${display};" type="submit" value="수정">
+							<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 3)">승인</a>
+							<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 2)">반려</a>
+							<a class="btn btn-white btn-outline-dark btn-small" href="${context}approvals/">뒤로 가기</a>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</main>
+	<script src="${resPath}/js/approval-status.js" type="text/javascript"></script>
 </body>
 </html>

@@ -9,10 +9,12 @@ import com.groupware.officehi.dto.ApprovalDTO;
 
 @Mapper
 public interface ApprovalRepository {
-	void save(ApprovalDTO.ApprovalSaveDTO saveDTO);
-	String findByUserNo(Long userNo);
-	List<ApprovalDTO.ApprovalListDTO> findByUserIdApprovalList();
-	List<ApprovalDTO.ApprovalUserList> findByUserNameAndDeptName();
+	void insertApproval(ApprovalDTO insert);
+	String findUserByUserNo(Long userNo);
+	List<ApprovalDTO> findAllApproval();
+	List<ApprovalDTO> findAllUserNameAndDeptName();
 	Optional<ApprovalDTO> findByApprovalNo(Long approvalNo);
-	void update(ApprovalDTO updateDTO);
+	void updateApproval(ApprovalDTO update);
+	void deleteApproval(Long ApprovalNo);
+	void updateStatus(ApprovalDTO status);
 }

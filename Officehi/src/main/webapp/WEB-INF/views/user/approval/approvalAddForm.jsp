@@ -51,7 +51,7 @@
 								<label class="form-label mt-2" for="category">서식</label>
 							</div>
 							<div class="col-3">
-								<select class="form-select" id="category" name="category">
+								<select class="form-select" id="category" name="category" required>
 									<option>휴가신청서</option>
 									<option>대금결재</option>
 									<option>결재2</option>
@@ -74,7 +74,7 @@
 								<label class="form-label" for="title">문서 제목</label>
 							</div>
 							<div class="col">
-								<input class="form-control" type="text" id="title" name="title" placeholder="년-월-일 서식명 사원명">
+								<input class="form-control" type="text" id="title" name="title" placeholder="년-월-일 서식명 사원명" required>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -82,7 +82,7 @@
 								<label class="form-label" for="content">내용</label>
 							</div>
 							<div class="">
-								<textarea class="form-control w-100" id="content" name="content" rows="13"></textarea>
+								<textarea class="form-control w-100" id="content" name="content" rows="13" required></textarea>
 							</div>
 						</div>
 						<div>

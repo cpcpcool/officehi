@@ -62,8 +62,8 @@ h2 {
 	font-weight: 700;
 	margin-bottom: 16px
 }
-h2 .lgmg {
-	margin-botton: 20px;
+h2.lgmg {
+	margin-bottom: 20px;
 }
 thead {
 	border-bottom: 1px solid #c7c7c7;
