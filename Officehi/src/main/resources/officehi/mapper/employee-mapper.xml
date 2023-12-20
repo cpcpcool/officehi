@@ -2,41 +2,83 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<mapper namespace="com.groupware.officehi.repository.EmployeeRepository">
 
-	<insert id="saveUserInfo" keyProperty="userNo" useGeneratedKeys="true" parameterType="EmployeeDTO">
-		INSERT INTO user(name, phone, birth_date, to_date, dept_name, position, stamp, profile)
-		VALUES (#{name}, #{phone}, #{birthDate}, #{toDate}, #{deptName}, #{position}, #{stamp}, #{profile})		
+<mapper
+	namespace="com.groupware.officehi.repository.EmployeeRepository">
+
+	<insert id="saveUserInfo" keyProperty="userNo"
+		useGeneratedKeys="true" parameterType="EmployeeDTO">
+		INSERT INTO user(name, phone,
+		birth_date, to_date, dept_name, position, stamp, profile)
+		VALUES
+		(#{name}, #{phone}, #{birthDate}, #{toDate}, #{deptName}, #{position},
+		#{stamp}, #{profile})
 	</insert>
 
-	 <select id="findByUserNo" resultType="EmployeeDTO">
-	 	SELECT * 
+	<select id="findByUserNo" resultType="EmployeeDTO">
+		SELECT *
 		FROM user
-		WHERE user_no = #{userNo}
-	 </select>
-	 
-<!-- 	 <update id="updateUserInfo" parameterType="java.lang.List">
-	 	<foreach collection="list" item="item" separator=",">
-	 	UPDATE user 
-	 	SET 
-	 	name = #{item.name},
-	 	phone = #{item.phone},
-	 	birth_date = #{item.birthDate},
-	 	to_date = #{item.toDate},	 	
-	 	from_date = #{item.fromDate},
-	 	dept_name = #{item.deptName},
-	 	position = #{item.position}
-	 	WHERE user_no = #{userNo}
-	 	</foreach>
-	 </update>
- -->
- 
- 
-	<!-- 전체조회 -->    
-	<select id="findAllEmployee" resultType="EmployeeDTO">
-		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name 
-		FROM user;
-
+		WHERE
+		user_no = #{userNo}
 	</select>
+
+	<update id="updateUserInfo" parameterType="EmployeeDTO">
+		UPDATE user
+		SET
+		name = #{name},
+		phone = #{phone},
+		birth_date = #{birthDate},
+		to_date = #{toDate},
+		dept_name = #{deptName},
+		position = #{position}
+		WHERE user_no = #{userNo}
+	</update>
+
+	<update id="retiredUserInfo" parameterType="EmployeeDTO">
+		UPDATE user
+		SET
+		from_date = curdate()
+		WHERE user_no = #{userNo}
+	</update>
+
+	<!-- 삭제 -->
+	<!--
+	<delete id="deleteUserInfo" parameterType="EmployeeDTO">
+		DELETE FROM user
+		WHERE
+		user_no = #{userNo}
+	</delete> -->
+
+	<!-- 전체조회 -->
+	<select id="findAllEmployee" resultType="EmployeeDTO">
+		SELECT user_no, name,
+		phone, birth_date, position, to_date, from_date, dept_name
+		FROM user;
+	</select>
+	
+	<!-- 이름검색 -->
+	<select id="searchUserName" resultType="EmployeeDTO" parameterType="java.lang.String">
+		SELECT user_no, name,
+		phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		WHERE name LIKE concat('%', #{name}, '%');
+	</select>
+	
+	<!-- 사번검색 -->
+	<select id="searchUserNo" resultType="EmployeeDTO" parameterType="java.lang.Long">
+		SELECT user_no, name,
+		phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		WHERE user_no LIKE concat('%', #{userNo}, '%');
+	</select>
+	
+	<!-- 부서검색 -->
+	<select id="searchDeptName" resultType="EmployeeDTO" parameterType="java.lang.String">
+		SELECT user_no, name,
+		phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		WHERE dept_name LIKE concat('%', #{deptName}, '%');
+	</select>
+	
+		
 </mapper>

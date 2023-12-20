@@ -31,18 +31,23 @@
 }
 
 .employeeIcons {
+	
 }
 
 .modifyIcon:after {
-	content:url("/officehi/resources/img/edit.svg");
+	content: url("/officehi/resources/img/edit.svg");
 	margin-left: 1em;
 	vertical-align: top;
 }
 
-.deleteIcon:after {
-	content:url("/officehi/resources/img/delete.svg");
+.retiredIcon:after {
+	content: url("/officehi/resources/img/delete.svg");
 	margin-left: 1em;
 	vertical-align: top;
+}
+
+.retired {
+	text-decoration: line-through;
 }
 </style>
 </head>
@@ -69,17 +74,18 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2 class="lgmg">사원 정보 관리</h2>
-					<form action="" role="search">
-						<div class="row g-2 align-items-center mb-3" id="employeesearch" >
+					<form action="${context}admin/employees/search" role="search" method="post">
+						<div class="row g-2 align-items-center mb-3" id="employeesearch">
 							<div class="col-3">
-								<select class="form-select" aria-label="Default select example">
-									<option selected>사원명</option>
-									<option value="1">사번</option>
-									<option value="2">부서명</option>
+								<select class="form-select" name="searchType" aria-label="search">
+									<option value="name">사원명</option>
+									<option value="userNo">사번</option>
+									<option value="deptName">부서명</option>
 								</select>
 							</div>
 							<div class="col-5">
-								<input class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
+							<!-- 인풋이 여러개 있어야하나.. -->
+								<input name="deptName" class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
@@ -89,7 +95,7 @@
 
 					<!-- 등록버튼 -->
 					<div>
-						<button class="btn btn-dark" type="button" onclick="location.href='${context}admin/employees/add'">신규 사원  등록</button>
+						<button class="btn btn-dark" type="button" onclick="location.href='${context}admin/employees/add'">신규 사원 등록</button>
 					</div>
 
 					<!-- 리스트 -->
@@ -101,22 +107,29 @@
 								<th scope="col">부서명</th>
 								<th scope="col">직책</th>
 								<th scope="col">입사일</th>
-								<th scope="col">수정 / 삭제</th>
+								<th scope="col">수정 / 퇴사</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
 							<c:forEach var="employee" items="${employees}">
 								<tr>
-									<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
+									<c:choose>
+										<c:when test="${employee.fromDate eq '9999-01-01'}">
+											<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
+										</c:when>
+										<c:otherwise>
+											<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.name}</a></td>
+										</c:otherwise>
+									</c:choose>
 									<td><a href="${context}admin/employees/${employee.userNo}">${employee.userNo}</a></td>
 									<td><a href="${context}admin/employees/${employee.userNo}">${employee.deptName}</a></td>
 									<td><a href="${context}admin/employees/${employee.userNo}">${employee.position}</a></td>
 									<td><a href="${context}admin/employees/${employee.userNo}">${employee.toDate}</a></td>
 									<td>
+										<!-- 삭제POST FORM --> <!-- <form id="retiredForm" action="${context}admin/employees/${employee.userNo}/retired" method="post"> -->
 										<div class="employeeIcons">
-											<a href="${context}admin/employees/${employee.userNo}"><span class="modifyIcon"></span></a>
-											<a href="#"><span class="deleteIcon"></span></a>
-										</div>
+											<a href="${context}admin/employees/${employee.userNo}"> <span class="modifyIcon"></span></a> <a href="${context}admin/employees/${employee.userNo}/retired"> <span class="retiredIcon"></span></a>
+										</div> <!-- </form> -->
 									</td>
 								</tr>
 							</c:forEach>

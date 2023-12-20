@@ -92,7 +92,7 @@
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">
 								<select class="form-select" aria-label="position" name="position">
-									<option selected>[${employee.position}]</option>
+									<option selected>${employee.position}</option>
 									<option>사원</option>
 									<option>주임</option>
 									<option>대리</option>

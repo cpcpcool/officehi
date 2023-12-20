@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.groupware.officehi.dto.Work;
+import com.groupware.officehi.dto.WorkDTO;
 import com.groupware.officehi.repository.WorkRepository;
 import com.groupware.officehi.service.WorkService;
 
@@ -50,7 +50,7 @@ public class WorkController {
 			redirectAttributes.addFlashAttribute("duplicateMessage", "이미 출근한 날짜입니다.");
 			return "redirect:/works";
 		}else {
-			Work work = new Work();
+			WorkDTO work = new WorkDTO();
 			work.setUserNo(userNo);
 			workService.arrivalTimeCheck(work);
 			return "redirect:/works";
@@ -60,7 +60,7 @@ public class WorkController {
 
 	@PostMapping("/works/leave")
 	public String leave(@RequestParam Long userNo) {
-		Work work = new Work();
+		WorkDTO work = new WorkDTO();
 		work.setUserNo(userNo);
 		workService.leaveTimeCheck(work);
 		return "redirect:/works";
@@ -80,7 +80,7 @@ public class WorkController {
 //
 //        if (loggedInUserNo != null) {
 		// 사용자 정보가 세션에 있을 경우에만 작업 목록 가져오기
-		List<Work> works = workService.workTimesByUserNo(10002L);
+		List<WorkDTO> works = workService.workTimesByUserNo(10002L);
 		model.addAttribute("works", works);
 		return "/user/works/workList";
 //        } else {
@@ -91,7 +91,7 @@ public class WorkController {
 
 	@GetMapping("/works/list/all")
 	public String findAllWorks(Model model) {
-		List<Work> works = workService.workTimes();
+		List<WorkDTO> works = workService.workTimes();
 		model.addAttribute("works", works);
 		return "/user/works/workList";
 	}

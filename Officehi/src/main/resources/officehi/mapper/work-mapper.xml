@@ -19,7 +19,7 @@
 		WHERE user_no = #{userNo} AND date = curdate() AND arrival_time IS NOT NULL
 	</select>
 	
-	<select id="workTimesByUserNo" resultType="Work" parameterType="java.lang.Long">
+	<select id="workTimesByUserNo" resultType="WorkDTO" parameterType="java.lang.Long">
         SELECT w.date, u.name, w.user_no, w.arrival_time, w.leave_time
         FROM work w
         JOIN user u ON w.user_no = u.user_no
@@ -27,7 +27,7 @@
     </select>
 
 	<!-- 확인용 전체조회 -->    
-	<select id="workTimes" resultType="Work">
+	<select id="workTimes" resultType="WorkDTO">
 		SELECT w.date, name, w.user_no, arrival_time, leave_time
 		FROM work w, user u
 		WHERE w.user_no = u.user_no

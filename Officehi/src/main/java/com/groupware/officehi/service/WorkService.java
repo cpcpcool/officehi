@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.groupware.officehi.dto.Work;
+import com.groupware.officehi.dto.WorkDTO;
 import com.groupware.officehi.repository.WorkRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +22,11 @@ public class WorkService {
 		log.info("서비스실행됨");
 	}
 	
-	public void arrivalTimeCheck(Work work) {
+	public void arrivalTimeCheck(WorkDTO work) {
 		workRepository.arrivalTimeCheck(work);
 	}
 
-	public void leaveTimeCheck(Work work) {
+	public void leaveTimeCheck(WorkDTO work) {
 		workRepository.leaveTimeCheck(work);
 	}
 	
@@ -34,11 +34,11 @@ public class WorkService {
 		return workRepository.checkDateDuplicte(userNo);
 	}
 
-	public List<Work> workTimesByUserNo(Long userNo) {
+	public List<WorkDTO> workTimesByUserNo(Long userNo) {
 		return workRepository.workTimesByUserNo(userNo);
 	}
 
-	public List<Work> workTimes() {
+	public List<WorkDTO> workTimes() {
 		return workRepository.workTimes();
 	}
 

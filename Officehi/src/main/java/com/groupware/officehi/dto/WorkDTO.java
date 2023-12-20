@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Setter @Getter
-public class Work {
+public class WorkDTO {
 
 	private Long userNo;
 	private String date;
@@ -16,10 +16,10 @@ public class Work {
 	private String leaveTime;
 	private String name;
 
-	public Work() {
+	public WorkDTO() {
 	}
 
-	public Work(Long userNo, String date, String arrivalTime, String leaveTime, String name) {
+	public WorkDTO(Long userNo, String date, String arrivalTime, String leaveTime, String name) {
 		this.userNo = userNo;
 		this.date = date;
 		this.arrivalTime = arrivalTime;
