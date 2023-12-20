@@ -7,8 +7,7 @@ import org.apache.taglibs.standard.tag.common.fmt.ParseDateSupport;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Setter @Getter
 public class Work {
 
 	private Long userNo;

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 관리</title>
+<title>사원 정보 관리</title>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -105,19 +105,21 @@
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
-							<tr>
-								<td><a href="${context}admin/employees/1">우현정</a></td>
-								<td><a href="${context}admin/employees/1">10002</a></td>
-								<td><a href="${context}admin/employees/1">IP사업팀</a></td>
-								<td><a href="${context}admin/employees/1">팀장</a></td>
-								<td><a href="${context}admin/employees/1">2023-05-16</a></td>
-								<td>
-									<div class="employeeIcons">
-										<a href="#"><span class="modifyIcon"></span></a>
-										<a href="#"><span class="deleteIcon"></span></a>
-									</div>
-								</td>
-							</tr>
+							<c:forEach var="employee" items="${employees}">
+								<tr>
+									<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
+									<td><a href="${context}admin/employees/${employee.userNo}">${employee.userNo}</a></td>
+									<td><a href="${context}admin/employees/${employee.userNo}">${employee.deptName}</a></td>
+									<td><a href="${context}admin/employees/${employee.userNo}">${employee.position}</a></td>
+									<td><a href="${context}admin/employees/${employee.userNo}">${employee.toDate}</a></td>
+									<td>
+										<div class="employeeIcons">
+											<a href="${context}admin/employees/${employee.userNo}"><span class="modifyIcon"></span></a>
+											<a href="#"><span class="deleteIcon"></span></a>
+										</div>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 

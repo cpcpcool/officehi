@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 상세</title>
+<title>사원 정보 상세</title>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -52,50 +52,52 @@
 					<h2>사원 정보 상세</h2>
 
 					<!-- FORM -->
-					<form action="${context}admin/employees/edit" method="post">
+					
+					<form action="${context}admin/employees/${employee.userNo}" method="post">
 						<div class="row mb-3">
 							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="userNo" name="userNo" value="10000" readonly>
+								<input type="text" class="form-control" id="userNo" name="userNo" value="${employee.userNo}" readonly>
 							</div>
 							<label for="name" class="col-sm-2 col-form-label">이름</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="name" name="name" value="이름">
+								<input type="text" class="form-control" id="name" name="name" value="${employee.name}">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="phone" name="phone" value="휴대폰 번호( -  - )" maxlength="13">
+								<input type="text" class="form-control" id="phone" name="phone" value="${employee.phone}" maxlength="13">
 							</div>
 							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="birthDate" name="birthDate" value="연도-월-일">
+								<input type="text" class="form-control" id="birthDate" name="birthDate" value="${employee.birthDate}">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="toDate" class="col-sm-2 col-form-label">입사일</label>
 							<div class="col-sm">
-								<input type="date" class="form-control" id="toDate" name="toDate" value="2023-10-10">
+								<input type="date" class="form-control" id="toDate" name="toDate" value="${employee.toDate}">
 							</div>
 							<label for="fromDate" class="col-sm-2 col-form-label">퇴사일</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="fromDate" name="fromDate" value=" - " disabled>
+								<input type="text" class="form-control" id="fromDate" name="fromDate" value="${employee.fromDate}" disabled>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="deptName" class="col-sm-2 col-form-label">부서명</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="deptName" name="deptName" value="부서명">
+								<input type="text" class="form-control" id="deptName" name="deptName" value="${employee.deptName}">
 							</div>
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">
 								<select class="form-select" aria-label="position" name="position">
-									<option selected>사원</option>
-									<option value="1">주임</option>
-									<option value="2">대리</option>
-									<option value="3">팀장</option>
-									<option value="4">대표</option>
+									<option selected>[${employee.position}]</option>
+									<option>사원</option>
+									<option>주임</option>
+									<option>대리</option>
+									<option>팀장</option>
+									<option>대표</option>
 								</select>
 							</div>
 						</div>

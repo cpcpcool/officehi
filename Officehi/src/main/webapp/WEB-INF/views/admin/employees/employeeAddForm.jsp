@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항 등록</title>
+<title>사원 정보 등록</title>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -56,7 +56,7 @@
 						<div class="row mb-3">
 							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="userNo" name="userNo" value="10000" readonly>
+								<input type="text" class="form-control" id="userNo" name="userNo" value="${lastUserNo}" readonly>
 							</div>
 							<label for="name" class="col-sm-2 col-form-label">이름</label>
 							<div class="col-sm">
@@ -66,7 +66,7 @@
 						<div class="row mb-3">
 							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="phone" name="phone" placeholder="휴대폰 번호( -  - )" maxlength="13">
+								<input type="text" class="form-control" id="phone" name="phone" placeholder="휴대폰 번호(-)" maxlength="13">
 							</div>
 							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
 							<div class="col-sm">
@@ -92,10 +92,10 @@
 							<div class="col-sm">
 								<select class="form-select" aria-label="position" name="position">
 									<option selected>사원</option>
-									<option value="1">주임</option>
-									<option value="2">대리</option>
-									<option value="3">팀장</option>
-									<option value="4">대표</option>
+									<option>주임</option>
+									<option>대리</option>
+									<option>팀장</option>
+									<option>대표</option>
 								</select>
 							</div>
 						</div>
