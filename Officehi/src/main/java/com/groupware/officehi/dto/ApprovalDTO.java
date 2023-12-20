@@ -14,6 +14,8 @@ public class ApprovalDTO {
 	
 	private Long approvalNo;
 	private Long userNo;
+	private String name;
+	private String deptName;
 	private String date;
 	private String title;
 	private String content;
@@ -22,35 +24,36 @@ public class ApprovalDTO {
 	private String checkDate;
 	private String checker1;
 	
-	@Getter @Setter
-	@NoArgsConstructor @AllArgsConstructor
-	public static class ApprovalListDTO {
-		private String userName;
-		private Long approvalNo;
-		private String title;
-		private String deptName;
-		private String date;
-		private String checkDate;
-	}
+//	@Getter @Setter
+//	@NoArgsConstructor @AllArgsConstructor
+//	public static class ApprovalListDTO {
+//		private String userName;
+//		private Long approvalNo;
+//		private Integer status;
+//		private String title;
+//		private String deptName;
+//		private String date;
+//		private String checkDate;
+//	}
 	
-	@Getter @Setter
-	@NoArgsConstructor @AllArgsConstructor
-	public static class ApprovalSaveDTO {
-		private Long userNo;
-		private Long approvalNo;
-		private String title;
-		private String content;
-		private String category;
-		private String checker1;
-	}
+//	@Getter @Setter
+//	@NoArgsConstructor @AllArgsConstructor
+//	public static class ApprovalSaveDTO {
+//		private Long userNo;
+//		private Long approvalNo;
+//		private String title;
+//		private String content;
+//		private String category;
+//		private String checker1;
+//	}
 	
-	@Getter @Setter
-	@NoArgsConstructor @AllArgsConstructor
-	public static class ApprovalUserList {
-		private Long userNo;
-		private String name;
-		private String deptName;
-	}
+//	@Getter @Setter
+//	@NoArgsConstructor @AllArgsConstructor
+//	public static class ApprovalUserList {
+//		private Long userNo;
+//		private String name;
+//		private String deptName;
+//	}
 	
 }
 

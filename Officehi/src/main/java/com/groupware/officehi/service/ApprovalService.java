@@ -15,27 +15,39 @@ import lombok.RequiredArgsConstructor;
 public class ApprovalService {
 	private final ApprovalRepository repository;
 	
-	public void save(ApprovalDTO.ApprovalSaveDTO saveDTO) {
-		repository.save(saveDTO);
+	public void insertApproval(ApprovalDTO insert) {
+		repository.insertApproval(insert);
 	}
 	
-	public String findByUserNo(Long userNo) {
-		return repository.findByUserNo(userNo);
+	public String findUserByUserNo(Long userNo) {
+		return repository.findUserByUserNo(userNo);
 	}
 	
-	public List<ApprovalDTO.ApprovalListDTO> approvalList() {
-		return repository.findByUserIdApprovalList();
+	public List<ApprovalDTO> findAllApproval() {
+		return repository.findAllApproval();
 	}
 	
-	public List<ApprovalDTO.ApprovalUserList> findByUserNameAndDeptName() {
-		return repository.findByUserNameAndDeptName();
+	public List<ApprovalDTO> findAllUserNameAndDeptName() {
+		return repository.findAllUserNameAndDeptName();
 	}
 	
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
 		return repository.findByApprovalNo(approvalNo);
 	}
 	
-	public void update(ApprovalDTO updateDTO) {
-		repository.update(updateDTO);
+	public void updateApproval(ApprovalDTO update) {
+		repository.updateApproval(update);
+	}
+	
+	public void updateApproval(Long approvalNo) {
+		repository.deleteApproval(approvalNo);
+	}
+	
+	public void updateStatus(ApprovalDTO status) {
+		repository.updateStatus(status);
+	}
+	
+	public List<ApprovalDTO> findAllApprovalByUserNo(Long userNo) {
+		return repository.findAllApprovalByUserNo(userNo);
 	}
 }

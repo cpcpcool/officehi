@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 </head>
 <body>
+	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -21,20 +22,20 @@
 					<li>
 					<span>공지사항</span>
 						<ul>
-							<li><span>공지사항 조회</span></li>
+							<li><a href="#"><span>공지사항 조회</span></a></li>
 						</ul>
 					</li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 현황 조회</span></li>
-							<li><span>결재 문서 작성</span></li>
+							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><span>출퇴근 시간 기록</span></li>
-							<li><span>근무 시간 확인</span></li>
+							<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
+							<li><a href="#"><span>근무 시간 확인</span></a></li>
 						</ul></li>
-					<li><span>마이페이지</span></li>
+					<li><a href="#"><span>마이페이지</span></a></li>
 				</ul>
 			</div>
 			<div class="main-box">
@@ -43,6 +44,7 @@
 					<table>
 						<thead>
 							<tr>
+								<th>결재상태</th>
 								<th>기안자</th>
 								<th>문서 제목</th>
 								<th>부서</th>
@@ -54,19 +56,30 @@
 						<tbody>
 							<c:forEach var="approval" items="${approvals}">
 								<tr>
-									<td>${approval.userName}</td>
+									<td>
+										<c:set var="status" value="${approval.status}" />
+										<c:choose>
+											<c:when test="${status == 1}">신청</c:when>
+											<c:when test="${status == 2}">반려</c:when>
+											<c:when test="${status == 3}">완료</c:when>
+										</c:choose>
+									</td>
+									<td>${approval.name}</td>
 									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
 									<td>${approval.deptName}</td>
 									<td>${approval.date}</td>
 									<td>
-										<c:if test="${\"${approvals.checkDate}\" eq '9999-01-01'}">
-											<c:out value="${approvals.checkDate}" />
+										<c:set var="checkDate" value="${approval.checkDate}"></c:set>
+										<c:if test="${checkDate != '9999-01-01'}">
+											${approval.checkDate}
 										</c:if>
 									</td>
-									<td>
-										<a href="${context}/approvals/${approval.approvalNo}">수정</a>
-										<a href="${context}/approvals/${approval.approvalNo}/delete">삭제</a>
-									</td>
+									<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
+										<td>
+											<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
+											<a href="javascript:void(0)" onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+										</td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -75,5 +88,7 @@
 			</div>
 		</div>
 	</main>
+	<%@ include file="../../footer/footer.jsp"%>
+	<script src="${resPath}/js/approval-delete.js" type="text/javascript" ></script>
 </body>
 </html>
