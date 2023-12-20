@@ -15,7 +15,7 @@
 					<a href="#">전자 결재</a>
 				</li>
 				<li>
-					<a href="#">근태 관리</a>
+					<a href="/officehi/works">근태 관리</a>
 				</li>
 				<li>
 					<a href="#">마이페이지</a>

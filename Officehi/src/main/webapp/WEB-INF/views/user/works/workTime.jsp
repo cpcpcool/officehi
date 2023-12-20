@@ -11,7 +11,6 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 <style type="text/css">
 .aside ul span {
 	color: #222;
@@ -123,11 +122,11 @@
 					<p id="localTime"></p>
 					<div class="d-flex">
 						<form class="arrival" action="${context}works/arrival" method="post">
-							<input type="hidden" name="userNo" value="10002" />
+							<input type="hidden" name="userNo" value="${loginUser}" />
 							<button class="btn btn-primary btn-lg mt-4 me-3" type="submit">출근 하기</button>
 						</form>
 						<form class="leave" action="${context}works/leave" method="post">
-							<input type="hidden" name="userNo" value="10002" />
+							<input type="hidden" name="userNo" value="${loginUser}" />
 							<button class="btn btn-dark btn-lg mt-4" type="submit">퇴근 하기</button>
 						</form>
 					</div>
