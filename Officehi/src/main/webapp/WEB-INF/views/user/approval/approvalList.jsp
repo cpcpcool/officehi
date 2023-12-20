@@ -14,6 +14,7 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 </head>
 <body>
+	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -21,20 +22,20 @@
 					<li>
 					<span>공지사항</span>
 						<ul>
-							<li><span>공지사항 조회</span></li>
+							<li><a href="#"><span>공지사항 조회</span></a></li>
 						</ul>
 					</li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 현황 조회</span></li>
-							<li><span>결재 문서 작성</span></li>
+							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><span>출퇴근 시간 기록</span></li>
-							<li><span>근무 시간 확인</span></li>
+							<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
+							<li><a href="#"><span>근무 시간 확인</span></a></li>
 						</ul></li>
-					<li><span>마이페이지</span></li>
+					<li><a href="#"><span>마이페이지</span></a></li>
 				</ul>
 			</div>
 			<div class="main-box">
@@ -73,14 +74,12 @@
 											${approval.checkDate}
 										</c:if>
 									</td>
-									<c:choose>
-											<c:when test="${status == 1}"><c:set var="display" value=""/></c:when>
-											<c:otherwise><c:set var="display" value="none"/></c:otherwise>
-									</c:choose>
-									<td style="display: ${display};">
-										<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-										<a href="javascript:void(0)" onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
-									</td>
+									<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
+										<td>
+											<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
+											<a href="javascript:void(0)" onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+										</td>
+									</c:if>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -89,6 +88,7 @@
 			</div>
 		</div>
 	</main>
+	<%@ include file="../../footer/footer.jsp"%>
 	<script src="${resPath}/js/approval-delete.js" type="text/javascript" ></script>
 </body>
 </html>

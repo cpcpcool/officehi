@@ -21,6 +21,7 @@
 </style>
 </head>
 <body>
+	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -84,7 +85,11 @@
 								<label class="form-label mt-2" for="checkDate">완료일</label>
 							</div>
 							<div class="col">
-								<input class="form-control" type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" readonly>
+								<c:set var="checkDate" value="" />
+								<c:if test="${approval.checkDate != '9999-01-01'}">
+									<c:set var="checkDate" value="${approval.checkDate}" />
+								</c:if>
+								<input class="form-control" type="date" id="checkDate" name="checkDate" value="${checkDate}" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -95,15 +100,20 @@
 								<textarea class="form-control w-100" id="content" name="content" rows="13">${approval.content}</textarea>
 							</div>
 						</div>
-						<div>
-							<c:set var="status" value="${approval.status}" />
+						<div >
 							<c:choose>
-									<c:when test="${status == 1}"><c:set var="display" value=""/></c:when>
+									<c:when test="${approval.status == 1}"><c:set var="display" value=""/></c:when>
 									<c:otherwise><c:set var="display" value="none"/></c:otherwise>
 							</c:choose>
-							<input class="btn btn-dark btn-small me-2" style="display: ${display};" type="submit" value="수정">
-							<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 3)">승인</a>
-							<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 2)">반려</a>
+							<c:choose>
+								<c:when test="${loginUser.userNo == approval.userNo}">
+									<button class="btn btn-dark btn-small me-2" style="display: ${display};" type="submit">수정</button>
+								</c:when>
+								<c:otherwise>
+									<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 3)">승인</a>
+									<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 2)">반려</a>
+								</c:otherwise>
+							</c:choose>
 							<a class="btn btn-white btn-outline-dark btn-small" href="${context}approvals/">뒤로 가기</a>
 						</div>
 					</form>
@@ -111,6 +121,7 @@
 			</div>
 		</div>
 	</main>
+	<%@ include file="../../footer/footer.jsp"%>
 	<script src="${resPath}/js/approval-status.js" type="text/javascript"></script>
 </body>
 </html>

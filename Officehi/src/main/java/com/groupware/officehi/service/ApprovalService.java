@@ -46,4 +46,8 @@ public class ApprovalService {
 	public void updateStatus(ApprovalDTO status) {
 		repository.updateStatus(status);
 	}
+	
+	public List<ApprovalDTO> findAllApprovalByUserNo(Long userNo) {
+		return repository.findAllApprovalByUserNo(userNo);
+	}
 }

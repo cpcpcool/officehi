@@ -21,6 +21,7 @@
 </style>
 </head>
 <body>
+	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -86,8 +87,7 @@
 							</div>
 						</div>
 						<div>
-							<input style="display: none;" type="text" name="userNo" value="10000">
-							<input class="btn btn-dark btn-small me-2" type="submit" value="결재요청">
+							<button class="btn btn-dark btn-small me-2" type="submit">결재요청</button>
 							<button class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">취소</button>
 						</div>
 					</form>
@@ -95,5 +95,6 @@
 			</div>
 		</div>
 	</main>
+	<%@ include file="../../footer/footer.jsp"%>
 </body>
 </html>

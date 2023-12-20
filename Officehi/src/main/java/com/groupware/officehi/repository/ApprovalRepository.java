@@ -12,6 +12,7 @@ public interface ApprovalRepository {
 	void insertApproval(ApprovalDTO insert);
 	String findUserByUserNo(Long userNo);
 	List<ApprovalDTO> findAllApproval();
+	List<ApprovalDTO> findAllApprovalByUserNo(Long userNo);
 	List<ApprovalDTO> findAllUserNameAndDeptName();
 	Optional<ApprovalDTO> findByApprovalNo(Long approvalNo);
 	void updateApproval(ApprovalDTO update);
