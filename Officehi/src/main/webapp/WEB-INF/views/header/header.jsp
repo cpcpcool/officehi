@@ -23,7 +23,7 @@
 			</ul>
 		</div>
 		<div class="header-right">
-			<a href="#"><span>로그아웃</span></a>
+			<a href="${context}logout"><span>로그아웃</span></a>
 		</div>
 	</div>
 </header>
