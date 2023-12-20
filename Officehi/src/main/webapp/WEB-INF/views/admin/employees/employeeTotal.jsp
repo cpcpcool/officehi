@@ -29,6 +29,21 @@
 .pagination nav ul li a {
 	color: #222;
 }
+
+.employeeIcons {
+}
+
+.modifyIcon:after {
+	content:url("/officehi/resources/img/edit.svg");
+	margin-left: 1em;
+	vertical-align: top;
+}
+
+.deleteIcon:after {
+	content:url("/officehi/resources/img/delete.svg");
+	margin-left: 1em;
+	vertical-align: top;
+}
 </style>
 </head>
 <body>
@@ -39,7 +54,7 @@
 				<ul class="aside floating">
 					<li><span>사원 관리</span>
 						<ul>
-							<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
+							<li><a href="${context}admin/employees"><span class="selected">사원 정보 관리</span></a></li>
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
@@ -47,24 +62,24 @@
 						</ul></li>
 					<li><span>공지사항</span>
 						<ul>
-							<li><a href=""><span class="selected">공지사항 관리</span></a></li>
+							<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
 						</ul></li>
 				</ul>
 			</div>
 			<div class="main-box">
 				<div class="content-box floating">
-					<h2 class="lgmg">공지사항 관리</h2>
+					<h2 class="lgmg">사원 정보 관리</h2>
 					<form action="" role="search">
-						<div class="row g-2 align-items-center mb-3" id="noticeSearch" >
+						<div class="row g-2 align-items-center mb-3" id="employeesearch" >
 							<div class="col-3">
 								<select class="form-select" aria-label="Default select example">
-									<option selected>제목</option>
-									<option value="1">공지 번호</option>
-									<option value="2">등록일</option>
+									<option selected>사원명</option>
+									<option value="1">사번</option>
+									<option value="2">부서명</option>
 								</select>
 							</div>
 							<div class="col-5">
-								<input class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 공지 검색">
+								<input class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
@@ -74,38 +89,34 @@
 
 					<!-- 등록버튼 -->
 					<div>
-						<button class="btn btn-dark" type="button" onclick="location.href='${context}admin/notices/add'">공지사항 등록</button>
+						<button class="btn btn-dark" type="button" onclick="location.href='${context}admin/employees/add'">신규 사원  등록</button>
 					</div>
 
 					<!-- 리스트 -->
 					<table class="table mt-3">
 						<thead>
 							<tr>
-								<th scope="col">공지 번호</th>
-								<th scope="col">제목</th>
-								<th scope="col">등록일</th>
+								<th scope="col">사원명</th>
+								<th scope="col">사번</th>
+								<th scope="col">부서명</th>
+								<th scope="col">직책</th>
+								<th scope="col">입사일</th>
+								<th scope="col">수정 / 삭제</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
 							<tr>
-								<td><a href="${context}admin/notices/1">1</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
-							<tr>
-								<td><a href="${context}admin/notices/1">2</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
-							<tr>
-								<td><a href="${context}admin/notices/1">3</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
-							<tr>
-								<td><a href="${context}admin/notices/1">4</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
+								<td><a href="${context}admin/employees/1">우현정</a></td>
+								<td><a href="${context}admin/employees/1">10002</a></td>
+								<td><a href="${context}admin/employees/1">IP사업팀</a></td>
+								<td><a href="${context}admin/employees/1">팀장</a></td>
+								<td><a href="${context}admin/employees/1">2023-05-16</a></td>
+								<td>
+									<div class="employeeIcons">
+										<a href="#"><span class="modifyIcon"></span></a>
+										<a href="#"><span class="deleteIcon"></span></a>
+									</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>

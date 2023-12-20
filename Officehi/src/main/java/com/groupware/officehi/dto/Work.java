@@ -29,7 +29,7 @@ public class Work {
 	}
 
 	public String getWorkTimeHour() {
-		if (!(leaveTime == null)) {
+		if (leaveTime != null) {
 			LocalTime arrival = LocalTime.parse(arrivalTime);
 			LocalTime leave = LocalTime.parse(leaveTime);
 			return String.valueOf(arrival.until(leave, java.time.temporal.ChronoUnit.HOURS)+"H");

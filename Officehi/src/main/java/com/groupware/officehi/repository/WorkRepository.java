@@ -10,7 +10,6 @@ import com.groupware.officehi.dto.Work;
 @Repository
 public interface WorkRepository {
 	
-	
 	void arrivalTimeCheck(Work work);
 	
 	void leaveTimeCheck(Work work);

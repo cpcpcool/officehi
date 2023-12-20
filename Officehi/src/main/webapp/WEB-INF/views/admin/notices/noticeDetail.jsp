@@ -24,13 +24,14 @@
 </style>
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
 				<ul class="aside floating">
 					<li><span>사원 관리</span>
 						<ul>
-							<li><span>사원 정보 관리</span></li>
+							<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
@@ -70,5 +71,6 @@
 			</div>
 		</div>
 	</main>
+	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
 </body>
 </html>

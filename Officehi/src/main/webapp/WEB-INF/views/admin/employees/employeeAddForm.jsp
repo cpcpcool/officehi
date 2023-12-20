@@ -31,7 +31,7 @@
 				<ul class="aside floating">
 					<li><span>사원 관리</span>
 						<ul>
-							<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
+							<li><a href="${context}admin/employees"><span class="selected">사원 정보 관리</span></a></li>
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
@@ -39,33 +39,51 @@
 						</ul></li>
 					<li><span>공지사항</span>
 						<ul>
-							<li><a href="${context}admin/notices"><span class="selected">공지사항 관리</span></a></li>
+							<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
 						</ul></li>
 				</ul>
 			</div>
 			<div class="main-box">
 				<div class="content-box floating">
-					<h2>공지사항 등록</h2>
-
-
+					<h2>사원 정보 등록</h2>
 					<form action="" method="post">
-						<div class="mt-4 mb-4 row g-1 align-items-center">
-							<div class="col-1">
-								<label for="" class="form-label mb-0">제목</label>
+						<div class="row mb-3">
+							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="userNo" readonly>
 							</div>
-							<div class="col-11">
-								<input type="text" class="form-control" id="noticeName" placeholder="제목을 입력해주세요">
+							<label for="name" class="col-sm-2 col-form-label">이름</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="name">
 							</div>
 						</div>
-						<div class="mb-4">
-							<label for="noticeContent" class="form-label mb-2">내용</label>
-							<textarea class="form-control form-control-lg" id="noticeContent" rows="3" style="height: 400px; resize: none;" placeholder="내용입력"></textarea>
+						<div class="row mb-3">
+							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="phone">
+							</div>
+							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="birthDate">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="toDate" class="col-sm-2 col-form-label">입사일</label>
+							<div class="col-sm">
+								<input type="date" class="form-control" id="toDate">
+							</div>
+							<label for="fromDate" class="col-sm-2 col-form-label">퇴사일</label>
+							<div class="col-sm">
+								<input type="date" class="form-control" id="fromDate" placeholder=" - - " readonly="readonly">
+							</div>
 						</div>
 
-						<div class="noticeAdd">
-							<button class="btn btn-dark btn-lg mt-3 me-3" id="arrival" onclick="location.href='${context}admin/notices'" type="button">등록 하기</button>
+
+						<div class="noticeModify">
+							<button class="btn btn-dark btn-lg mt-3 me-3" id="arrival" type="submit">수정 하기</button>
 							<button class="btn btn-outline-dark btn-lg mt-3" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
 						</div>
+
 					</form>
 				</div>
 			</div>

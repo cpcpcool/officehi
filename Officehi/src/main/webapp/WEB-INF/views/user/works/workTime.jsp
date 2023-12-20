@@ -1,6 +1,5 @@
 <%@page import="java.time.LocalDate"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="resPath" value="/resources" />
 <!DOCTYPE html>
@@ -9,9 +8,7 @@
 <meta charset="UTF-8">
 <title>출퇴근 시간 기록</title>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css"
-	rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <style type="text/css">
@@ -58,6 +55,7 @@
 
 </head>
 <body>
+	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -73,8 +71,7 @@
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><a href="${context}works"><span class="selected">출퇴근
-										시간 기록</span></a></li>
+							<li><a href="${context}works"><span class="selected">출퇴근 시간 기록</span></a></li>
 							<li><a href="${context}works/list"><span>근무 시간 확인</span></a></li>
 						</ul></li>
 					<li><span>마이페이지</span></li>
@@ -124,16 +121,13 @@
 						<%=koDayofWeek%></p>
 					<p id="localTime"></p>
 					<div class="d-flex">
-						<form class="arrival" action="${context}works/arrival"
-							method="post">
+						<form class="arrival" action="${context}works/arrival" method="post">
 							<input type="hidden" name="userNo" value="10002" />
-							<button class="btn btn-primary btn-lg mt-4 me-3" type="submit">출근
-								하기</button>
+							<button class="btn btn-primary btn-lg mt-4 me-3" type="submit">출근 하기</button>
 						</form>
 						<form class="leave" action="${context}works/leave" method="post">
 							<input type="hidden" name="userNo" value="10002" />
-							<button class="btn btn-dark btn-lg mt-4" type="submit">퇴근
-								하기</button>
+							<button class="btn btn-dark btn-lg mt-4" type="submit">퇴근 하기</button>
 						</form>
 					</div>
 					<c:if test="${not empty duplicateMessage}">
@@ -143,12 +137,13 @@
 					</c:if>
 
 				</div>
-			</div>	
+			</div>
 		</div>
 	</main>
+	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
 </body>
 <script type="text/javascript">
-	/* // 현재 시간표시 ===============================================
+	// 현재 시간표시 ===============================================
 	function updateLocalTime() {
 		const currentDateTime = new Date();
 		const localTime = currentDateTime.toLocaleTimeString();
@@ -159,7 +154,7 @@
 	window.onload = function() {
 		updateLocalTime();
 		setInterval(updateLocalTime, 1000);
-	} */
+	}
 
 	// 동일 날짜 중복 메시지 =========================================
 </script>

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.groupware.officehi.dto.Work;
 import com.groupware.officehi.repository.WorkRepository;
+import com.groupware.officehi.service.WorkService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,11 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class WorkController {
 
-	private final WorkRepository workRepository;
+	private final WorkService workService;
 
 	@Autowired
-	public WorkController(WorkRepository workRepository) {
-		this.workRepository = workRepository;
+	public WorkController(WorkService workService) {
+		this.workService = workService;
 	}
 
 	@GetMapping("/works")
@@ -39,7 +40,7 @@ public class WorkController {
 	@PostMapping("/works/arrival")
 	public String arrival(@RequestParam Long userNo, RedirectAttributes redirectAttributes) {
 		
-		Integer duplicateCheck = workRepository.checkDateDuplicte(userNo);
+		Integer duplicateCheck = workService.checkDateDuplicte(userNo);
 		
 		if (duplicateCheck != null) {
 			log.info("{}", duplicateCheck);
@@ -51,7 +52,7 @@ public class WorkController {
 		}else {
 			Work work = new Work();
 			work.setUserNo(userNo);
-			workRepository.arrivalTimeCheck(work);
+			workService.arrivalTimeCheck(work);
 			return "redirect:/works";
 		}
 		
@@ -61,7 +62,7 @@ public class WorkController {
 	public String leave(@RequestParam Long userNo) {
 		Work work = new Work();
 		work.setUserNo(userNo);
-		workRepository.leaveTimeCheck(work);
+		workService.leaveTimeCheck(work);
 		return "redirect:/works";
 	}
 
@@ -79,7 +80,7 @@ public class WorkController {
 //
 //        if (loggedInUserNo != null) {
 		// 사용자 정보가 세션에 있을 경우에만 작업 목록 가져오기
-		List<Work> works = workRepository.workTimesByUserNo(10002L);
+		List<Work> works = workService.workTimesByUserNo(10002L);
 		model.addAttribute("works", works);
 		return "/user/works/workList";
 //        } else {
@@ -90,7 +91,7 @@ public class WorkController {
 
 	@GetMapping("/works/list/all")
 	public String findAllWorks(Model model) {
-		List<Work> works = workRepository.workTimes();
+		List<Work> works = workService.workTimes();
 		model.addAttribute("works", works);
 		return "/user/works/workList";
 	}
