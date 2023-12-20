@@ -11,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 <style type="text/css">
 .aside ul span {
 	color: #222;

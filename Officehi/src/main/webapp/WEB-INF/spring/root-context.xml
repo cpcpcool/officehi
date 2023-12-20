@@ -18,13 +18,18 @@
 		<property name="configLocation" value="classpath:/officehi/config/config.xml" />
 	</bean>
 	
-	<bean id="repositoryW" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<bean id="WorkRepository" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.groupware.officehi.repository.WorkRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	
-	<bean id="repositoryE" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<bean id="EmployeeRepository" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.groupware.officehi.repository.EmployeeRepository" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="loginRepository" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.groupware.officehi.repository.LoginRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	
