@@ -13,19 +13,30 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/admin/employees")
-	public String noticeModify() {
+	public String employeeModify() {
 		return "redirect:/admin/employees";
 	}
 
 	@GetMapping("/admin/employees/add")
-	public String noticeAddForm() {
+	public String employeeAddForm() {
 		return "admin/employees/employeeAddForm";
 	}
 
-//	@GetMapping("admin/employees/{notice_no}")
-	@GetMapping("/admin/employees/1")
-	public String noticeDetail() {
+	@PostMapping("/admin/employees/add")
+	public String employeeAdd() {
+		return "redirect:/admin/employees";
+	}	
+
+//	@GetMapping("/admin/employees/1")
+	@GetMapping("admin/employees/{userNo}")
+	public String employeeDetail() {
 		return "admin/employees/employeeDetail";
+	}
+	
+//	@PostMapping("/admin/employees/1")
+	@PostMapping("admin/employees/{employee_no}")
+	public String employeeInfoEdit() {
+		return "admin/employees/{employee_no}";
 	}
 
 }

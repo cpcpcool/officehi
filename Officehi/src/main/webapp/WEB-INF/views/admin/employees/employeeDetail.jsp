@@ -21,6 +21,10 @@
 	font-weight: 800;
 	color: #345de3;
 }
+
+.col-form-label {
+	font-size: 0.85em;
+}
 </style>
 </head>
 <body>
@@ -47,24 +51,68 @@
 				<div class="content-box floating">
 					<h2>사원 정보 상세</h2>
 
-
-					<form action="${context}admin/notices" method="post">
-						<div class="mt-4 mb-4 row g-1 align-items-center">		
-							<div class="col-1">
-								<label for="" class="form-label mb-0">제목</label>
+					<!-- FORM -->
+					<form action="${context}admin/employees/edit" method="post">
+						<div class="row mb-3">
+							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="userNo" name="userNo" value="10000" readonly>
 							</div>
-							<div class="col-11">
-								<input type="text" class="form-control" id="noticeName" value="가팀의 공지사항 입니다">
+							<label for="name" class="col-sm-2 col-form-label">이름</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="name" name="name" value="이름">
 							</div>
 						</div>
-						<div class="mb-4">
-							<label for="noticeContent" class="form-label mb-3">내용</label>
-							<textarea class="form-control form-control-lg " id="noticeContent" rows="3" style="height: 400px; resize: none;">공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. </textarea>
+						<div class="row mb-3">
+							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="phone" name="phone" value="휴대폰 번호( -  - )" maxlength="13">
+							</div>
+							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="birthDate" name="birthDate" value="연도-월-일">
+							</div>
 						</div>
-
-						<div class="noticeModify">
-							<button class="btn btn-dark btn-lg mt-3 me-3" id="arrival" type="submit">수정 하기</button>
-							<button class="btn btn-outline-dark btn-lg mt-3" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
+						<div class="row mb-3">
+							<label for="toDate" class="col-sm-2 col-form-label">입사일</label>
+							<div class="col-sm">
+								<input type="date" class="form-control" id="toDate" name="toDate" value="2023-10-10">
+							</div>
+							<label for="fromDate" class="col-sm-2 col-form-label">퇴사일</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="fromDate" name="fromDate" value=" - " disabled>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="deptName" class="col-sm-2 col-form-label">부서명</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="deptName" name="deptName" value="부서명">
+							</div>
+							<label for="position" class="col-sm-2 col-form-label">직급</label>
+							<div class="col-sm">
+								<select class="form-select" aria-label="position" name="position">
+									<option selected>사원</option>
+									<option value="1">주임</option>
+									<option value="2">대리</option>
+									<option value="3">팀장</option>
+									<option value="4">대표</option>
+								</select>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="profile" name="profile">
+							</div>
+							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
+							<div class="col-sm">
+								<input type="text" class="form-control" id="stamp" name="stamp">
+							</div>
+						</div>
+						<!-- BUTTON -->
+						<div class="employeeEdit">
+							<button class="btn btn-dark btn-lg mt-3 me-3" id="edit" type="submit">수정 하기</button>
+							<button class="btn btn-outline-dark btn-lg mt-3" id="cancel" onclick="history.go(-1)" type="button">뒤로 가기</button>
 						</div>
 					</form>
 				</div>
