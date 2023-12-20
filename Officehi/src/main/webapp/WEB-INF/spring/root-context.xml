@@ -19,7 +19,7 @@
 	</bean>
 	
 	<bean id="repository" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.groupware.officehi.repository.ApprovalRepository" />
+		<property name="mapperInterface" value="com.groupware.officehi.repository.NoticeRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 </beans>
