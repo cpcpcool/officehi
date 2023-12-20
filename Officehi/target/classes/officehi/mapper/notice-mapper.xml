@@ -12,7 +12,7 @@
 	<select id="findById" parameterType="Long" resultType="com.groupware.officehi.dto.Notice">
 		select *
 		from notice
-		where notice_no=#{notice_no};
+		where notice_no=#{notice_no}
 	</select>
 
 </mapper>

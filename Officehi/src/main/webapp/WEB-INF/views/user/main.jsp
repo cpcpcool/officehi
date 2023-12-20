@@ -14,31 +14,8 @@
 <link href="${resPath}/css/footer.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <style>
-h2 {
-	margin-bottom: 40px;
-}
-
-.btn {
+a {
 	color: #222;
-	border: 1px solid #c2c2c2;
-}
-
-.notice-content {
-	margin: 40px 0 10px 0;
-}
-
-.date-box {
-	width: 25%;
-	height: 30px;
-	border: 1px solid #c2c2c2;
-	border-radius: 7px;
-}
-
-.title-box {
-	width: 100%;
-	height: 30px;
-	border: 1px solid #c2c2c2;
-	border-radius: 7px;
 }
 </style>
 </head>
@@ -62,12 +39,12 @@ h2 {
 						<a href="#">근태 관리</a>
 					</li>
 					<li>
-						<a href="#">마이페이지</a>
+						<a href="${context}mypage">마이페이지</a>
 					</li>
 				</ul>
 			</div>
 			<div class="header-right">
-				<a href="#"><span>로그아웃</span></a>
+				<a href="${context}logout"><span>로그아웃</span></a>
 			</div>
 		</div>
 	</header>
@@ -90,27 +67,12 @@ h2 {
 							<li><span>출퇴근 시간 기록</span></li>
 							<li><span>근무 시간 확인</span></li>
 						</ul></li>
-					<li><span>마이페이지</span></li>
+					<li><span><a href="${context}mypage">마이페이지</a></span></li>
 				</ul>
 			</div>
 			<div class="main-box">
 				<div class="content-box floating">
-					<h2>공지사항 조회</h2>
-					<table>
-						<tr>
-							<th width=10% class="text-left">제목</th>
-							<td width=90%><input type=text name=subject size=50 class="input-sm" id="subject" style="width:100%; height:35px; padding:7px 0 7px 15px; border-radius:7px; border:1px solid #c2c2c2;" value="${notice.title}" readonly="readonly"></td>
-						</tr>
-						<tr>
-							<th width=10% class="text-left">등록일</th>
-							<td width=90%><input type="text" size="15" class="input-sm" id="id" style="height:35px; padding:7px 0 7px 15px; border-radius:7px; border:1px solid #c2c2c2;" value="${notice.date}" readonly="readonly"></td>
-						</tr>
-					</table>
-					<label class="notice-content">내용</label>
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="height:300px;" readonly="readonly" >${notice.content}</textarea>
-					<div class="btn_area">
-						<button type="button" class="btn btn-outline-Secondary mt-3 ps-3 pe-3 py--1" onclick="history.go(-1); return false;">뒤로 가기</button>
-					</div>
+					<h2>여기는 사원 로그인 페이지 임시</h2>
 				</div>
 			</div>
 		</div>
@@ -130,7 +92,7 @@ h2 {
 						<a href="#">근태 관리</a>
 					</li>
 					<li>
-						<a href="#">마이페이지</a>
+						<a href="${context}mypage">마이페이지</a>
 					</li>
 				</ul>
 			</div>

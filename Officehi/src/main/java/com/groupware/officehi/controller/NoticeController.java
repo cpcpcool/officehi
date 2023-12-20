@@ -23,7 +23,7 @@ public class NoticeController {
 	public String notices(Model model) {
 		List<Notice> notices = service.findByAll();
 		model.addAttribute("notices", notices);
-		return "user/notices/noticeList";
+		return "/user/notices/noticeList";
 	}
 	
 	@GetMapping("/notices/{notice_no}")
@@ -32,6 +32,4 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "/user/notices/notice";
 	}
-	
-	//사원정보폼 컨트롤러
 }
