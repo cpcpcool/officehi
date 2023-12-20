@@ -22,7 +22,7 @@
 			<form action="${context}login" method="post">
 				<input type="text" id="userNo" name="userNo" placeholder="아이디를 입력해주세요">
 				<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요">
-				<button type="submit">로그인</button>
+				<button type="submit" id="login-btn">로그인</button>
 			</form>
 		</div>
 	</main>

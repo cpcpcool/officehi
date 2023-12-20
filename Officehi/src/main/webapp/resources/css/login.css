@@ -17,3 +17,14 @@ main {
 form {
 	text-align: center;
 }
+h2 {
+	margin: 20px 0 40px;
+}
+input#pw {
+	margin: 8px 0 40px;
+}
+#login-btn {
+	width: 100%;
+	color: #fff;
+	background-color: #345DE3
+}
