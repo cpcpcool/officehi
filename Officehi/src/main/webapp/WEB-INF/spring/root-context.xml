@@ -22,4 +22,9 @@
 		<property name="mapperInterface" value="com.groupware.officehi.repository.ApprovalRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	<bean id="loginRepository" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.groupware.officehi.repository.LoginRepository" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
 </beans>

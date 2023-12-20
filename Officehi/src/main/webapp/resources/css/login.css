@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	min-height: auto;
+	padding: 20px;
+	box-sizing: border-box;
+}
+.content-box {
+	width: 400px;
+	margin: 0 auto;
+	align-items: center;
+}
+form {
+	text-align: center;
+}
