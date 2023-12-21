@@ -84,7 +84,7 @@
 								<label class="form-label" for="content">내용</label>
 							</div>
 							<div class="">
-								<form:textarea path="content" class="form-control w-100" rows="13" required="true" />
+								<form:textarea path="content" class="form-control w-100" style="height: 400px; resize: none;" required="true" />
 							</div>
 						</div>
 						<div>

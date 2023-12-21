@@ -91,7 +91,7 @@
 									<label class="form-label mt-2" for="checkDate">완료일</label>
 								</div>
 								<div class="col">
-										<input type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" class="form-control" readonly />
+									<input type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" class="form-control" readonly />
 								</div>
 							</c:if>
 						</div>
@@ -100,22 +100,18 @@
 								<label class="form-label" for="content">내용</label>
 							</div>
 							<div class="">
-								<form:textarea path="content" cssClass="form-control w-100" rows="13" readonly="${login}" />
+								<form:textarea path="content" cssClass="form-control w-100" style="height: 400px; resize: none;" readonly="${login}" />
 							</div>
 						</div>
 						<div>
 							<c:choose>
-									<c:when test="${approval.status == 1}"><c:set var="display" value=""/></c:when>
-									<c:otherwise><c:set var="display" value="none"/></c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${loginUser.userNo == approval.userNo}">
+								<c:when test="${loginUser.userNo == approval.userNo && loginUser.admin == 0}">
 									<button class="btn btn-dark btn-small me-2" style="display: ${display};" type="submit">수정</button>
 								</c:when>
-								<c:otherwise>
-									<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 3)">승인</a>
-									<a class="btn btn-dark btn-small me-2" style="display: ${display};" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 2)">반려</a>
-								</c:otherwise>
+								<c:when test="${loginUser.userNo != approval.userNo && loginUser.admin == 0}">
+									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 3)">승인</a>
+									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 2)">반려</a>
+								</c:when>
 							</c:choose>
 							<a class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">뒤로 가기</a>
 						</div>

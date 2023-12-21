@@ -69,8 +69,7 @@
 									<td>${approval.deptName}</td>
 									<td>${approval.date}</td>
 									<td>
-										<c:set var="checkDate" value="${approval.checkDate}"></c:set>
-										<c:if test="${checkDate != '9999-01-01'}">
+										<c:if test="${approval.checkDate != '9999-01-01'}">
 											${approval.checkDate}
 										</c:if>
 									</td>
