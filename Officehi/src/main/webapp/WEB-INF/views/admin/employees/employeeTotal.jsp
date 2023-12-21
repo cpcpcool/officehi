@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>사원 정보 관리</title>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">

@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>근무 시간 확인</title>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">

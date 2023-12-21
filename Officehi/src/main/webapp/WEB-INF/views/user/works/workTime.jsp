@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>출퇴근 시간 기록</title>
+<script type="text/javascript" src="${resPath}/js/time.js"></script>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -26,15 +28,11 @@
 	font-size: 1.2em;
 }
 
-#localTime {
+#currentTime {
 	margin-top: 30px;
-	font-size: 2.5em;
+	font-weight: 900;
+	font-size: 3em;
 }
-
-.commute1 {
-	
-}
-
 #arrival {
 	text-align: center;
 	background-color: #345de3;
@@ -54,7 +52,7 @@
 </style>
 
 </head>
-<body>
+<body onload="getTime()">
 	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
@@ -114,12 +112,11 @@
 							break;
 					}
 					%>
-
 					<p id="date"><%=year%>.
 						<%=monthValue%>.
 						<%=dayOfMonth%>
 						<%=koDayofWeek%></p>
-					<p id="localTime"></p>
+					<p id="currentTime"></p>
 					<div class="d-flex">
 						<form class="arrival" action="${context}works/arrival" method="post">
 							<input type="hidden" name="userNo" value="${loginUser}" />
@@ -142,20 +139,4 @@
 	</main>
 	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
 </body>
-<script type="text/javascript">
-	// 현재 시간표시 ===============================================
-	function updateLocalTime() {
-		const currentDateTime = new Date();
-		const localTime = currentDateTime.toLocaleTimeString();
-		document.getElementById('localTime').innerHTML = localTime;
-	}
-
-	// 실시간 업데이트 표시 =========================================	
-	window.onload = function() {
-		updateLocalTime();
-		setInterval(updateLocalTime, 1000);
-	}
-
-	// 동일 날짜 중복 메시지 =========================================
-</script>
 </html>
