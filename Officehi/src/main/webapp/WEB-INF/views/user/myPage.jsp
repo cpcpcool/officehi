@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -71,8 +71,8 @@ td {
 				</div>
 				<ul class="header-menu">
 					<li><a href="${context}notices">공지사항</a></li>
-					<li><a href="#">전자 결재</a></li>
-					<li><a href="#">근태 관리</a></li>
+					<li><a href="${context}approvals">전자 결재</a></li>
+					<li><a href="${context}works">근태 관리</a></li>
 					<li><a href="${context}mypage">마이페이지</a></li>
 				</ul>
 			</div>
@@ -92,13 +92,13 @@ td {
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 현황 조회</span></li>
-							<li><span>결재 문서 작성</span></li>
+							<li><span><a href="${context}approvals">결재 현황 조회</a></span></li>
+							<li><span><a href="${context}approvals/add">결재 문서 작성</a></span></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><span>출퇴근 시간 기록</span></li>
-							<li><span>근무 시간 확인</span></li>
+							<li><span><a href="${context}works">출퇴근 시간 기록</a></span></li>
+							<li><span><a href="${context}works/list">근무 시간 확인</a></span></li>
 						</ul></li>
 					<li><span><a href="${context}mypage">마이페이지</a></span></li>
 				</ul>
@@ -110,33 +110,33 @@ td {
 					<table>
 						<tr>
 							<th class="text-left">사번</th>
-							<td><input type="text" name="user_no" id="user_no" value="${myPages.loginUser.userNo}" readonly></td>
+							<td><input type="text" name="user_no" id="user_no" value="${myPages.userNo}" readonly></td>
 							<th class="text-left">이름</th>
-							<td><input type=text name=name id="name" value="${loginUser.myPages.name}"readonly></td>
+							<td><input type=text name=name id="name" value="${myPages.name}"readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">휴대폰 번호</th>
-							<td><input type=text name=phone id="phone" value="${loginUser.myPages.phone}" readonly></td>
+							<td><input type=text name=phone id="phone" value="${myPages.phone}" readonly></td>
 							<th class="text-left">생년월일</th>
-							<td><input type=text name=birth_date id="birth_date" value="${loginUser.birthDate}" readonly></td>
+							<td><input type=text name=birth_date id="birth_date" value="${myPages.birthDate}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">인감 이미지 경로</th>
-							<td><input type=text name=stamp id="stamp" value="${loginUser.stamp}" readonly></td>
+							<td><input type=text name=stamp id="stamp" value="${myPages.stamp}" readonly></td>
 							<th class="text-left">프로필 이미지 경로</th>
-							<td><input type=text name=profile id="profile" value="${loginUser.profile}" readonly></td>
+							<td><input type=text name=profile id="profile" value="${myPages.profile}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">입사일</th>
-							<td><input type=text name=to_date id="to_date" value="${loginUser.toDate}" readonly></td>
+							<td><input type=text name=to_date id="to_date" value="${myPages.toDate}" readonly></td>
 							<th class="text-left">퇴사일</th>
-							<td><input type=text name=from_date id="from_date" value="${loginUser.fromDate}" readonly></td>
+							<td><input type=text name=from_date id="from_date" value="${myPages.fromDate}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">부서명</th>
-							<td><input type=text name=dept_name id="dept_name" value="${loginUser.deptName}" readonly></td>
+							<td><input type=text name=dept_name id="dept_name" value="${myPages.deptName}" readonly></td>
 							<th class="text-left">직급</th>
-							<td><input type=text name=position id="position" value="${loginUser.position}" readonly></td>
+							<td><input type=text name=position id="position" value="${myPages.position}" readonly></td>
 					</table>
 					<div class="btn_area">
 						<button type="button" class="btn btn-outline-Secondary mt-5 ps-3 pe-3 py-1" onclick="history.go(-1); return false;">뒤로 가기</button>
@@ -151,8 +151,8 @@ td {
 			<div class="footer-container">
 				<ul class="footer-menu">
 					<li><a href="${context}notices">공지사항</a></li>
-					<li><a href="#">전자 결재</a></li>
-					<li><a href="#">근태 관리</a></li>
+					<li><a href="${context}approvals">전자 결재</a></li>
+					<li><a href="${context}works">근태 관리</a></li>
 					<li><a href="${context}mypage">마이페이지</a></li>
 				</ul>
 			</div>

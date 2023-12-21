@@ -9,5 +9,5 @@ import com.groupware.officehi.dto.MyPage;
 
 @Mapper
 public interface MyPageRepository {
-	List<MyPage> findByAll();
+	Optional<MyPage> findByAll();
 }

@@ -1,6 +1,6 @@
 package com.groupware.officehi.controller;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,11 +40,20 @@ public class MyPageController {
 		if(loginUser == null)
 			return "redirect:/login";
 		
+		LoginUserDTO member = new LoginUserDTO();
+		member.setUserNo(loginUser.getUserNo());
+		
 		model.addAttribute("loginUser", loginUser);
 		
-		List<MyPage> myPages = service.findByAll();
-		model.addAttribute("myPages", myPages);
+		MyPage myPages = service.findByAll().get();
+		model.addAttribute("myPages", myPages.getUserNo());
 		return "user/myPage";
 	}
 
+//	@GetMapping("/mypage")
+//	public String myPageDetail(Model model) {
+//		MyPage myPages = service.findByAll().get();
+//		model.addAttribute("myPages", myPages);
+//		return "user/myPage";
+//	}
 }

@@ -31,4 +31,5 @@
 		<property name="mapperInterface" value="com.groupware.officehi.repository.LoginRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+
 </beans>

@@ -1,6 +1,6 @@
 package com.groupware.officehi.service;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class MyPageService {
 		this.mypageRepository = mypageRepository;
 	}
 	
-	public List<MyPage> findByAll(){
+	public Optional<MyPage> findByAll(){
 		return mypageRepository.findByAll();
 	}
 	
