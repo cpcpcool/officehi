@@ -10,10 +10,10 @@ body {
 	background-color: #f6f6f6;
 }
 main {
-	height: calc(100vh - 210px - 80px); /* 전체화면 높이에서 헤더 높이와 푸터 높이를 뺌 */
-	min-height: 500px;
+	min-height: calc(100vh - 210px - 80px); /* 전체화면 높이에서 헤더 높이와 푸터 높이를 뺌 */
 	padding: 40px 20px;
 	font-size: 20px;
+	box-sizing: border-box;
 }
 h2 {
 	font-size: 24px;
