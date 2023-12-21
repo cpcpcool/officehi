@@ -42,25 +42,32 @@ public class ApprovalController {
         LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
         if(loginUser == null)
         	return "redirect:/login";
-        
         model.addAttribute("loginUser", loginUser);
+        
+        Long approvalNo = 0L;
         
 		List<ApprovalDTO> approvals = service.findAllApprovalByUserNo(loginUser.getUserNo());
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("approvalNo", approvalNo);
 		return "user/approval/approvalList";
 	}
 	
 	// 결재 문서 작성
 	@GetMapping("/add")
-	public String getApprovalAddForm (HttpServletRequest request, Model model) {
+	public String getApprovalAddForm (HttpServletRequest request,Model model) {
 		HttpSession session = request.getSession(false);
         if (session == null) 
             return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
         model.addAttribute("loginUser", loginUser);
 		
 		List<ApprovalDTO> userList = service.findAllUserNameAndDeptName();
 		model.addAttribute("userList", userList);
+		model.addAttribute("approval", new ApprovalDTO());
 		return "user/approval/approvalAddForm";
 	}
 	
@@ -70,7 +77,11 @@ public class ApprovalController {
 		HttpSession session = request.getSession(false);
         if (session == null) 
             return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
         model.addAttribute("loginUser", loginUser);
         
         insert.setUserNo(loginUser.getUserNo());
@@ -84,7 +95,11 @@ public class ApprovalController {
 		HttpSession session = request.getSession(false);
         if (session == null) 
             return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
         model.addAttribute("loginUser", loginUser);
 		
 		ApprovalDTO approval = service.findByApprovalNo(approval_no).get();
@@ -92,7 +107,6 @@ public class ApprovalController {
 		
 		log.info("loginUser.userNo >> {}, approval.userNo >> {}", loginUser.getUserNo(), approval.getUserNo());
 		
-		model.addAttribute("loginUser", loginUser);
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
 		
@@ -105,11 +119,16 @@ public class ApprovalController {
 		HttpSession session = request.getSession(false);
         if (session == null) 
             return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
         model.addAttribute("loginUser", loginUser);
         
 		update.setApprovalNo(approval_no);
 		service.updateApproval(update);
+		
 		return "redirect:/approvals";
 	}
 	
@@ -119,10 +138,31 @@ public class ApprovalController {
 		HttpSession session = request.getSession(false);
         if (session == null) 
             return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
         model.addAttribute("loginUser", loginUser);
 		
 		service.updateApproval(approvalNo);
+		return "redirect:/approvals";
+	}
+	
+	// 승인, 반려버튼 선택시
+	@PostMapping("/{approvalNo}/status")
+	public String setApprovalStatus(@PathVariable Long approvalNo, @ModelAttribute ApprovalDTO approval, HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+        if (session == null) 
+            return "redirect:/login";
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
+        model.addAttribute("loginUser", loginUser);
+        
+		service.updateStatus(approval);
 		return "redirect:/approvals";
 	}
 	
@@ -132,24 +172,15 @@ public class ApprovalController {
 		HttpSession session = request.getSession(false);
         if (session == null) 
             return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        
+        LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+        
         model.addAttribute("loginUser", loginUser);
         
 		List<ApprovalDTO> approvals = service.findAllApproval();
 		model.addAttribute("approvals", approvals);
 		return "admin/approval/approvalTotal";
-	}
-	
-	// 승인, 반려버튼 선택시
-	@PostMapping("/{approvalNo}/status")
-	public String setApprovalStatus(@PathVariable Long approvalNo, @ModelAttribute ApprovalDTO approval, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-        if (session == null) 
-            return "redirect:/login";
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        model.addAttribute("loginUser", loginUser);
-        
-		service.updateStatus(approval);
-		return "redirect:/approvals";
 	}
 }

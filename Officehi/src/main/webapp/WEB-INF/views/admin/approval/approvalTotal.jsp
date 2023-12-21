@@ -64,14 +64,13 @@
 								<th>부서</th>
 								<th>기안일</th>
 								<th>완료일</th>
-								<th>수정/삭제</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="approval" items="${approvals}">
 								<tr>
 									<td>${approval.approvalNo}</td>
-									<td>${approval.userName}</td>
+									<td>${approval.name}</td>
 									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
 									<td>${approval.deptName}</td>
 									<td>${approval.date}</td>
@@ -79,10 +78,6 @@
 										<c:if test="${\"${approvals.checkDate}\" eq '9999-01-01'}">
 											<c:out value="${approvals.checkDate}" />
 										</c:if>
-									</td>
-									<td>
-										<a href="${context}approvals/${approval.approvalNo}" class="px-2"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-										<a href="javascript:void(0)" onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
 									</td>
 								</tr>
 							</c:forEach>
