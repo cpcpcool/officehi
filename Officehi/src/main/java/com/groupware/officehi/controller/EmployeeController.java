@@ -42,11 +42,10 @@ public class EmployeeController {
 		if("name".equals(searchType)) {
 			employees = employeeService.searchUserName(name);			
 		}else if("userNo".equals(searchType)) {
-			employees = employeeService.searchUserNo(uesrNo);			
+			employees = employeeService.searchUserNo(uesrNo);
 		}else if("deptName".equals(searchType)) {
 			employees = employeeService.searchDeptName(deptName);
 		}
-		model.addAttribute("employees", employees);
 		return "admin/employees/employeeTotal";
 	}
 
@@ -90,7 +89,7 @@ public class EmployeeController {
 		return "redirect:/admin/employees";
 	}
 
-	@GetMapping("admin/employees/{userNo}/retired")
+	@PostMapping("admin/employees/{userNo}/retired")
 	public String employeeInforetired(@PathVariable Long userNo, Model model) {
 		employeeService.retiredUserInfo(userNo);
 		return "redirect:/admin/employees";

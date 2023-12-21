@@ -1,6 +1,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>	
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!DOCTYPE html>
@@ -8,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>사원 정보 관리</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -41,12 +43,12 @@
 }
 
 .retiredIcon:after {
-	content: url("/officehi/resources/img/delete.svg");
+	content: url("/officehi/resources/img/retire.svg");
 	margin-left: 1em;
 	vertical-align: top;
 }
 
-.retired {
+.retired {	
 	text-decoration: line-through;
 }
 </style>
@@ -83,10 +85,10 @@
 									<option value="deptName">부서명</option>
 								</select>
 							</div>
-							<div class="col-5">
-							<!-- 인풋이 여러개 있어야하나.. -->
-								<input name="deptName" class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
-							</div>
+								<!-- 인풋이 꼭 여러개 있어야하는지.. -->
+								<div class="col-5">
+										<input name="name" class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
+								</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
 							</div>
@@ -99,43 +101,47 @@
 					</div>
 
 					<!-- 리스트 -->
-					<table class="table mt-3">
-						<thead>
-							<tr>
-								<th scope="col">사원명</th>
-								<th scope="col">사번</th>
-								<th scope="col">부서명</th>
-								<th scope="col">직책</th>
-								<th scope="col">입사일</th>
-								<th scope="col">수정 / 퇴사</th>
-							</tr>
-						</thead>
-						<tbody class="table-group-divider">
-							<c:forEach var="employee" items="${employees}">
+					<form:form action="${context}admin/employees/${employee.userNo}/retired" 
+							method="post"
+							id="userTable">
+						<table class="table mt-3">
+							<thead>
 								<tr>
-									<c:choose>
-										<c:when test="${employee.fromDate eq '9999-01-01'}">
-											<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
-										</c:when>
-										<c:otherwise>
-											<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.name}</a></td>
-										</c:otherwise>
-									</c:choose>
-									<td><a href="${context}admin/employees/${employee.userNo}">${employee.userNo}</a></td>
-									<td><a href="${context}admin/employees/${employee.userNo}">${employee.deptName}</a></td>
-									<td><a href="${context}admin/employees/${employee.userNo}">${employee.position}</a></td>
-									<td><a href="${context}admin/employees/${employee.userNo}">${employee.toDate}</a></td>
-									<td>
-										<!-- 삭제POST FORM --> <!-- <form id="retiredForm" action="${context}admin/employees/${employee.userNo}/retired" method="post"> -->
-										<div class="employeeIcons">
-											<a href="${context}admin/employees/${employee.userNo}"> <span class="modifyIcon"></span></a> <a href="${context}admin/employees/${employee.userNo}/retired"> <span class="retiredIcon"></span></a>
-										</div> <!-- </form> -->
-									</td>
+									<th scope="col">사원명</th>
+									<th scope="col">사번</th>
+									<th scope="col">부서명</th>
+									<th scope="col">직책</th>
+									<th scope="col">입사일</th>
+									<th scope="col">수정 / 퇴사</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-
+							</thead>
+							<tbody class="table-group-divider">
+								<c:forEach var="employee" items="${employees}">
+									<tr>
+										<c:choose>
+											<c:when test="${employee.fromDate eq '9999-01-01'}">
+												<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}">${employee.userNo}</a></td>
+											</c:when>
+											<c:otherwise>
+												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.name}</a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.userNo}</a></td>
+											</c:otherwise>
+										</c:choose>
+										<td><a href="${context}admin/employees/${employee.userNo}">${employee.deptName}</a></td>
+										<td><a href="${context}admin/employees/${employee.userNo}">${employee.position}</a></td>
+										<td><a href="${context}admin/employees/${employee.userNo}">${employee.toDate}</a></td>
+										<td>
+											<div class="employeeIcons">
+												<button type= "button" class="modifyIcon" onclick="location.href='${context}admin/employees/${employee.userNo}'"></button> 
+												<button type="button" class="retiredIcon" id="${employee.userNo}"></button>
+											</div>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</form:form>
 					<!-- 페이지네이션 -->
 					<div class="pagination d-flex justify-content-center mt-2">
 						<nav aria-label="Page navigation example">
@@ -155,5 +161,6 @@
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
+	<script type="text/javascript" src="<c:url value='/resources/js/employee.js' />"></script>
 </body>
 </html>
