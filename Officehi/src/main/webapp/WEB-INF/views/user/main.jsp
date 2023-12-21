@@ -25,8 +25,8 @@
 							<%-- <img src="${user.profile}" alt="프로필 이미지"> --%>
 							<img src="${resPath}/img/calender.svg" alt="프로필 이미지">
 						</div>
-						<span>영업부</span>
-						<p><span>이미자</span> <span>팀장</span></p>
+						<span>${user.deptName}</span>
+						<p><span>${user.name}</span> <span>${user.position}</span></p>
 					</div>
 				</div>
 				<div class="aside floating quick-menu-bar">
@@ -58,49 +58,21 @@
 			</div>
 			<div class="main-box">
 				<div class="notice-wrapper">
-					<a href="#" class="notice-box floating">공지사항</a>
-					<a href="#" class="notice-title floating">편리하고 효율적인 그룹웨어 OfficeHi 모두 이용해 주세요!</a>
+					<a href="${context}notices" class="notice-box floating">공지사항</a>
+					<a href="${context}notices/${notice.notice_no}" class="notice-title floating">${notice.title}</a>
 				</div>
 				<div class="content-box-wrapper">
 					<div class="content-box wrapping-2 floating">
 						<h3>결재 현황</h3>
 						<table>
 							<tbody>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
-								<tr>
-									<td>홍길동</td>
-									<td><a href="#">2023-12-24 휴가신청 홍길동</a></td>
-									<td>2023.12.14</td>
-								</tr>
+								<c:forEach var="approval" items="${approvals}">
+									<tr>
+										<td>${approval.name}</td>
+										<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
+										<td>${approval.date}</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
 						<div class="link-box approvals">
@@ -114,12 +86,20 @@
 						<div class="time-box">
 							<span id="currentTime"></span>
 						</div>
-						<form action="" method="post">
-							<div class="work-btn-box">
-								<button type="submit" class="start-btn">출근</button>
-								<button type="submit" class="end-btn">퇴근</button>
-							</div>
-						</form>
+						<!-- <form action="" method="post"> -->
+						<div class="work-btn-box">
+							<form class="arrival btn-form" action="${context}main/arrival" method="post">
+								<input type="hidden" name="userNo" value="${loginUser}" />
+								<button class="start-btn" type="submit">출근</button>
+							</form>
+							<form class="leave btn-form" action="${context}main/leave" method="post">
+								<input type="hidden" name="userNo" value="${loginUser}" />
+								<button class="end-btn" type="submit">퇴근</button>
+							</form>
+							<!-- <button type="submit" class="start-btn">출근</button>
+							<button type="submit" class="end-btn">퇴근</button> -->
+						</div>
+						<!-- </form> -->
 						<div class="link-box works">
 							<a href="${context}works">
 								<span>근무시간 확인</span>

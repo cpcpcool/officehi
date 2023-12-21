@@ -50,10 +50,10 @@ public class MyPageController {
 		return "user/myPage";
 	}
 
-	@GetMapping("/mypage")
-	public String myPageDetail(Model model) {
-		MyPage myPages = service.findByAll().get();
-		model.addAttribute("myPages", myPages);
-		return "user/myPage";
-	}
+//	@GetMapping("/mypage")
+//	public String myPageDetail(Model model) {
+//		MyPage myPages = service.findByAll().get();
+//		model.addAttribute("myPages", myPages);
+//		return "user/myPage";
+//	}
 }

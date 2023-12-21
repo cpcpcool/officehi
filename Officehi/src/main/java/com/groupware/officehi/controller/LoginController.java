@@ -70,17 +70,6 @@ public class LoginController {
 		return "redirect:/admin/employees";
 	}
 	
-	@GetMapping("/main")
-	public String main(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-        if (session == null) {
-            return "redirect:/login";
-        }
-        LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-        model.addAttribute("loginUser",loginUser);
-		return "/user/main";
-	}
-	
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
