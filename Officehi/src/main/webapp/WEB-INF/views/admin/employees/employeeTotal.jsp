@@ -1,7 +1,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>	
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!DOCTYPE html>
@@ -9,8 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <title>사원 정보 관리</title>
-<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
+<script type="text/javascript" src="${resPath}/js/searchOption.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -49,8 +50,13 @@
 	vertical-align: top;
 }
 
-.retired {	
+tbody tr td a.retired  {
+	color: #bbb;
 	text-decoration: line-through;
+}
+
+button {
+	padding:0;
 }
 </style>
 </head>
@@ -83,13 +89,13 @@
 								<select class="form-select" name="searchType" aria-label="search">
 									<option value="name">사원명</option>
 									<option value="userNo">사번</option>
-									<option value="deptName">부서명</option>
+									<option value="deptName">부서명</option>	
 								</select>
 							</div>
-								<!-- 인풋이 꼭 여러개 있어야하는지.. -->
-								<div class="col-5">
-										<input name="name" class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
-								</div>
+							<!-- 인풋이 꼭 여러개 있어야하는지.. -->
+							<div class="col-5">
+								<input name="name" class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
+							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
 							</div>
@@ -102,9 +108,7 @@
 					</div>
 
 					<!-- 리스트 -->
-					<form:form action="${context}admin/employees/${employee.userNo}/retired" 
-							method="post"
-							id="userTable">
+					<form:form action="${context}admin/employees/${employee.userNo}/retired" method="post" id="userTable">
 						<table class="table mt-3">
 							<thead>
 								<tr>
@@ -134,7 +138,7 @@
 										<td><a href="${context}admin/employees/${employee.userNo}">${employee.toDate}</a></td>
 										<td>
 											<div class="employeeIcons">
-												<button type= "button" class="modifyIcon" onclick="location.href='${context}admin/employees/${employee.userNo}'"></button> 
+												<button type="button" class="modifyIcon" onclick="location.href='${context}admin/employees/${employee.userNo}'"></button>
 												<button type="button" class="retiredIcon" id="${employee.userNo}"></button>
 											</div>
 										</td>

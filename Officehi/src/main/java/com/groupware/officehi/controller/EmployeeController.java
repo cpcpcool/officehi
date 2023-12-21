@@ -46,6 +46,7 @@ public class EmployeeController {
 		}else if("deptName".equals(searchType)) {
 			employees = employeeService.searchDeptName(deptName);
 		}
+		model.addAttribute("employees", employees);
 		return "admin/employees/employeeTotal";
 	}
 
