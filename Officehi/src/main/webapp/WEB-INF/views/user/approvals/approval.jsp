@@ -68,7 +68,7 @@
 							<div class="col">
 								<form:select path="checker1" class="form-select" disabled="${login}">
 									<form:option value="${approval.checker1}" selected="true" />
-									<form:options items="${userList}" itemValue="name" itemLabel="name" disabled="${login}" />
+									<form:options items="${userList}" itemValue="name" itemLabel="name"/>
 								</form:select>
 							</div>
 						</div>
