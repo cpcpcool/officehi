@@ -32,4 +32,22 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "/user/notices/notice";
 	}
+
+	@GetMapping("/admin/notices")
+	public String notices() {
+		return "/admin/notices/noticeTotal";
+	}
+	
+	@GetMapping("/admin/notices/add")
+	public String add() {
+		return "/admin/notices/noticeAddForm";
+	}
+	
+	@GetMapping("/admin/notices/1")
+	public String detail() {
+		return "/admin/notices/noticeDetail";
+	}
+	
+	
+	
 }

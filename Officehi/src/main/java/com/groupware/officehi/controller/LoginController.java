@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.groupware.officehi.controller.WorkController.SessionConst;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.service.LoginService;
 
@@ -37,7 +38,9 @@ public class LoginController {
 		if(session == null) {
 			return "redirect:/login";
 		}
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
 		// 로그인 세션의 유저가 관리자일 때 관리자 메인 페이지로 이동
 		if(loginUser.getAdmin() == 1)
 			return "redirect:/admin/employees";
