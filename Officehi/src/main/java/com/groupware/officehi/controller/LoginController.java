@@ -56,7 +56,7 @@ public class LoginController {
 		// 쿼리문 실행으로 가져온 객체가 없다면 로그인 화면으로 다시 리다이렉트, 있다면 로그인 성공 처리
 		if(!loginUser.isPresent()) {
 			return "redirect:/login";
-		} 
+		}
 		HttpSession session = request.getSession();
 	    // 로그인에 성공한 로그인유저 객체로 세션에 로그인 회원 정보 보관
 	    session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser.get());
