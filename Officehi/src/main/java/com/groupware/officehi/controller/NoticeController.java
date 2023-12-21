@@ -1,32 +1,35 @@
 package com.groupware.officehi.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import com.groupware.officehi.dto.Notice;
+import com.groupware.officehi.service.NoticeService;
 
 @Controller
 public class NoticeController {
 	
-	// 공지사항 관리
-	@GetMapping("/admin/notices")
-	public String noticeTotal() {
-		return "admin/notices/noticeTotal";
+	private final NoticeService service;
+	
+	public NoticeController(NoticeService service) {
+		this.service = service;
 	}
 	
-	@PostMapping("/admin/notices")
-	public String noticeModify() {
-		return "redirect:/admin/notices";
+	@GetMapping("/notices")
+	public String notices(Model model) {
+		List<Notice> notices = service.findByAll();
+		model.addAttribute("notices", notices);
+		return "/user/notices/noticeList";
 	}
 	
-	@GetMapping("/admin/notices/add")
-	public String noticeAddForm() {
-		return "admin/notices/noticeAddForm";
+	@GetMapping("/notices/{notice_no}")
+	public String noticeDetail(@PathVariable("notice_no") Long notice_no, Model model) {
+		Notice notice = service.findById(notice_no).get();
+		model.addAttribute("notice", notice);
+		return "/user/notices/notice";
 	}
-	
-//	@GetMapping("admin/notices/{notice_no}")
-	@GetMapping("/admin/notices/1")
-	public String noticeDetail() {
-		return "admin/notices/noticeDetail";
-	}
-
 }
