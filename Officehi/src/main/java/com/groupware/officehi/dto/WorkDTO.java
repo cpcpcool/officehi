@@ -4,10 +4,13 @@ import java.time.LocalTime;
 
 import org.apache.taglibs.standard.tag.common.fmt.ParseDateSupport;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter @Getter
+@NoArgsConstructor @AllArgsConstructor
 public class WorkDTO {
 
 	private Long userNo;
@@ -15,17 +18,6 @@ public class WorkDTO {
 	private String arrivalTime;
 	private String leaveTime;
 	private String name;
-
-	public WorkDTO() {
-	}
-
-	public WorkDTO(Long userNo, String date, String arrivalTime, String leaveTime, String name) {
-		this.userNo = userNo;
-		this.date = date;
-		this.arrivalTime = arrivalTime;
-		this.leaveTime = leaveTime;
-		this.name = name;
-	}
 
 	public String getWorkTimeHour() {
 		if (leaveTime != null) {
