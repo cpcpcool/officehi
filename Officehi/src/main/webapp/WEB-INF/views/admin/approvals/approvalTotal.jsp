@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결재 문서 관리</title>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">

@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>오피스하이 - 메인</title>
+<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <script type="text/javascript" src="${resPath}/js/time.js"></script>
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
