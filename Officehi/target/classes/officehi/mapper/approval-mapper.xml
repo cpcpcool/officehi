@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
+	<insert id="insertApproval" useGeneratedKeys="true" keyProperty="approvalNo" parameterType="ApprovalDTO">
+		INSERT INTO approval(user_no, date, title, content, category, checker1)
+		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
+	</insert>
+	
+	<select id="findByUserNo">
+		select name from user where user_no = #{userNo}
+	</select>
+
+	<select id="findAllApproval">
+		select *
+		from approval a left join user u
+		on a.user_no = u.user_no;
+	</select>
+	
+	<select id="findAllUserNameAndDeptName">
+		select user_no, name, dept_name from user;
+	</select>
+	
+	<select id="findByApprovalNo">
+		select approval_no, a.user_no, date, title, content, status, category, check_date, name, position, dept_name,
+					(select name
+					from approval a join user u
+					on a.checker1 = u.user_no
+					where a.approval_no = #{approvalNo}) as checker1
+		from approval a left join user u
+		on a.user_no = u.user_no
+		where approval_no = #{approvalNo};
+	</select>
+	
+	<update id="updateApproval" parameterType="ApprovalDTO">
+		UPDATE approval
+		SET title = #{title}, content = #{content}, checker1 = (select user_no from user where name like #{checker1}) 
+		where approval_no = #{approvalNo};
+	</update>
+	
+	<delete id="deleteApproval" parameterType="java.lang.Long">
+		delete from approval where approval_no = #{approvalNo}
+	</delete>
+	
+	<update id="updateStatus" parameterType="ApprovalDTO">
+		update approval
+		set check_date = curdate(), status = #{status}
+		where approval_no = #{approvalNo}
+	</update>
+	
+	<select id="findAllApprovalByUserNo">
+		select *
+		from approval a left join user u
+		on a.user_no = u.user_no
+		where a.user_no = #{userNo} or a.checker1 = #{userNo};
+	</select>
+	
+</mapper>
