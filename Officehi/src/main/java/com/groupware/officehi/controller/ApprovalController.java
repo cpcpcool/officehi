@@ -99,7 +99,7 @@ public class ApprovalController {
         model.addAttribute("loginUser", loginUser);
 		
 		ApprovalDTO approval = service.findByApprovalNo(approval_no).get();
-		List<ApprovalDTO> userList = service.findAllUserNameAndDeptName();
+		List<ApprovalDTO> userList = service.findAllUserNameAndDeptNameByApprovalNo(approval.getApprovalNo());
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
@@ -170,6 +170,9 @@ public class ApprovalController {
         LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
         if(loginUser == null)
         	return "redirect:/login";
+        
+        if(loginUser.getAdmin() != 1)
+        	return "redirect:/main";
         
         model.addAttribute("loginUser", loginUser);
         

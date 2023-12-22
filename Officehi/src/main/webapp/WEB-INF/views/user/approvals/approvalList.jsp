@@ -13,6 +13,29 @@
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+<style type="text/css">
+form {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 16px;
+}
+.aside ul span {
+color: #222;
+}
+
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
+}
+
+.table-group-divider tr td a {
+	color: #222;
+}
+
+.pagination nav ul li a {
+	color: #222;
+}
+</style>
 </head>
 <body>
 	<%@ include file="../../header/header.jsp"%>
@@ -28,7 +51,7 @@
 					</li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals"><span class="selected">결재 현황 조회</span></a></li>
 							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
@@ -77,7 +100,7 @@
 									<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
 										<td>
 											<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-											<a href="javascript:void(0)" onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+											<a href="javascript:void(0)" onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
 										</td>
 									</c:if>
 								</tr>
@@ -89,6 +112,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer/footer.jsp"%>
-	<script src="${resPath}/js/approval-delete.js" type="text/javascript" ></script>
+	<script src="${resPath}/js/approval.js" type="text/javascript" ></script>
 </body>
 </html>

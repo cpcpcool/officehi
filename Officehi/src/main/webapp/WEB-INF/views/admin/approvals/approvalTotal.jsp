@@ -13,6 +13,24 @@
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+<style type="text/css">
+.aside ul span {
+	color: #222;
+}
+
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
+}
+
+.table-group-divider tr td a {
+	color: #222;
+}
+
+.pagination nav ul li a {
+	color: #222;
+}
+</style>
 </head>
 <body>
 	<%@ include file="../../header/header.jsp"%>
@@ -22,16 +40,19 @@
 				<ul class="aside floating">
 					<li><span>사원 관리</span>
 						<ul>
-							<li><span>사원 정보 관리</span></li>
-						</ul></li>
+							<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
+						</ul>
+					</li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 문서 관리</span></li>
-						</ul></li>
+							<li><a href="${context}admin/approvals"><span class="selected">결재 문서 관리</span></a></li>
+						</ul>
+					</li>
 					<li><span>공지사항</span>
 						<ul>
-							<li><span>공지사항 관리</span></li>
-						</ul></li>
+							<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<div class="main-box">

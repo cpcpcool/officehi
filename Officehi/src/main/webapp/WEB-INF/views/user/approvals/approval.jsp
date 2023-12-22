@@ -19,11 +19,27 @@
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <style type="text/css">
-	form {
-		font-size: 16px;
-		font-weight: bold;
-		line-height: 16px;
-	}
+form {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 16px;
+}
+.aside ul span {
+color: #222;
+}
+
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
+}
+
+.table-group-divider tr td a {
+	color: #222;
+}
+
+.pagination nav ul li a {
+	color: #222;
+}
 </style>
 </head>
 <body>
@@ -40,7 +56,7 @@
 					</li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals"><span class="selected">결재 현황 조회</span></a></li>
 							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
@@ -66,10 +82,17 @@
 								<label class="form-label mt-2" for="checker">참조자</label>
 							</div>
 							<div class="col">
-								<form:select path="checker1" class="form-select" disabled="${login}">
-									<form:option value="${approval.checker1}" selected="true" />
-									<form:options items="${userList}" itemValue="name" itemLabel="name"/>
-								</form:select>
+								<c:choose>
+									<c:when test="${loginUser.userNo == approval.userNo && loginUser.admin == 0 && approval.status == 1}">
+										<form:select path="checker1" class="form-select">
+											<form:option value="${approval.checker1}" selected="true" />
+											<form:options items="${userList}" itemValue="name" itemLabel="name"/>
+										</form:select>
+									</c:when>
+									<c:when test="${loginUser.userNo != approval.userNo}">
+										<form:input path="checker1" class="form-control" readonly="true" />
+									</c:when>
+								</c:choose>
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -106,12 +129,12 @@
 						</div>
 						<div>
 							<c:choose>
-								<c:when test="${loginUser.userNo == approval.userNo && loginUser.admin == 0}">
+								<c:when test="${loginUser.userNo == approval.userNo && loginUser.admin == 0 && approval.status == 1}">
 									<button class="btn btn-dark btn-small me-2" style="display: ${display};" type="submit">수정</button>
 								</c:when>
-								<c:when test="${loginUser.userNo != approval.userNo && loginUser.admin == 0}">
-									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 3)">승인</a>
-									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateStatus(${context}, ${approval.approvalNo}, 2)">반려</a>
+								<c:when test="${loginUser.userNo != approval.userNo && loginUser.admin == 0 && approval.status == 1}">
+									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">승인</a>
+									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">반려</a>
 								</c:when>
 							</c:choose>
 							<a class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">뒤로 가기</a>
@@ -122,6 +145,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer/footer.jsp"%>
-	<script src="${resPath}/js/approval-status.js" type="text/javascript"></script>
+	<script src="${resPath}/js/approval.js" type="text/javascript"></script>
 </body>
 </html>
