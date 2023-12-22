@@ -13,11 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.groupware.officehi.controller.LoginController.SessionConst;
 import com.groupware.officehi.dto.ApprovalDTO;
 import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
-import com.groupware.officehi.dto.Notice;
+import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.dto.WorkDTO;
 import com.groupware.officehi.service.ApprovalService;
 import com.groupware.officehi.service.EmployeeService;
@@ -50,7 +49,7 @@ public class MainController {
 	    Optional<EmployeeDTO> user = employeeService.findByUserNo(loginUser.getUserNo());
 	    model.addAttribute("user", user.get());
 	    
-	    Optional<Notice> notice = noticeService.findByAll().stream().findFirst();
+	    Optional<NoticeDTO> notice = noticeService.findAll().stream().findFirst();
 	    if(notice.isPresent())
 	    	model.addAttribute("notice", notice.get());
 	    

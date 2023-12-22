@@ -43,7 +43,7 @@
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 문서 관리</span></li>
+							<li><a href="${context}admin/approvals"><span>결재 문서 관리</span></a></li>
 						</ul></li>
 					<li><span>공지사항</span>
 						<ul>
@@ -87,26 +87,13 @@
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
-							<tr>
-								<td><a href="${context}admin/notices/1">1</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
-							<tr>
-								<td><a href="${context}admin/notices/1">2</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
-							<tr>
-								<td><a href="${context}admin/notices/1">3</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
-							<tr>
-								<td><a href="${context}admin/notices/1">4</a></td>
-								<td><a href="${context}admin/notices/1">이승준의 완벽한 레이아웃에 대한 찬사</a></td>
-								<td><a href="${context}admin/notices/1">2023-12-18</a></td>
-							</tr>
+							<c:forEach var="notice" items="${notices}">
+								<tr>
+									<td><a href="${context}admin/notices/${notice.noticeNo}">${notice.noticeNo}</a></td>
+									<td><a href="${context}admin/notices/${notice.noticeNo}">${notice.title}</a></td>
+									<td><a href="${context}admin/notices/${notice.noticeNo}">${notice.date}</a></td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 

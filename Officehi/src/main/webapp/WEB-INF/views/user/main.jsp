@@ -101,7 +101,7 @@
 						</div>
 						<!-- </form> -->
 						<div class="link-box works">
-							<a href="${context}works">
+							<a href="${context}works/list">
 								<span>근무시간 확인</span>
 							</a>
 						</div>

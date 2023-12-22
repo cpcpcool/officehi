@@ -38,14 +38,12 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
-
 	<bean id="ApprovalRepository"
 		class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"
 			value="com.groupware.officehi.repository.ApprovalRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-
 
 	<bean id="WorkRepository"
 		class="org.mybatis.spring.mapper.MapperFactoryBean">
@@ -67,8 +65,5 @@
 			value="com.groupware.officehi.repository.EmployeeRepository" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-
-
-
 
 </beans>
