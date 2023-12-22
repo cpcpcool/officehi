@@ -3,17 +3,27 @@ package com.groupware.officehi.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.groupware.officehi.controller.WorkController.SessionConst;
 import com.groupware.officehi.dto.EmployeeDTO;
+import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.service.EmployeeService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class EmployeeController {
 
@@ -24,13 +34,26 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/admin/employees")
-	public String employeeList(Model model) {
+	public String employeeList(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		if (session == null) 
+            return "redirect:/login";
+		LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
+        if(loginUser == null)
+        	return "redirect:/login";
+		loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+		if(loginUser.getAdmin() != 1) {
+			request.setAttribute("msg", "관리자 권한이 없습니다.");
+			request.setAttribute("url", "officehi/main");
+			return "alert/alert";	
+		}
+		
 		List<EmployeeDTO> employees = employeeService.findAllEmployee();
 		model.addAttribute("employees", employees);
 		return "admin/employees/employeeTotal";
 	}
 
-	// 검색 미완
 	@PostMapping("admin/employees/search")
 	public String findByUserName(@RequestParam("searchType") String searchType, 
 								@RequestParam(name="name", required = false) String name,
@@ -83,7 +106,7 @@ public class EmployeeController {
 		model.addAttribute("employee", employee.get());
 		return "admin/employees/employeeDetail";
 	}
-
+	
 	@PostMapping("admin/employees/{userNo}")
 	public String employeeInfoEdit(@PathVariable Long userNo, @ModelAttribute EmployeeDTO employeeDTO) {
 		employeeService.updateUserInfo(employeeDTO);

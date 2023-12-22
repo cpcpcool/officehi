@@ -1,6 +1,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!DOCTYPE html>
@@ -53,7 +54,7 @@
 					<h2>사원 정보 등록</h2>
 					
 					<!-- FORM -->
-					<form action="${context}admin/employees/add" method="post">
+					<form:form action="${context}admin/employees/add" method="post">
 						<div class="row mb-3">
 							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
 							<div class="col-sm">
@@ -109,13 +110,13 @@
 							<div class="col-sm">
 								<input type="file" class="form-control" id="stamp" name="stamp">
 							</div>
-						</div>
-						<!-- BUTTON -->
+							</div>
+							<!-- BUTTON -->
 						<div class="employeesAdd">
 							<button class="btn btn-dark btn-lg mt-3 me-3" id="add" type="submit">등록 하기</button>
 							<button class="btn btn-outline-dark btn-lg mt-3" id="cancel" onclick="history.go(-1)" type="button">뒤로 가기</button>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>

@@ -139,7 +139,7 @@ button {
 										<td>
 											<div class="employeeIcons">
 												<button type="button" class="modifyIcon" onclick="location.href='${context}admin/employees/${employee.userNo}'"></button>
-												<button type="button" class="retiredIcon" id="${employee.userNo}"></button>
+												<button type="button" class="retiredIcon" id="${employee.userNo}" name="${employee.name}"></button>
 											</div>
 										</td>
 									</tr>

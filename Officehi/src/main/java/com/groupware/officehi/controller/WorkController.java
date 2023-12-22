@@ -41,7 +41,7 @@ public class WorkController {
 
 	@GetMapping("/works")
 	public String workTime() {
-		return "/user/works/workTime";
+		return "user/works/workTime";
 	}
 
 	@PostMapping("/works/arrival")
@@ -104,13 +104,13 @@ public class WorkController {
         loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
         List<WorkDTO> works = workService.workTimesByUserNo(loginUser.getUserNo());
 		model.addAttribute("works", works);
-        return "/user/works/workList";
+        return "user/works/workList";
 	}
 
 	@GetMapping("/works/list/all")
 	public String findAllWorks(Model model) {
 		List<WorkDTO> works = workService.workTimes();
 		model.addAttribute("works", works);
-		return "/user/works/workList";
+		return "user/works/workList";
 	}
 }
