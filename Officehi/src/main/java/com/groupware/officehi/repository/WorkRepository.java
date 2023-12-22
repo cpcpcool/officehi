@@ -10,11 +10,11 @@ import com.groupware.officehi.dto.WorkDTO;
 @Repository
 public interface WorkRepository {
 
-	void arrivalTimeCheck(WorkDTO work);
+	void insert(WorkDTO work);
 
-	void leaveTimeCheck(WorkDTO work);
+	void update(WorkDTO work);
 
-	Integer checkDateDuplicte(Long userNo);
+	Integer checkDateDuplicate(Long userNo);
 
-	List<WorkDTO> workTimesByUserNo(@Param("userNo") Long userNo);
+	List<WorkDTO> findWorkTimeByUserNo(@Param("userNo") Long userNo);
 }

@@ -8,34 +8,29 @@ import org.springframework.stereotype.Service;
 import com.groupware.officehi.dto.WorkDTO;
 import com.groupware.officehi.repository.WorkRepository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
+@RequiredArgsConstructor
 public class WorkService {
 
 	private final WorkRepository workRepository;
 
-	@Autowired
-	private WorkService(WorkRepository workRepository) {
-		this.workRepository = workRepository;
-		log.info("서비스실행됨");
-	}
-
 	public void arrivalTimeCheck(WorkDTO work) {
-		workRepository.arrivalTimeCheck(work);
+		workRepository.insert(work);
 	}
 
 	public void leaveTimeCheck(WorkDTO work) {
-		workRepository.leaveTimeCheck(work);
+		workRepository.update(work);
 	}
 
 	public Integer checkDateDuplicte(Long userNo) {
-		return workRepository.checkDateDuplicte(userNo);
+		return workRepository.checkDateDuplicate(userNo);
 	}
 
-	public List<WorkDTO> workTimesByUserNo(Long userNo) {
-		return workRepository.workTimesByUserNo(userNo);
+	public List<WorkDTO> findWorkTimesByUserNo(Long userNo) {
+		return workRepository.findWorkTimeByUserNo(userNo);
 	}
 
 }

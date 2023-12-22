@@ -20,7 +20,7 @@
 		<div class="content-box floating">
 			<h1><img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고"></h1>
 			<h2>로그인</h2>
-			<form action="${context}login" method="post">
+			<form action="<c:url value='/login' />" method="post">
 				<input type="text" id="userNo" name="userNo" placeholder="아이디를 입력해주세요">
 				<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요">
 				<button type="submit" id="login-btn">로그인</button>

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.groupware.officehi.repository.NoticeRepository">
-	<insert id="insertNotice" useGeneratedKeys="true" keyProperty="noticeNo" parameterType="NoticeDTO">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="noticeNo" parameterType="NoticeDTO">
 		INSERT INTO NOTICE(title, date, content)
 		VALUES (#{title}, curdate(), #{content})
 	</insert>
@@ -14,15 +14,15 @@
 		order by date desc;
 	</select>
 
-	<select id="findById" parameterType="Long" resultType="com.groupware.officehi.dto.NoticeDTO">
-		select *
-		from notice
-		where notice_no = #{noticeNo}
-	</select>
-
 	<select id="findByContent">
 		SELECT *
 		FROM NOTICE
 		WHERE CONTENT LIKE CONCAT('%', #{content}, '%')
+	</select>
+	
+	<select id="findByNoticeNo" parameterType="Long" resultType="com.groupware.officehi.dto.NoticeDTO">
+		select *
+		from notice
+		where notice_no = #{noticeNo}
 	</select>
 </mapper>

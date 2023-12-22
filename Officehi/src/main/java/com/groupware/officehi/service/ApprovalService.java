@@ -16,7 +16,7 @@ public class ApprovalService {
 	private final ApprovalRepository repository;
 	
 	public void insertApproval(ApprovalDTO insert) {
-		repository.insertApproval(insert);
+		repository.insert(insert);
 	}
 	
 	public String findUserByUserNo(Long userNo) {
@@ -24,15 +24,15 @@ public class ApprovalService {
 	}
 	
 	public List<ApprovalDTO> findAllApproval() {
-		return repository.findAllApproval();
+		return repository.findAll();
 	}
 	
 	public List<ApprovalDTO> findAllUserNameAndDeptName() {
-		return repository.findAllUserNameAndDeptName();
+		return repository.findUserNameAndDeptName();
 	}
 	
 	public List<ApprovalDTO> findAllUserNameAndDeptNameByApprovalNo(Long approvalNo) {
-		return repository.findAllUserNameAndDeptNameByApprovalNo(approvalNo);
+		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo);
 	}
 	
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
@@ -44,7 +44,7 @@ public class ApprovalService {
 	}
 	
 	public void updateApproval(Long approvalNo) {
-		repository.deleteApproval(approvalNo);
+		repository.delete(approvalNo);
 	}
 	
 	public void updateStatus(ApprovalDTO status) {
@@ -52,6 +52,6 @@ public class ApprovalService {
 	}
 	
 	public List<ApprovalDTO> findAllApprovalByUserNo(Long userNo) {
-		return repository.findAllApprovalByUserNo(userNo);
+		return repository.findApprovalByUserNo(userNo);
 	}
 }

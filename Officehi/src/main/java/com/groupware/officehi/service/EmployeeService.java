@@ -9,18 +9,16 @@ import org.springframework.stereotype.Service;
 import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.repository.EmployeeRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
 
-	@Autowired
-	private EmployeeService(EmployeeRepository employeeRepository) {
-		this.employeeRepository = employeeRepository;
-	}
-
-	public void saveUserInfo(EmployeeDTO employeeDTO) {
-		employeeRepository.saveUserInfo(employeeDTO);
+	public void insertUserInfo(EmployeeDTO employeeDTO) {
+		employeeRepository.insert(employeeDTO);
 	}
 
 	public Optional<EmployeeDTO> findByUserNo(Long userNo) {
@@ -28,26 +26,28 @@ public class EmployeeService {
 	}
 
 	public void updateUserInfo(EmployeeDTO employeeDTO) {
-		employeeRepository.updateUserInfo(employeeDTO); 
-		
+		employeeRepository.update(employeeDTO);
+
 	}
 
 	public void retiredUserInfo(Long userNo) {
-		employeeRepository.retiredUserInfo(userNo);
+		employeeRepository.updateFromDate(userNo);
 	}
 
 	public List<EmployeeDTO> findAllEmployee() {
-		return employeeRepository.findAllEmployee();
+		return employeeRepository.findAll();
 	}
-	
+
 	public List<EmployeeDTO> searchUserName(String name) {
 		return employeeRepository.searchUserName(name);
 	}
+
 	public List<EmployeeDTO> searchUserNo(Long userNo) {
 		return employeeRepository.searchUserNo(userNo);
 	}
+
 	public List<EmployeeDTO> searchDeptName(String deptName) {
 		return employeeRepository.searchDeptName(deptName);
 	}
-	
+
 }

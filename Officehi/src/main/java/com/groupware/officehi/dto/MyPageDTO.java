@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class MyPageDTO {
+	
 	private Long userNo;
 	private String name;
 	private String toDate;
@@ -19,4 +19,5 @@ public class MyPageDTO {
 	private String profile;
 	private String position;
 	private String deptName;
+	
 }

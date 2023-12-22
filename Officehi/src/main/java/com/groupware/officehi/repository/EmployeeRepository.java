@@ -11,15 +11,15 @@ import com.groupware.officehi.dto.EmployeeDTO;
 @Repository
 public interface EmployeeRepository {
 
-	void saveUserInfo(EmployeeDTO employeeDTO);
+	void insert(EmployeeDTO employeeDTO);
 
 	Optional<EmployeeDTO> findByUserNo(@Param("userNo") Long userNo);
 
-	void updateUserInfo(EmployeeDTO employeeDTO);
+	void update(EmployeeDTO employeeDTO);
 
-	void retiredUserInfo(@Param("userNo") Long userNo);
+	void updateFromDate(@Param("userNo") Long userNo);
 
-	List<EmployeeDTO> findAllEmployee();
+	List<EmployeeDTO> findAll();
 
 	List<EmployeeDTO> searchUserName(@Param("name") String name);
 	List<EmployeeDTO> searchUserNo(@Param("userNo") Long userNo);

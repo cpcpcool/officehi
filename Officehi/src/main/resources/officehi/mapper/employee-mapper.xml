@@ -6,7 +6,7 @@
 <mapper
 	namespace="com.groupware.officehi.repository.EmployeeRepository">
 
-	<insert id="saveUserInfo" keyProperty="userNo"
+	<insert id="insert" keyProperty="userNo"
 		useGeneratedKeys="true" parameterType="EmployeeDTO">
 		INSERT INTO user(name, phone,
 		birth_date, to_date, dept_name, position, stamp, profile)
@@ -22,7 +22,7 @@
 		user_no = #{userNo}
 	</select>
 
-	<update id="updateUserInfo" parameterType="EmployeeDTO">
+	<update id="update" parameterType="EmployeeDTO">
 		UPDATE user
 		SET
 		name = #{name},
@@ -34,23 +34,15 @@
 		WHERE user_no = #{userNo}
 	</update>
 
-	<update id="retiredUserInfo" parameterType="EmployeeDTO">
+	<update id="updateFromDate" parameterType="EmployeeDTO">
 		UPDATE user
 		SET
 		from_date = curdate()
 		WHERE user_no = #{userNo}
 	</update>
 
-	<!-- 삭제 -->
-	<!--
-	<delete id="deleteUserInfo" parameterType="EmployeeDTO">
-		DELETE FROM user
-		WHERE
-		user_no = #{userNo}
-	</delete> -->
-
 	<!-- 전체조회 -->
-	<select id="findAllEmployee" resultType="EmployeeDTO">
+	<select id="findAll" resultType="EmployeeDTO">
 		SELECT user_no, name,
 		phone, birth_date, position, to_date, from_date, dept_name
 		FROM user;
@@ -80,5 +72,4 @@
 		WHERE dept_name LIKE concat('%', #{deptName}, '%');
 	</select>
 	
-		
 </mapper>

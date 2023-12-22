@@ -8,6 +8,7 @@
 </head>
 <body>
 <c:url value="/main" var="mainUrl" />
+<c:url value="/main" var="mainUrl" />
 <script>
 	var msg = "<c:out value='${msg}'/>";
 	var url = "<c:out value='${mainUrl}'/>";
