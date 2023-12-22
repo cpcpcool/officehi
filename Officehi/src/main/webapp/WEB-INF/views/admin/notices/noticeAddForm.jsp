@@ -1,6 +1,8 @@
 <%@page import="java.time.LocalDate"%>
+<%@ page trimDirectiveWhitespaces="true"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!DOCTYPE html>
@@ -47,27 +49,24 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>공지사항 등록</h2>
-
-
-					<form action="" method="post">
+					<form:form modelAttribute="notice">
 						<div class="mt-4 mb-4 row g-1 align-items-center">
 							<div class="col-1">
-								<label for="" class="form-label mb-0">제목</label>
+								<label for="title" class="form-label mb-0">제목</label>
 							</div>
 							<div class="col-11">
-								<input type="text" class="form-control" id="noticeName" placeholder="제목을 입력해주세요">
+								<form:input path="title" cssClass="form-control w-100" placeholder="제목을 입력해주세요"/>
 							</div>
 						</div>
 						<div class="mb-4">
-							<label for="noticeContent" class="form-label mb-2">내용</label>
-							<textarea class="form-control form-control-lg" id="noticeContent" rows="3" style="height: 400px; resize: none;" placeholder="내용입력"></textarea>
+							<label for="content" class="form-label mb-2">내용</label>
+							<form:textarea path="content" cssClass="form-control w-100" rows="13"/>
 						</div>
-
 						<div class="noticeAdd">
-							<button class="btn btn-dark btn-lg mt-3 me-3" id="arrival" onclick="location.href='${context}admin/notices'" type="button">등록 하기</button>
-							<button class="btn btn-outline-dark btn-lg mt-3" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
+							<form:button class="btn btn-dark btn-lg mt-3 me-3" type="submit">등록</form:button>
+							<form:button class="btn btn-outline-dark btn-lg mt-3" onClick="history.back()" type="button">뒤로 가기</form:button>
 						</div>
-					</form>
+					</form:form>
 				</div>
 			</div>
 		</div>

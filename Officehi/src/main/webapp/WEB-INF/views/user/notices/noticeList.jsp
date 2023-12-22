@@ -78,8 +78,8 @@ a {
 						<tbody>
 							<c:forEach var="notice" items="${notices}">
 								<tr>
-									<td><a href="${context}notices/${notice.notice_no}">${notice.title}</a></td>
-									<td><a href="${context}notices/${notice.notice_no}">${notice.date}</a></td>
+									<td><a href="${context}notices/${notice.noticeNo}">${notice.title}</a></td>
+									<td><a href="${context}notices/${notice.noticeNo}">${notice.date}</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

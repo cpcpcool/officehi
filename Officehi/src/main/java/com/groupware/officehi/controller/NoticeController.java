@@ -5,11 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import com.groupware.officehi.dto.Notice;
+import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.service.NoticeService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class NoticeController {
 	
@@ -21,33 +26,47 @@ public class NoticeController {
 	
 	@GetMapping("/notices")
 	public String notices(Model model) {
-		List<Notice> notices = service.findByAll();
+		List<NoticeDTO> notices = service.findAll();
 		model.addAttribute("notices", notices);
 		return "/user/notices/noticeList";
 	}
 	
-	@GetMapping("/notices/{notice_no}")
-	public String noticeDetail(@PathVariable("notice_no") Long notice_no, Model model) {
-		Notice notice = service.findById(notice_no).get();
+	@GetMapping("/notices/{noticeNo}")
+	public String noticeDetail(@PathVariable("noticeNo") Long noticeNo, Model model) {
+		NoticeDTO notice = service.findById(noticeNo).get();
 		model.addAttribute("notice", notice);
 		return "/user/notices/notice";
 	}
 
 	@GetMapping("/admin/notices")
-	public String notices() {
+	public String adminNotices(Model model) {
+		List<NoticeDTO> notices = service.findAll();
+		model.addAttribute("notices", notices);
+		log.info("notice : >> " + notices.get(0).getNoticeNo());
 		return "/admin/notices/noticeTotal";
 	}
 	
 	@GetMapping("/admin/notices/add")
-	public String add() {
+	public String add(Model model) {
+		model.addAttribute("notice", new NoticeDTO());
 		return "/admin/notices/noticeAddForm";
 	}
 	
-	@GetMapping("/admin/notices/1")
-	public String detail() {
+	@PostMapping("/admin/notices/add")
+	public String postAdd(@ModelAttribute NoticeDTO notice) {
+		service.insertNotice(notice);
+		return "redirect:/admin/notices";
+	}
+	
+	@GetMapping("/admin/notices/{noticeNo}")
+	public String detail(@PathVariable("noticeNo") Long noticeNo, Model model) {
+		NoticeDTO notice = service.findById(noticeNo).get();
+		model.addAttribute("notice", notice);
 		return "/admin/notices/noticeDetail";
 	}
 	
-	
-	
+	@PostMapping("/admin/notices/{noticeNo}")
+	public String adminUpdate(@PathVariable("noticeNo") Long noticeNo) {
+		return "redirect:/admin/notices";
+	}
 }

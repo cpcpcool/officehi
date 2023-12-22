@@ -36,7 +36,7 @@
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 문서 관리</span></li>
+							<li><a href="${context}admin/approvals"><span>결재 문서 관리</span></a></li>
 						</ul></li>
 					<li><span>공지사항</span>
 						<ul>
@@ -55,12 +55,12 @@
 								<label for="" class="form-label mb-0">제목</label>
 							</div>
 							<div class="col-11">
-								<input type="text" class="form-control" id="noticeName" value="가팀의 공지사항 입니다">
+								<input type="text" class="form-control" id="noticeName" value="${notice.title}">
 							</div>
 						</div>
 						<div class="mb-4">
 							<label for="noticeContent" class="form-label mb-3">내용</label>
-							<textarea class="form-control form-control-lg " id="noticeContent" rows="3" style="height: 400px; resize: none;">공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. 공지사항입니다. </textarea>
+							<textarea class="form-control form-control-lg " id="noticeContent" rows="3" style="height: 400px; resize: none;">${notice.content}</textarea>
 						</div>
 
 						<div class="noticeModify">

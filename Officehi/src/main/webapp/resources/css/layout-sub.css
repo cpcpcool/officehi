@@ -113,15 +113,19 @@
 	padding: 60px 0;
 	font-size: 72px;
 	font-weight: 900;
+	font-feature-settings: "tnum";
 	font-variant-numeric: tabular-nums;
 	box-sizing: border-box;
 }
 #main .work-btn-box {
 	display: flex;
 	justify-content: space-between;
-}			
-#main .work-btn-box button {
+}
+#main .btn-form {
 	width: calc(50% - 10px);
+}
+#main .btn-form button {
+	width: 100%;
 	padding: 0.8em 0.6em;
 	font-size: 20px;
 	font-weight: 700;
@@ -129,6 +133,6 @@
 	box-sizing: border-box;
 	background-color: #222;
 }
-#main .work-btn-box .start-btn {
+#main .btn-form button.start-btn {
 	background-color: #345de3;
 }
