@@ -65,7 +65,7 @@
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 문서 관리</span></li>
+							<li><a href="${context}admin/approvals"><span>결재 문서 관리</span></a></li>
 						</ul></li>
 					<li><span>공지사항</span>
 						<ul>

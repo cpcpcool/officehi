@@ -10,22 +10,16 @@
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
-<link href="${resPath}/css/header.css" rel="stylesheet">
-<link href="${resPath}/css/footer.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <style>
-a {
-	color: #222;
-}
 h2 {
 	margin-bottom: 40px;
 }
 
-.btn {
-	color: #222;
-	border: 1px solid #c7c7c7;
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
 }
-
 .notice-content {
 	margin: 40px 0 10px 0;
 }
@@ -46,34 +40,14 @@ h2 {
 </style>
 </head>
 <body>
-	<header>
-		<div class="header-container">
-			<div class="header-left">
-				<div class="logo-box">
-					<a href="${context}main">
-						<img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고">
-					</a>
-				</div>
-				<ul class="header-menu">
-					<li><a href="${context}notices">공지사항</a></li>
-					<li><a href="${context}approvals">전자 결재</a></li>
-					<li><a href="${context}works">근태 관리</a></li>
-					<li><a href="${context}mypage">마이페이지</a></li>
-				</ul>
-			</div>
-			<div class="header-right">
-				<a href="#"><span>로그아웃</span></a>
-			</div>
-		</div>
-	</header>
-	
+	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
 				<ul class="aside floating">
 					<li><span>공지사항</span>
 						<ul>
-							<li><span><a href="${context}notices">공지사항 조회</a></span></li>
+							<li><span><a href="${context}notices" class="selected">공지사항 조회</a></span></li>
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
@@ -104,32 +78,12 @@ h2 {
 					<label class="notice-content">내용</label>
 					<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="height:300px;" readonly="readonly" >${notice.content}</textarea>
 					<div class="btn_area">
-						<button type="button" class="btn btn-outline-Secondary mt-5 ps-3 pe-3 py-1" onclick="history.go(-1); return false;">뒤로 가기</button>
+						<a class="btn btn-white btn-outline-dark btn-small mt-3" onClick="history.back()">뒤로 가기</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
-	
-	<footer>
-		<div class="footer-top">
-			<div class="footer-container">
-				<ul class="footer-menu">
-					<li><a href="${context}notices">공지사항</a></li>
-					<li><a href="${context}approvals">전자 결재</a></li>
-					<li><a href="${context}works">근태 관리</a></li>
-					<li><a href="${context}mypage">마이페이지</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<div class="footer-container">
-				<div>
-					<img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고">
-				</div>
-				<p>Copyright &copy; OfficeHi, All right reserved</p>
-			</div>
-		</div>
-	</footer>
+	<%@ include file="../../footer/footer.jsp"%>
 </body>
 </html>

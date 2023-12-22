@@ -3,18 +3,10 @@
 	<div class="footer-top">
 		<div class="footer-container">
 			<ul class="footer-menu">
-				<li>
-					<a href="#">공지사항</a>
-				</li>
-				<li>
-					<a href="#">전자 결재</a>
-				</li>
-				<li>
-					<a href="#">근태 관리</a>
-				</li>
-				<li>
-					<a href="#">마이페이지</a>
-				</li>
+				<li><a href="${context}notices">공지사항</a></li>
+				<li><a href="${context}approvals">전자 결재</a></li>
+				<li><a href="${context}works">근태 관리</a></li>
+				<li><a href="${context}mypage">마이페이지</a></li>
 			</ul>
 		</div>
 	</div>

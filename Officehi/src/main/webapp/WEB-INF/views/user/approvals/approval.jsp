@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
 <c:set var="login" value="false" />
@@ -18,11 +18,16 @@
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <style type="text/css">
-	form {
-		font-size: 16px;
-		font-weight: bold;
-		line-height: 16px;
-	}
+form {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 16px;
+}
+
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
+}
 </style>
 </head>
 <body>
@@ -31,23 +36,21 @@
 		<div class="main-container">
 			<div class="aside-box">
 				<ul class="aside floating">
-					<li>
-					<span>공지사항</span>
+					<li><span>공지사항</span>
 						<ul>
-							<li><a href="#"><span>공지사항 조회</span></a></li>
-						</ul>
-					</li>
+							<li><a href="${context}notices"><span>공지사항 조회</span></a></li>
+						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals" class="selected"><span>결재 현황 조회</span></a></li>
 							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
-							<li><a href="#"><span>근무 시간 확인</span></a></li>
+							<li><a href="${context}works"><span>출퇴근 시간 기록</span></a></li>
+							<li><a href="${context}works/list"><span>근무 시간 확인</span></a></li>
 						</ul></li>
-					<li><a href="#"><span>마이페이지</span></a></li>
+					<li><a href="${context}mypage"><span>마이페이지</span></a></li>
 				</ul>
 			</div>
 			<div class="main-box">
@@ -61,7 +64,7 @@
 							<div class="col-3">
 								<form:input path="category" cssClass="form-control" value="${approval.category}" readonly="${login}" />
 							</div>
-							<div class="col-2 mb-2">	
+							<div class="col-2 mb-2">
 								<label class="form-label mt-2" for="checker">참조자</label>
 							</div>
 							<div class="col">
@@ -87,11 +90,11 @@
 								<input type="date" id="date" name="date" value="${approval.date}" class="form-control" readonly />
 							</div>
 							<c:if test="${approval.checkDate != '9999-01-01'}">
-								<div class="col-2 mb-2">	
+								<div class="col-2 mb-2">
 									<label class="form-label mt-2" for="checkDate">완료일</label>
 								</div>
 								<div class="col">
-										<input type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" class="form-control" readonly />
+									<input type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" class="form-control" readonly />
 								</div>
 							</c:if>
 						</div>
@@ -105,8 +108,12 @@
 						</div>
 						<div>
 							<c:choose>
-									<c:when test="${approval.status == 1}"><c:set var="display" value=""/></c:when>
-									<c:otherwise><c:set var="display" value="none"/></c:otherwise>
+								<c:when test="${approval.status == 1}">
+									<c:set var="display" value="" />
+								</c:when>
+								<c:otherwise>
+									<c:set var="display" value="none" />
+								</c:otherwise>
 							</c:choose>
 							<c:choose>
 								<c:when test="${loginUser.userNo == approval.userNo}">

@@ -1,13 +1,13 @@
 package com.groupware.officehi.repository;
 
-import java.util.List;
 import java.util.Optional;
 
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
-import com.groupware.officehi.dto.MyPage;
+import com.groupware.officehi.dto.MyPageDTO;
 
-@Mapper
+@Repository
 public interface MyPageRepository {
-	Optional<MyPage> findByAll();
+	Optional<MyPageDTO> findByUserNo(@Param("userNo") Long userNo);
 }

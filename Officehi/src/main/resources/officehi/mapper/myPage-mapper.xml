@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.groupware.officehi.repository.MyPageRepository">
 
-	<select id="findByAll" parameterType="com.groupware.officehi.dto.MyPage">
+	<select id="findByUserNo" resultType="MyPageDTO">
 		select * 
 		from user
 		where user_no = #{userNo}

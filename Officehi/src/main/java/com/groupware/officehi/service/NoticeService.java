@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.groupware.officehi.dto.Notice;
+import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.repository.NoticeRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +20,11 @@ public class NoticeService {
 		this.noticeRepository = noticeRepository;
 	}
 	
-	public List<Notice> findByAll(){
+	public List<NoticeDTO> findByAll(){
 		return noticeRepository.findByAll();
 	}
 	
-	public Optional<Notice> findById(Long notice_no){
+	public Optional<NoticeDTO> findById(Long notice_no){
 		return noticeRepository.findById(notice_no);
 	}
 }

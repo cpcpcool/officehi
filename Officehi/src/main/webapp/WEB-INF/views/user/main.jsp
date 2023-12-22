@@ -31,25 +31,25 @@
 				</div>
 				<div class="aside floating quick-menu-bar">
 					<div class="quick-menu">
-						<a href="#">
+						<a href="${context}mypage">
 							<img class="quick-menu-icon" src="${resPath}/img/mypage.svg" alt="마이페이지">
 							<span>마이페이지</span>
 						</a>
 					</div>
 					<div class="quick-menu">
-						<a href="#">
+						<a href="${context}approvals">
 							<img class="quick-menu-icon" src="${resPath}/img/approval.svg" alt="전자 결재">
 							<span>전자 결재</span>
 						</a>
 					</div>
 					<div class="quick-menu mt">
-						<a href="#">
+						<a href="${context}works"">
 							<img class="quick-menu-icon" src="${resPath}/img/work.svg" alt="근태 관리">
 							<span>근태 관리</span>
 						</a>
 					</div>
 					<div class="quick-menu mt">
-						<a href="#">
+						<a href="${context}notices">
 							<img class="quick-menu-icon" src="${resPath}/img/notice.svg" alt="공지사항">
 							<span>공지사항</span>
 						</a>
@@ -58,7 +58,7 @@
 			</div>
 			<div class="main-box">
 				<div class="notice-wrapper">
-					<a href="#" class="notice-box floating">공지사항</a>
+					<a href="${context}notices" class="notice-box floating">공지사항</a>
 					<a href="#" class="notice-title floating">편리하고 효율적인 그룹웨어 OfficeHi 모두 이용해 주세요!</a>
 				</div>
 				<div class="content-box-wrapper">

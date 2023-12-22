@@ -11,57 +11,38 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<link href="${resPath}/css/header.css" rel="stylesheet">
-<link href="${resPath}/css/footer.css" rel="stylesheet">
 <style>
 thead {
 	text-align: left
 }
-a {
-	color: #222;
+
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
 }
 </style>
 </head>
 <body>
-	<header>
-		<div class="header-container">
-			<div class="header-left">
-				<div class="logo-box">
-					<a href="#"> <img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고">
-					</a>
-				</div>
-				<ul class="header-menu">
-					<li><a href="${context}notices" class="reset">공지사항</a></li>
-					<li><a href="${context}approvals">전자 결재</a></li>
-					<li><a href="${context}works">근태 관리</a></li>
-					<li><a href="${context}mypage">마이페이지</a></li>
-				</ul>
-			</div>
-			<div class="header-right">
-				<a href="#"><span>로그아웃</span></a>
-			</div>
-		</div>
-	</header>
-
+	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
 				<ul class="aside floating">
 					<li><span>공지사항</span>
 						<ul>
-							<li><span><a href="${context}notices">공지사항 조회</a></span></li>
+							<li><a href="${context}notices"><span class="selected">공지사항 조회</span></a></li>
 						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-						<li><span><a href="${context}approvals">결재 현황 조회</a></span></li>
-							<li><span><a href="${context}approvals/add">결재 문서 작성</a></span></li>
+							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><span><a href="${context}works">출퇴근 시간 기록</a></span></li>
-							<li><span><a href="${context}works/list">근무 시간 확인</a></span></li>
+							<li><a href="${context}works"><span>출퇴근 시간 기록</span></a></li>
+							<li><a href="${context}works/list"><span>근무 시간 확인</span></a></li>
 						</ul></li>
-					<li><span><a href="${context}mypage">마이페이지</a></span></li>
+					<li><a href="${context}mypage"><span>마이페이지</span></a></li>
 				</ul>
 			</div>
 			<div class="main-box">
@@ -88,25 +69,6 @@ a {
 		</div>
 	</main>
 
-	<footer>
-		<div class="footer-top">
-			<div class="footer-container">
-				<ul class="footer-menu">
-					<li><a href="${context}notices">공지사항</a></li>
-					<li><a href="${context}approvals">전자 결재</a></li>
-					<li><a href="${context}works">근태 관리</a></li>
-					<li><a href="${context}mypage">마이페이지</a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<div class="footer-container">
-				<div>
-					<img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고">
-				</div>
-				<p>Copyright &copy; OfficeHi, All right reserved</p>
-			</div>
-		</div>
-	</footer>
+	<%@ include file="../../footer/footer.jsp"%>
 </body>
 </html>

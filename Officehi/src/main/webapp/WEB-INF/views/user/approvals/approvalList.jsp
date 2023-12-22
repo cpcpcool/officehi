@@ -13,29 +13,33 @@
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 </head>
+<style>
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
+}
+</style>
 <body>
 	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
 				<ul class="aside floating">
-					<li>
-					<span>공지사항</span>
+					<li><span>공지사항</span>
 						<ul>
-							<li><a href="#"><span>공지사항 조회</span></a></li>
-						</ul>
-					</li>
+							<li><a href="${context}notices"><span>공지사항 조회</span></a></li>
+						</ul></li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
+							<li><a href="${context}approvals"><span class="selected">결재 현황 조회</span></a></li>
 							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
-							<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
-							<li><a href="#"><span>근무 시간 확인</span></a></li>
+							<li><a href="${context}works"><span>출퇴근 시간 기록</span></a></li>
+							<li><a href="${context}works/list"><span>근무 시간 확인</span></a></li>
 						</ul></li>
-					<li><a href="#"><span>마이페이지</span></a></li>
+					<li><a href="${context}mypage"><span>마이페이지</span></a></li>
 				</ul>
 			</div>
 			<div class="main-box">
@@ -56,29 +60,21 @@
 						<tbody>
 							<c:forEach var="approval" items="${approvals}">
 								<tr>
-									<td>
-										<c:set var="status" value="${approval.status}" />
-										<c:choose>
+									<td><c:set var="status" value="${approval.status}" /> <c:choose>
 											<c:when test="${status == 1}">신청</c:when>
 											<c:when test="${status == 2}">반려</c:when>
 											<c:when test="${status == 3}">완료</c:when>
-										</c:choose>
-									</td>
+										</c:choose></td>
 									<td>${approval.name}</td>
 									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
 									<td>${approval.deptName}</td>
 									<td>${approval.date}</td>
-									<td>
-										<c:set var="checkDate" value="${approval.checkDate}"></c:set>
-										<c:if test="${checkDate != '9999-01-01'}">
+									<td><c:set var="checkDate" value="${approval.checkDate}"></c:set> <c:if test="${checkDate != '9999-01-01'}">
 											${approval.checkDate}
-										</c:if>
-									</td>
+										</c:if></td>
 									<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
-										<td>
-											<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-											<a href="javascript:void(0)" onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
-										</td>
+										<td><a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a> <a href="javascript:void(0)"
+											onClick="javascript:delApprovl(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a></td>
 									</c:if>
 								</tr>
 							</c:forEach>
@@ -89,6 +85,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer/footer.jsp"%>
-	<script src="${resPath}/js/approval-delete.js" type="text/javascript" ></script>
+	<script src="${resPath}/js/approval-delete.js" type="text/javascript"></script>
 </body>
 </html>
