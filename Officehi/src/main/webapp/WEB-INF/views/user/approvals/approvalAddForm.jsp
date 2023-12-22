@@ -15,11 +15,27 @@
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <style type="text/css">
-	form {
-		font-size: 16px;
-		font-weight: bold;
-		line-height: 16px;
-	}
+form {
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 16px;
+}
+.aside ul span {
+color: #222;
+}
+
+.aside ul span.selected {
+	font-weight: 800;
+	color: #345de3;
+}
+
+.table-group-divider tr td a {
+	color: #222;
+}
+
+.pagination nav ul li a {
+	color: #222;
+}
 </style>
 </head>
 <body>
@@ -37,7 +53,7 @@
 					<li><span>전자 결재</span>
 						<ul>
 							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
-							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
+							<li><a href="${context}approvals/add"><span class="selected">결재 문서 작성</span></a></li>
 						</ul></li>
 					<li><span>근태 관리</span>
 						<ul>
@@ -85,7 +101,7 @@
 								<label class="form-label" for="content">내용</label>
 							</div>
 							<div class="">
-								<form:textarea path="content" class="form-control w-100" rows="13" required="true" />
+								<form:textarea path="content" class="form-control w-100" style="height: 400px; resize: none;" required="true" />
 							</div>
 						</div>
 						<div>

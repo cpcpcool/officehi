@@ -14,6 +14,7 @@ public interface ApprovalRepository {
 	List<ApprovalDTO> findAllApproval();
 	List<ApprovalDTO> findAllApprovalByUserNo(Long userNo);
 	List<ApprovalDTO> findAllUserNameAndDeptName();
+	List<ApprovalDTO> findAllUserNameAndDeptNameByApprovalNo(Long approvalNo);
 	Optional<ApprovalDTO> findByApprovalNo(Long approvalNo);
 	void updateApproval(ApprovalDTO update);
 	void deleteApproval(Long ApprovalNo);

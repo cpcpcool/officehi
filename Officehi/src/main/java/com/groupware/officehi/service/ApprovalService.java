@@ -31,6 +31,10 @@ public class ApprovalService {
 		return repository.findAllUserNameAndDeptName();
 	}
 	
+	public List<ApprovalDTO> findAllUserNameAndDeptNameByApprovalNo(Long approvalNo) {
+		return repository.findAllUserNameAndDeptNameByApprovalNo(approvalNo);
+	}
+	
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
 		return repository.findByApprovalNo(approvalNo);
 	}

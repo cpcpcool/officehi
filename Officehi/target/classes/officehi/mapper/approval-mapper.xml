@@ -9,51 +9,61 @@
 	</insert>
 	
 	<select id="findByUserNo">
-		select name from user where user_no = #{userNo}
+		SELECT name
+		FROM user
+		WHERE user_no = #{userNo}
 	</select>
 
 	<select id="findAllApproval">
-		select *
-		from approval a left join user u
-		on a.user_no = u.user_no;
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+	</select>
+	
+	<select id="findAllUserNameAndDeptNameByApprovalNo">		
+		SELECT *
+		FROM user u JOIN approval a
+		WHERE a.approval_no = #{approvalNo} AND u.user_no != a.checker1;
 	</select>
 	
 	<select id="findAllUserNameAndDeptName">
-		select user_no, name, dept_name from user;
+		SELECT user_no, name, dept_name
+		FROM user
 	</select>
 	
 	<select id="findByApprovalNo">
-		select approval_no, a.user_no, date, title, content, status, category, check_date, name, position, dept_name,
-					(select name
-					from approval a join user u
-					on a.checker1 = u.user_no
-					where a.approval_no = #{approvalNo}) as checker1
-		from approval a left join user u
-		on a.user_no = u.user_no
-		where approval_no = #{approvalNo};
+		SELECT approval_no, a.user_no, date, title, content, status, category, check_date, name, position, dept_name,
+					(SELECT name
+					FROM approval a JOIN user u
+					ON a.checker1 = u.user_no
+					WHERE a.approval_no = #{approvalNo}) as checker1
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE approval_no = #{approvalNo};
 	</select>
 	
 	<update id="updateApproval" parameterType="ApprovalDTO">
 		UPDATE approval
-		SET title = #{title}, content = #{content}, checker1 = (select user_no from user where name like #{checker1}) 
-		where approval_no = #{approvalNo};
+		SET title = #{title}, content = #{content}, checker1 = (SELECT user_no FROM user WHERE name LIKE #{checker1}) 
+		WHERE approval_no = #{approvalNo};
 	</update>
 	
 	<delete id="deleteApproval" parameterType="java.lang.Long">
-		delete from approval where approval_no = #{approvalNo}
+		DELETE FROM approval
+		WHERE approval_no = #{approvalNo}
 	</delete>
 	
 	<update id="updateStatus" parameterType="ApprovalDTO">
-		update approval
-		set check_date = curdate(), status = #{status}
-		where approval_no = #{approvalNo}
+		UPDATE approval
+		SET check_date = curdate(), status = #{status}
+		WHERE approval_no = #{approvalNo}
 	</update>
 	
 	<select id="findAllApprovalByUserNo">
-		select *
-		from approval a left join user u
-		on a.user_no = u.user_no
-		where a.user_no = #{userNo} or a.checker1 = #{userNo};
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo};
 	</select>
 	
 </mapper>

@@ -41,15 +41,18 @@
 					<li><span>사원 관리</span>
 						<ul>
 							<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
-						</ul></li>
+						</ul>
+					</li>
 					<li><span>전자 결재</span>
 						<ul>
-							<li><span>결재 문서 관리</span></li>
-						</ul></li>
+							<li><a href="${context}admin/approvals"><span>결재 문서 관리</span></a></li>
+						</ul>
+					</li>
 					<li><span>공지사항</span>
 						<ul>
-							<li><a href=""><span class="selected">공지사항 관리</span></a></li>
-						</ul></li>
+							<li><a href="${context}admin/notices"><span class="selected">공지사항 관리</span></a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<div class="main-box">

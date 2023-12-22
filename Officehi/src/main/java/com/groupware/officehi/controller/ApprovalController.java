@@ -19,9 +19,7 @@ import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.service.ApprovalService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = {"/approvals", "/admin"})
@@ -31,7 +29,7 @@ public class ApprovalController {
 	public class SessionConst {
 	    public static final String LOGIN_MEMBER = "loginMember";
 	}
-	
+
 	// 결재 현황 조회
 	@GetMapping("")
 	public String getApprovalList(HttpServletRequest request, Model model) {
@@ -42,13 +40,11 @@ public class ApprovalController {
         LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
         if(loginUser == null)
         	return "redirect:/login";
-        model.addAttribute("loginUser", loginUser);
         
-        Long approvalNo = 0L;
+        model.addAttribute("loginUser", loginUser);
         
 		List<ApprovalDTO> approvals = service.findAllApprovalByUserNo(loginUser.getUserNo());
 		model.addAttribute("approvals", approvals);
-		model.addAttribute("approvalNo", approvalNo);
 		return "user/approvals/approvalList";
 	}
 	
@@ -103,9 +99,7 @@ public class ApprovalController {
         model.addAttribute("loginUser", loginUser);
 		
 		ApprovalDTO approval = service.findByApprovalNo(approval_no).get();
-		List<ApprovalDTO> userList = service.findAllUserNameAndDeptName();
-		
-		log.info("loginUser.userNo >> {}, approval.userNo >> {}", loginUser.getUserNo(), approval.getUserNo());
+		List<ApprovalDTO> userList = service.findAllUserNameAndDeptNameByApprovalNo(approval.getApprovalNo());
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
@@ -176,6 +170,9 @@ public class ApprovalController {
         LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
         if(loginUser == null)
         	return "redirect:/login";
+        
+        if(loginUser.getAdmin() != 1)
+        	return "redirect:/main";
         
         model.addAttribute("loginUser", loginUser);
         
