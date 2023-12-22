@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>관리자 경고</title>
 </head>
 <body>
-
+<c:url value="/main" var="mainUrl" />
 <script>
 	var msg = "<c:out value='${msg}'/>";
-	var url = "<c:out value='${url}'/>";
+	var url = "<c:out value='${mainUrl}'/>";
 	alert(msg);
 	location.href = url;
 </script>

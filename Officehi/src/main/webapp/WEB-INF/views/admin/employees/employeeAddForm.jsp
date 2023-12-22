@@ -1,5 +1,5 @@
 <%@page import="java.time.LocalDate"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
@@ -33,22 +33,7 @@
 	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
-			<div class="aside-box">
-				<ul class="aside floating">
-					<li><span>사원 관리</span>
-						<ul>
-							<li><a href="${context}admin/employees"><span class="selected">사원 정보 관리</span></a></li>
-						</ul></li>
-					<li><span>전자 결재</span>
-						<ul>
-							<li><span>결재 문서 관리</span></li>
-						</ul></li>
-					<li><span>공지사항</span>
-						<ul>
-							<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
-						</ul></li>
-				</ul>
-			</div>
+			<%@ include file="../../aside/adminAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>사원 정보 등록</h2>

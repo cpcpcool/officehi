@@ -106,11 +106,4 @@ public class WorkController {
 		model.addAttribute("works", works);
         return "user/works/workList";
 	}
-
-	@GetMapping("/works/list/all")
-	public String findAllWorks(Model model) {
-		List<WorkDTO> works = workService.workTimes();
-		model.addAttribute("works", works);
-		return "user/works/workList";
-	}
 }

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -46,46 +46,14 @@ color: #222;
 	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
-			<div class="aside-box">
-				<ul class="aside floating">
 					<c:choose>
 						<c:when test="${loginUser.admin == 0 }">
-							<li>
-							<span>공지사항</span>
-								<ul>
-									<li><a href="#"><span>공지사항 조회</span></a></li>
-								</ul>
-							</li>
-							<li><span>전자 결재</span>
-								<ul>
-									<li><a href="${context}approvals"><span class="selected">결재 현황 조회</span></a></li>
-									<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
-								</ul></li>
-							<li><span>근태 관리</span>
-								<ul>
-									<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
-									<li><a href="#"><span>근무 시간 확인</span></a></li>
-								</ul></li>
-							<li><a href="#"><span>마이페이지</span></a></li>
+							<%@ include file="../../aside/userAside.jsp" %>
 						</c:when>
 						<c:when test="${loginUser.admin == 1 }">
-							<li><span>사원 관리</span>
-							<ul>
-								<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
-							</ul></li>
-							<li><span>전자 결재</span>
-							<ul>
-								<li><a href="${context}admin/approvals"><span class="selected">결재 문서 관리</span></a></li>
-							</ul></li>
-							<li><span>공지사항</span>
-							<ul>
-								<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
-							</ul></li>
+							<%@ include file="../../aside/adminAside.jsp" %>
 						</c:when>
 					</c:choose>
-					
-				</ul>
-			</div>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 문서 상세</h2>
@@ -108,9 +76,9 @@ color: #222;
 											<form:options items="${userList}" itemValue="name" itemLabel="name"/>
 										</form:select>
 									</c:when>
-									<c:when test="${loginUser.userNo != approval.userNo}">
+									<c:otherwise>
 										<form:input path="checker1" class="form-control" readonly="true" />
-									</c:when>
+									</c:otherwise>
 								</c:choose>
 							</div>
 						</div>

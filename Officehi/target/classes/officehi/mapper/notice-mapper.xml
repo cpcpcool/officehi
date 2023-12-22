@@ -11,6 +11,7 @@
 	<select id="findAll" resultType="com.groupware.officehi.dto.NoticeDTO">
 		select notice_no, date, content, title
 		from notice
+		order by date desc;
 	</select>
 
 	<select id="findById" parameterType="Long" resultType="com.groupware.officehi.dto.NoticeDTO">

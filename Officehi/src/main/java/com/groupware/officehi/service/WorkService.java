@@ -21,7 +21,7 @@ public class WorkService {
 		this.workRepository = workRepository;
 		log.info("서비스실행됨");
 	}
-	
+
 	public void arrivalTimeCheck(WorkDTO work) {
 		workRepository.arrivalTimeCheck(work);
 	}
@@ -29,7 +29,7 @@ public class WorkService {
 	public void leaveTimeCheck(WorkDTO work) {
 		workRepository.leaveTimeCheck(work);
 	}
-	
+
 	public Integer checkDateDuplicte(Long userNo) {
 		return workRepository.checkDateDuplicte(userNo);
 	}
@@ -38,10 +38,4 @@ public class WorkService {
 		return workRepository.workTimesByUserNo(userNo);
 	}
 
-	public List<WorkDTO> workTimes() {
-		return workRepository.workTimes();
-	}
-
-	
-	
 }

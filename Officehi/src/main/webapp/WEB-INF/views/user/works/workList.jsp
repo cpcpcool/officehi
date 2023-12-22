@@ -1,7 +1,7 @@
 <%@page import="java.time.LocalTime"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@ page import="java.time.LocalDate"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
@@ -24,38 +24,13 @@
 	font-weight: 800;
 	color: #345de3;
 }
-
-/* thead {
-	text-align: center;
-}
-td {
-	text-align: center;
-} */
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
-			<div class="aside-box">
-				<ul class="aside floating">
-					<li><span>공지사항</span>
-						<ul>
-							<li><a href="${context}notices"><span>공지사항 조회</span></a></li>
-						</ul></li>
-					<li><span>전자 결재</span>
-						<ul>
-							<li><a href="${context}approvals"><span>결재 현황 조회</span></a></li>
-							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
-						</ul></li>
-					<li><span>근태 관리</span>
-						<ul>
-							<li><a href="${context}works"><span>출퇴근 시간 기록</span></a></li>
-							<li><a href="${context}works/list"><span class="selected">근무 시간 확인</span></a></li>
-						</ul></li>
-					<li><a href="${context}mypage"><span>마이페이지</span></a></li>
-				</ul>
-			</div>
+			<%@ include file="../../aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>근무 시간 확인</h2>

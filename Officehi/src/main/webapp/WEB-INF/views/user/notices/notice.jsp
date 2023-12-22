@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
@@ -44,25 +44,7 @@ h2 {
 	<%@ include file="../../header/header.jsp"%>
 	<main>
 		<div class="main-container">
-			<div class="aside-box">
-				<ul class="aside floating">
-					<li><span>공지사항</span>
-						<ul>
-							<li><span><a href="${context}notices" class="selected">공지사항 조회</a></span></li>
-						</ul></li>
-					<li><span>전자 결재</span>
-						<ul>
-							<li><span><a href="${context}approvals">결재 현황 조회</a></span></li>
-							<li><span><a href="${context}approvals/add">결재 문서 작성</a></span></li>
-						</ul></li>
-					<li><span>근태 관리</span>
-						<ul>
-							<li><span><a href="${context}works">출퇴근 시간 기록</a></span></li>
-							<li><span><a href="${context}works/list">근무 시간 확인</a></span></li>
-						</ul></li>
-					<li><span><a href="${context}mypage">마이페이지</a></span></li>
-				</ul>
-			</div>
+			<%@ include file="../../aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>공지사항 조회</h2>

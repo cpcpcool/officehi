@@ -45,7 +45,6 @@ public class EmployeeController {
 
 		if(loginUser.getAdmin() != 1) {
 			request.setAttribute("msg", "관리자 권한이 없습니다.");
-			request.setAttribute("url", "officehi/main");
 			return "alert/alert";	
 		}
 		
