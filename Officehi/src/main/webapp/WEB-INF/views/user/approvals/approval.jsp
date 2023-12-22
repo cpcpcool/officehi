@@ -48,23 +48,42 @@ color: #222;
 		<div class="main-container">
 			<div class="aside-box">
 				<ul class="aside floating">
-					<li>
-					<span>공지사항</span>
-						<ul>
-							<li><a href="#"><span>공지사항 조회</span></a></li>
-						</ul>
-					</li>
-					<li><span>전자 결재</span>
-						<ul>
-							<li><a href="${context}approvals"><span class="selected">결재 현황 조회</span></a></li>
-							<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
-						</ul></li>
-					<li><span>근태 관리</span>
-						<ul>
-							<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
-							<li><a href="#"><span>근무 시간 확인</span></a></li>
-						</ul></li>
-					<li><a href="#"><span>마이페이지</span></a></li>
+					<c:choose>
+						<c:when test="${loginUser.admin == 0 }">
+							<li>
+							<span>공지사항</span>
+								<ul>
+									<li><a href="#"><span>공지사항 조회</span></a></li>
+								</ul>
+							</li>
+							<li><span>전자 결재</span>
+								<ul>
+									<li><a href="${context}approvals"><span class="selected">결재 현황 조회</span></a></li>
+									<li><a href="${context}approvals/add"><span>결재 문서 작성</span></a></li>
+								</ul></li>
+							<li><span>근태 관리</span>
+								<ul>
+									<li><a href="#"><span>출퇴근 시간 기록</span></a></li>
+									<li><a href="#"><span>근무 시간 확인</span></a></li>
+								</ul></li>
+							<li><a href="#"><span>마이페이지</span></a></li>
+						</c:when>
+						<c:when test="${loginUser.admin == 1 }">
+							<li><span>사원 관리</span>
+							<ul>
+								<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
+							</ul></li>
+							<li><span>전자 결재</span>
+							<ul>
+								<li><a href="${context}admin/approvals"><span class="selected">결재 문서 관리</span></a></li>
+							</ul></li>
+							<li><span>공지사항</span>
+							<ul>
+								<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
+							</ul></li>
+						</c:when>
+					</c:choose>
+					
 				</ul>
 			</div>
 			<div class="main-box">

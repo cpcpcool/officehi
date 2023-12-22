@@ -40,10 +40,15 @@ public class MyPageController {
 		LoginUserDTO loginUser = (LoginUserDTO)session.getAttribute(SessionConst.LOGIN_MEMBER);
 		if(loginUser == null)
 			return "redirect:/login";
+		
+		
 
 		model.addAttribute("loginUser", loginUser);
 		
 		Optional<MyPageDTO> mypageuser = myPageService.findByUserNo(loginUser.getUserNo());
+		if (mypageuser.get().getFromDate().equals("9999-01-01")) {
+			mypageuser.get().setFromDate("-");
+		}
 		model.addAttribute("mypageuser", mypageuser.get());
 		return "user/myPage";
 	}
