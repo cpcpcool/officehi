@@ -38,7 +38,7 @@ public class AdminEmployeeController {
 	private final EmployeeService employeeService;
 	private int employeesTotal = -1; // 전체 직원데이터 수 조회용
 	
-	@GetMapping("")
+	@GetMapping
 	public String employeeList(Paging paging, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
@@ -84,7 +84,7 @@ public class AdminEmployeeController {
 		return "admin/employees/employeeTotal";
 	}
 
-	@PostMapping("/")
+	@PostMapping
 	public String employeeModify() {
 		return "redirect:/admin/employees";
 	}

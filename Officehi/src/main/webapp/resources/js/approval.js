@@ -47,3 +47,16 @@ function deleteApproval(context, approvalNo) {
 		form.remove();
 	}
 }
+
+function searchApproval() {
+	let searchValue = document.getElementById('searchValue');
+	let search = document.getElementById('search');
+	let searchOption = search.options[search.selectedIndex].value;
+	
+	if(searchOption == 'date' || searchOption == 'checkDate') {
+		searchValue.setAttribute('type', 'date');
+	} else {
+		searchValue.setAttribute('type', 'type');
+	}
+	
+}

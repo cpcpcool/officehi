@@ -72,6 +72,10 @@ public class ApprovalService {
 		return repository.findApprovalByApprovalNo(approvalNo);
 	}
 	
+	public List<ApprovalDTO> findApprovalByUserName(String userName) {
+		return repository.findApprovalByUserName(userName);
+	}
+	
 	public List<ApprovalDTO> findApprovalByTitle(String title) {
 		return repository.findApprovalByTitle(title);
 	}

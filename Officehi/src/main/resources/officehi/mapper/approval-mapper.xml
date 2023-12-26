@@ -28,7 +28,7 @@
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
-		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo};
+		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo}
 	</select>
 	
 	<select id="findUserNameAndDeptName">
@@ -40,7 +40,7 @@
 	<select id="findUserNameAndDeptNameByApprovalNo">		
 		SELECT *
 		FROM user u JOIN approval a
-		WHERE a.approval_no = #{approvalNo} AND u.user_no != a.checker1;
+		WHERE a.approval_no = #{approvalNo} AND u.user_no != a.checker1
 	</select>
 	
 	<select id="findApprovalByUserNo">
@@ -54,7 +54,7 @@
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
-		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo};
+		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo}
 	</select>
 	
 	<select id="findApprovalByApprovalNo">
@@ -63,22 +63,38 @@
 		WHERE approval_no = #{approvalNo}
 	</select>
 	
+	<select id="findApprovalByUserName">
+		SELECT *
+		FROM approval a, user u
+		WHERE a.user_no = u.user_no AND u.name like concat('%', #{userName}, '%')
+	</select>
+	
 	<select id="findApprovalByTitle">
 		SELECT *
-		FROM approval
-		WHERE title = like concat('%', #{title}, '%')
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE title like concat('%', #{title}, '%')
 	</select>
 	
 	<select id="findApprovalByDeptName">
-		
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE dept_name like concat('%', #{deptName}, '%') 
 	</select>
 	
 	<select id="findApprovalBydate">
-		
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE date = #{date};
 	</select>
 	
 	<select id="findApprovalByCheckDate">
-		
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE check_date = #{checkDate};
 	</select>
 	
 	<select id="findByApprovalNo">

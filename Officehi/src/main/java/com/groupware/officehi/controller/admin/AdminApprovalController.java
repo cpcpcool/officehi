@@ -52,7 +52,7 @@ public class AdminApprovalController {
 	}
 	
 	@GetMapping("/search")
-	public String getAdminApprovalListSearch(@RequestParam String searchType, HttpServletRequest request, Model model) {
+	public String getAdminApprovalListSearch(@RequestParam String search, @RequestParam String searchValue, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
 		if (session == null)
 			return "redirect:/login";
@@ -65,28 +65,27 @@ public class AdminApprovalController {
 			return "redirect:/main";
 
 		model.addAttribute("loginUser", loginUser);
-		Object serachValue = model.getAttribute("serachValue");
 		
 		List<ApprovalDTO> approvals = null;
 		
-		switch(searchType) {
+		switch(search) {
 		case "approvalNo":
-			approvals = approvalService.findApprovalByUserNo((Long)serachValue);
+			approvals = approvalService.findApprovalByApprovalNo(Long.valueOf(searchValue));
 			break;
-		case "userNo":
-			approvals = approvalService.findApprovalByUserNo((Long)serachValue);
+		case "userName":
+			approvals = approvalService.findApprovalByUserName(searchValue);
 			break;
 		case "title":
-			approvals = approvalService.findApprovalByTitle(serachValue.toString());
+			approvals = approvalService.findApprovalByTitle(searchValue);
 			break;
 		case "deptName":
-			approvals = approvalService.findApprovalByDeptName(serachValue.toString());
+			approvals = approvalService.findApprovalByDeptName(searchValue);
 			break;
 		case "date":
-			approvals = approvalService.findApprovalBydate(serachValue.toString());
+			approvals = approvalService.findApprovalBydate(searchValue);
 			break;
 		case "checkDate":
-			approvals = approvalService.findApprovalByCheckDate(serachValue.toString());
+			approvals = approvalService.findApprovalByCheckDate(searchValue);
 			break;
 		}
 		

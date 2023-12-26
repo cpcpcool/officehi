@@ -46,9 +46,9 @@
 					<div>
 						<form class="row" action="${context}admin/approvals/search" method="get">
 							<div class="col-2">
-								<select class="form-select" name="search">
+								<select id="search" class="form-select" name="search" onChange="javaScript:searchApproval()">
 										<option value="approvalNo">문서번호</option>
-										<option value="userNo">기안자</option>
+										<option value="userName">기안자</option>
 										<option value="title">문서 제목</option>
 										<option value="deptName">부서</option>
 										<option value="date">기안일</option>
@@ -56,7 +56,7 @@
 								</select>
 							</div>
 							<div class="col-4">
-								<input name="searchValue" class="form-control" placeholder="검색 키워드를 입력하세요">
+								<input type="text" id="searchValue" name="searchValue" class="searchValue form-control" placeholder="검색 키워드를 입력하세요" required="required">
 							</div>
 							<div class="col-2">
 								<button class="btn btn-dark" type="submit">검색</button>
@@ -105,5 +105,6 @@
 		</div>
 	</main>
 	<%@ include file="../../footer/footer.jsp"%>
+	<script src="${resPath}/js/approval.js" type="text/javascript"></script>
 </body>
 </html>

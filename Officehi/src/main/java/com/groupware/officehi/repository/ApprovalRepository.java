@@ -26,6 +26,7 @@ public interface ApprovalRepository {
 	List<ApprovalDTO> findApprovalByChecker(Long userNo);
 	
 	List<ApprovalDTO> findApprovalByApprovalNo(Long approvalNo);
+	List<ApprovalDTO> findApprovalByUserName(String userName);
 	List<ApprovalDTO> findApprovalByTitle(String title);
 	List<ApprovalDTO> findApprovalByDeptName(String deptName);
 	List<ApprovalDTO> findApprovalBydate(String date);
