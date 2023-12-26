@@ -1,10 +1,5 @@
 package com.groupware.officehi.service;
 
-/**
- * @author 정유진
- * @editDate 23.12.18 ~23.12.26
- */
-
 import java.util.List;
 import java.util.Optional;
 
@@ -29,19 +24,11 @@ public class NoticeService {
 		return noticeRepository.findAll();
 	}
 	
+	public List<NoticeDTO> findByContent(String content){
+		return noticeRepository.findByContent(content);
+	}
+	
 	public Optional<NoticeDTO> findByNoticeNo(Long noticeNo){
 		return noticeRepository.findByNoticeNo(noticeNo);
-	}
-	
-	public List<NoticeDTO> searchTitle(String title) {
-		return noticeRepository.searchTitle(title);
-	}
-	
-	public List<NoticeDTO> searchContent(String content) {
-		return noticeRepository.searchContent(content);
-	}
-	
-	public List<NoticeDTO> searchNoticeNo(Long noticeNo) {
-		return noticeRepository.searchNoticeNo(noticeNo);
 	}
 }

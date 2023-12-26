@@ -4,6 +4,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
+<!-- 
+ * @author 엄다빈
+ * @editDate 23.12.15 ~23.12.18
+ -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,9 +58,7 @@ color: #222;
 							<div class="col-3">
 								<form:select path="category" class="form-select" required="true">
 									<option>휴가신청서</option>
-									<option>대금결재</option>
-									<option>결재2</option>
-									<option>결재결재</option>
+									<option>대금 결재</option>
 								</form:select>
 							</div>
 							<div class="col-2 mb-2">	

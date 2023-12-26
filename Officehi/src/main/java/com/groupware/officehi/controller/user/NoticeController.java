@@ -1,8 +1,5 @@
 package com.groupware.officehi.controller.user;
-/**
- * @author 정유진
- * @editDate 23.12.18 ~23.12.26
- */
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;

@@ -1,3 +1,8 @@
+/**
+ * @author 엄다빈
+ * @editDate 23.12.18 ~23.12.26
+ */
+
 function updateApproval(context, approvalNo, status) {
 	let isFormUpdate;
 	

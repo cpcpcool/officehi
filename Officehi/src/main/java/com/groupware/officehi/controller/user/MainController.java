@@ -44,7 +44,9 @@ public class MainController {
 			return "redirect:/login";
 		}
 		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		// null 검사 필요
+		if (loginUser == null)
+			return "redirect:/login";
+		
 		Optional<EmployeeDTO> user = employeeService.findByUserNo(loginUser.getUserNo());
 		model.addAttribute("user", user.get());
 
@@ -52,7 +54,7 @@ public class MainController {
 		if (notice.isPresent())
 			model.addAttribute("notice", notice.get());
 
-		List<ApprovalDTO> approvals = approvalService.findAllApprovalByUserNo(loginUser.getUserNo());
+		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChercker(loginUser.getUserNo());
 		model.addAttribute("approvals", approvals.stream().limit(7).collect(Collectors.toList()));
 		return "/user/main";
 	}

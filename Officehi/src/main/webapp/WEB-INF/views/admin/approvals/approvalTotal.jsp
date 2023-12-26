@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
+<!-- 
+ * @author 엄다빈
+ * @editDate 23.12.19 ~23.12.19
+ -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,7 +44,7 @@
 				<div class="content-box floating">
 					<h2 class="lgmg">결재 문서 관리</h2>
 					<div>
-						<form class="row" action="${context}admin/approvals" method="get">
+						<form class="row" action="${context}admin/approvals/search" method="get">
 							<div class="col-2">
 								<select class="form-select" name="search">
 										<option value="approvalNo">문서번호</option>
@@ -52,7 +56,7 @@
 								</select>
 							</div>
 							<div class="col-4">
-								<input class="form-control" placeholder="검색 키워드를 입력하세요">
+								<input name="searchValue" class="form-control" placeholder="검색 키워드를 입력하세요">
 							</div>
 							<div class="col-2">
 								<button class="btn btn-dark" type="submit">검색</button>

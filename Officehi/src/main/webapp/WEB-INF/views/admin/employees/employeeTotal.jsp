@@ -79,7 +79,7 @@ button {
 							</div>
 							<!-- 인풋이 꼭 여러개 있어야하는지.. -->
 							<div class="col-5">
-								<input name="name" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
+								<input name="name" class="form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>

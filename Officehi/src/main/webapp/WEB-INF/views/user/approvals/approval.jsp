@@ -8,6 +8,10 @@
 <c:if test="${loginUser.userNo != approval.userNo}">
 	<c:set var="login" value="true" />
 </c:if>
+<!-- 
+ * @author 엄다빈
+ * @editDate 23.12.18 ~23.12.19
+ -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
