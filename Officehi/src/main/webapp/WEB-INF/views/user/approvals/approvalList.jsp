@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
+<!-- 
+ * @author 엄다빈
+ * @editDate 23.12.15 ~23.12.18
+ -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -45,6 +49,11 @@ color: #222;
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 현황 조회</h2>
+					<div>
+						<a href="${context}approvals" class="btn btn-dark btn-small me-2">전체 보기</a>
+						<a href="${context}approvals/search?search=my" class="btn btn-dark btn-small me-2">기안문 보기</a>
+						<a href="${context}approvals/search?search=other" class="btn btn-dark btn-small me-2">참조문 보기</a>
+					</div>
 					<table>
 						<thead>
 							<tr>

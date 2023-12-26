@@ -4,7 +4,7 @@
 <c:url var="resPath" value="/resources" />
 <!--  
 * @author 정유진
- * @editDate 23.12.19 ~ 23.12.20 
+ * @editDate 23.12.20 ~ 23.12.21 
  -->
 <!DOCTYPE html>
 <html>

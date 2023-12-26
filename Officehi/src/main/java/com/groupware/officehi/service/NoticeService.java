@@ -9,7 +9,6 @@ import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.repository.NoticeRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 정유진

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- 
- * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
-  -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 
+ * @author 엄다빈
+ * @editDate 23.12.18 ~23.12.26
+  -->
 <mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
 	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo">
 		INSERT INTO approval(user_no, date, title, content, category, checker1)
@@ -24,7 +24,7 @@
 		ON a.user_no = u.user_no
 	</select>
 	
-	<select id="findApprovalByUserNoOrChercker">
+	<select id="findApprovalByUserNoOrChecker">
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
