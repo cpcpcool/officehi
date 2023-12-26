@@ -2,6 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+ * @author 정유진
+ * @editDate 23.12.18 ~ 23.12.19
+ 
+ * @author 이승준
+ * 기능 추가 23.12.24 ~ 23.12.26 
+-->
 <mapper namespace="com.groupware.officehi.repository.NoticeRepository">
 	<insert id="insert" useGeneratedKeys="true" keyProperty="noticeNo" parameterType="NoticeDTO">
 		INSERT INTO NOTICE(title, date, content)
@@ -13,16 +20,30 @@
 		from notice
 		order by date desc;
 	</select>
-
-	<select id="findByContent">
-		SELECT *
-		FROM NOTICE
-		WHERE CONTENT LIKE CONCAT('%', #{content}, '%')
-	</select>
 	
 	<select id="findByNoticeNo" parameterType="Long" resultType="com.groupware.officehi.dto.NoticeDTO">
 		select *
 		from notice
-		where notice_no = #{noticeNo}
+		where notice_no = #{noticeNo};
 	</select>
+	
+	<!-- 검색 기능 -->
+	<select id="searchTitle" resultType="NoticeDTO" parameterType="java.lang.String">
+		SELECT notice_no, title, date, content
+		FROM notice
+		WHERE title LIKE concat('%', #{title}, '%');
+	</select>
+	
+	<select id="searchContent" resultType="NoticeDTO" parameterType="java.lang.String">
+		SELECT notice_no, title, date, content
+		FROM notice
+		WHERE content LIKE concat('%', #{content}, '%');
+	</select>
+	
+	<select id="searchNoticeNo" resultType="NoticeDTO" parameterType="java.lang.Long">
+		SELECT notice_no, title, date, content
+		FROM notice
+		WHERE notice_no LIKE concat('%', #{noticeNo}, '%');
+	</select>
+	
 </mapper>

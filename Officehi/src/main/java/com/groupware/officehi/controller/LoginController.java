@@ -15,6 +15,11 @@ import com.groupware.officehi.service.LoginService;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+* @author 이승준
+* @editDate 23.12.18 ~ 23.12.20
+*/
+
 @Controller
 @RequiredArgsConstructor
 public class LoginController {

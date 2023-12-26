@@ -17,7 +17,10 @@ import com.groupware.officehi.service.MyPageService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
+/**
+ * @author 정유진
+ * @editDate 23.12.19 ~ 23.12.20
+*/
 @Controller
 @RequiredArgsConstructor
 public class MyPageController {

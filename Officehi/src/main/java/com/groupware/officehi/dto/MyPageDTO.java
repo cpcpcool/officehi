@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+/**
+ * @author 정유진
+ * @editDate 23.12.19 ~ 23.12.20
+*/
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor

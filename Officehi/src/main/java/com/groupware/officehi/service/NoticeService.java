@@ -11,6 +11,14 @@ import com.groupware.officehi.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author 정유진
+ * @editDate 23.12.18 ~ 23.12.19
+ * 
+ * @author 이승준
+ * 검색 기능 추가 23.12.24 ~ 23.12.26
+ */
+
 @Service
 @RequiredArgsConstructor
 public class NoticeService {
@@ -24,11 +32,20 @@ public class NoticeService {
 		return noticeRepository.findAll();
 	}
 	
-	public List<NoticeDTO> findByContent(String content){
-		return noticeRepository.findByContent(content);
-	}
-	
 	public Optional<NoticeDTO> findByNoticeNo(Long noticeNo){
 		return noticeRepository.findByNoticeNo(noticeNo);
+	}
+	
+	/* 검색 기능 */
+	public List<NoticeDTO> searchTitle(String title) {
+		return noticeRepository.searchTitle(title);
+	}
+	
+	public List<NoticeDTO> searchContent(String content) {
+		return noticeRepository.searchContent(content);
+	}
+	
+	public List<NoticeDTO> searchNoticeNo(Long noticeNo) {
+		return noticeRepository.searchNoticeNo(noticeNo);
 	}
 }
