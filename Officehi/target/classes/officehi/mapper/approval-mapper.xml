@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+ * @author 엄다빈
+ * @editDate 23.12.18 ~23.12.26
+  -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
-	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo" parameterType="ApprovalDTO">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo">
 		INSERT INTO approval(user_no, date, title, content, category, checker1)
 		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
 	</insert>
 	
-	<select id="findUserByUserNo">
+	<select id="findByUserNo">
 		SELECT name
 		FROM user
 		WHERE user_no = #{userNo}
 	</select>
 
-	<select id="findAll">
+	<select id="findApproval">
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
@@ -29,6 +33,7 @@
 	<select id="findUserNameAndDeptName">
 		SELECT user_no, name, dept_name
 		FROM user
+		WHERE user_no != #{userNo}
 	</select>
 	
 	<select id="findByApprovalNo">
@@ -42,28 +47,42 @@
 		WHERE approval_no = #{approvalNo};
 	</select>
 	
-	<update id="updateApproval" parameterType="ApprovalDTO">
+	<update id="updateApproval">
 		UPDATE approval
 		SET title = #{title}, content = #{content}, checker1 = (SELECT user_no FROM user WHERE name LIKE #{checker1}) 
 		WHERE approval_no = #{approvalNo};
 	</update>
 	
-	<delete id="delete" parameterType="java.lang.Long">
+	<delete id="delete">
 		DELETE FROM approval
 		WHERE approval_no = #{approvalNo}
 	</delete>
 	
-	<update id="updateStatus" parameterType="ApprovalDTO">
+	<update id="updateStatus">
 		UPDATE approval
 		SET check_date = curdate(), status = #{status}
 		WHERE approval_no = #{approvalNo}
 	</update>
 	
-	<select id="findApprovalByUserNo">
+	<select id="findApprovalByUserNoOrChercker">
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo};
+	</select>
+	
+	<select id="findApprovalByUserNo">
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE a.user_no = #{userNo};
+	</select>
+	
+	<select id="findApprovalByChecker">
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo};
 	</select>
 	
 </mapper>
