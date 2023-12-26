@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
@@ -30,53 +30,63 @@
 .col-form-label {
 	font-size: 0.85em;
 }
+.error {
+	color: #f00;
+	font-size: 0.8em;
+}
 </style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header/header.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/adminAside.jsp" %>
+			<%@ include file="../../aside/adminAside.jsp"%>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>사원 정보 등록</h2>
-					
+
 					<!-- FORM -->
-					<form:form action="${context}admin/employees/add" method="post">
+					<form:form action="${context}admin/employees/add" method="post" modelAttribute="employeeDTO" enctype="multipart/form-data">
 						<div class="row mb-3">
 							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="userNo" name="userNo" value="${lastUserNo}" readonly>
+								<form:input path="userNo" cssClass="form-control" id="userNo" value="${lastUserNo}" readonly="true" />
 							</div>
 							<label for="name" class="col-sm-2 col-form-label">이름</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="name" name="name" placeholder="이름">
+								<form:input path="name" cssClass="form-control" id="name" placeholder="이름" />
+								<form:errors path="name" cssClass="error" />
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="phone" name="phone" placeholder="휴대폰 번호(-)" maxlength="13">
+								<form:input path="phone" cssClass="form-control" id="phone" placeholder="휴대폰 번호(-)"/>
+								<form:errors path="phone" cssClass="error" />
 							</div>
 							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="birthDate" name="birthDate" placeholder="연도-월-일">
+								<form:input path="birthDate" cssClass="form-control" id="birthDate" placeholder="연도-월-일"/>
+								<form:errors path="birthDate" cssClass="error" />
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="toDate" class="col-sm-2 col-form-label">입사일</label>
 							<div class="col-sm">
-								<input type="date" class="form-control" id="toDate" name="toDate">
+								<form:input path="toDate" cssClass="form-control" id="toDate" type="date" />
+								<form:errors path="toDate" cssClass="error" />
 							</div>
 							<label for="fromDate" class="col-sm-2 col-form-label">퇴사일</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="fromDate" name="fromDate" placeholder=" - " disabled>
+								<form:input path="fromDate" cssClass="form-control" id="fromDate" disabled="true" placeholder="-"/>
+								<form:errors path="fromDate" cssClass="error" />
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="deptName" class="col-sm-2 col-form-label">부서명</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="deptName" name="deptName" placeholder="부서명">
+								<form:input path="deptName" cssClass="form-control" id="deptName" placeholder="부서명"/>
+								<form:errors path="deptName" cssClass="error" />
 							</div>
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">
@@ -92,14 +102,16 @@
 						<div class="row mb-3">
 							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
 							<div class="col-sm">
-								<input type="file" class="form-control" id="profile" name="profile">
-							</div>
+								<form:input path="profile" cssClass="form-control" id="profile" type="file"/>
+								<form:errors path="profile" cssClass="error" />
+								</div>
 							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
 							<div class="col-sm">
-								<input type="file" class="form-control" id="stamp" name="stamp">
+								<form:input path="stamp" cssClass="form-control" id="stamp" type="file"/>
+								<form:errors path="stamp" cssClass="error" />
 							</div>
-							</div>
-							<!-- BUTTON -->
+						</div>
+						<!-- BUTTON -->
 						<div class="employeesAdd">
 							<button class="btn btn-dark btn-lg mt-3 me-3" id="add" type="submit">등록 하기</button>
 							<button class="btn btn-outline-dark btn-lg mt-3" id="cancel" onclick="history.go(-1)" type="button">뒤로 가기</button>
