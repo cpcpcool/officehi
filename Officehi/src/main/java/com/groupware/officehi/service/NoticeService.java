@@ -24,11 +24,19 @@ public class NoticeService {
 		return noticeRepository.findAll();
 	}
 	
-	public List<NoticeDTO> findByContent(String content){
-		return noticeRepository.findByContent(content);
-	}
-	
 	public Optional<NoticeDTO> findByNoticeNo(Long noticeNo){
 		return noticeRepository.findByNoticeNo(noticeNo);
+	}
+	
+	public List<NoticeDTO> searchTitle(String title) {
+		return noticeRepository.searchTitle(title);
+	}
+	
+	public List<NoticeDTO> searchContent(String content) {
+		return noticeRepository.searchContent(content);
+	}
+	
+	public List<NoticeDTO> searchNoticeNo(Long noticeNo) {
+		return noticeRepository.searchNoticeNo(noticeNo);
 	}
 }

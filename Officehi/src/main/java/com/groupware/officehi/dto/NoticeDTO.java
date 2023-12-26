@@ -10,8 +10,8 @@ import lombok.Setter;
 public class NoticeDTO {
 	
 	private Long noticeNo;
+	private String title;
     private String date;
 	private String content;
-	private String title;
 
 }

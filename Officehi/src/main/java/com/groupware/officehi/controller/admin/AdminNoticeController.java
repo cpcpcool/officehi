@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.service.NoticeService;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/notices")
+@Slf4j
 public class AdminNoticeController {
 
 	private final NoticeService noticeService;
@@ -52,5 +54,24 @@ public class AdminNoticeController {
 	@PostMapping("/{noticeNo}")
 	public String adminUpdate(@PathVariable("noticeNo") Long noticeNo) {
 		return "redirect:/admin/notices";
+	}
+	
+	@PostMapping("/search")
+	public String search(@RequestParam("searchType") String searchType,
+			@RequestParam(name = "title", required = false) String title,
+			@RequestParam(name = "content", required = false) String content,
+			@RequestParam(name = "noticeNo", required = false) Long noticeNo, Model model) {
+		List<NoticeDTO> notices = null;
+
+		if ("title".equals(searchType)) {
+			notices = noticeService.searchTitle(title);
+		} else if ("content".equals(searchType)) {
+			notices = noticeService.searchContent(content);
+		} else if ("noticeNo".equals(searchType)) {
+			notices = noticeService.searchNoticeNo(noticeNo);
+		}
+		model.addAttribute("notices", notices);
+		log.info("notices >> " + notices.toString());
+		return "admin/notices/noticeTotal";
 	}
 }

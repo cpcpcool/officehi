@@ -8,13 +8,13 @@
 		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
 	</insert>
 	
-	<select id="findByUserNo">
+	<select id="findUserByUserNo">
 		SELECT name
 		FROM user
 		WHERE user_no = #{userNo}
 	</select>
 
-	<select id="findApproval">
+	<select id="findAll">
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
