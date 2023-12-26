@@ -1,5 +1,8 @@
 package com.groupware.officehi.dto;
-
+/**
+ * @author 정유진
+ * @editDate 23.12.18 ~23.12.26
+ */
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
