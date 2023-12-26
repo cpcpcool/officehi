@@ -1,3 +1,11 @@
+/**
+* @author 박재용
+* @editDate 23.12.18 ~ 23.12.19
+*
+* @author 이승준
+* 오류 수정 & 범용화 23.12.24 ~ 23.12.26
+*/
+
 document.addEventListener("DOMContentLoaded", function () {
     // select 요소 가져오기
     var selectElement = document.querySelector('select[name="searchType"]');

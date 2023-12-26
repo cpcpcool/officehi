@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
+<!--  
+* @author 정유진
+ * @editDate 23.12.19 ~ 23.12.20 
+ -->
 <!DOCTYPE html>
 <html>
 <head>

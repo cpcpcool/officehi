@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!--  
+* @author 이승준
+* @editDate 23.12.15 ~ 23.12.17
+-->
 <div class="aside-box">
 	<ul class="aside floating">
 		<li><span>사원 관리</span>

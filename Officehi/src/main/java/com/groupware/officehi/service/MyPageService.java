@@ -9,6 +9,10 @@ import com.groupware.officehi.dto.MyPageDTO;
 import com.groupware.officehi.repository.MyPageRepository;
 
 import lombok.extern.slf4j.Slf4j;
+/**
+ * @author 정유진
+ * @editDate 23.12.19 ~ 23.12.20
+*/
 
 @Service
 public class MyPageService {

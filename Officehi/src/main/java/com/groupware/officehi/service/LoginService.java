@@ -9,6 +9,11 @@ import com.groupware.officehi.repository.LoginRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+* @author 이승준
+* @editDate 23.12.18 ~ 23.12.20
+*/
+
 @Service
 @RequiredArgsConstructor
 public class LoginService {

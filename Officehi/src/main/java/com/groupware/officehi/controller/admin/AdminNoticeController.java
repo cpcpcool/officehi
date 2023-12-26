@@ -17,6 +17,12 @@ import com.groupware.officehi.service.NoticeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+* @author 이승준
+* @editDate 23.12.21 ~ 23.12.22
+* 검색 기능 추가 23.12.24 ~ 23.12.26
+*/
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/notices")

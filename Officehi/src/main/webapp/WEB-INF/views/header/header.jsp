@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-
+<!--  
+* @author 이승준
+* @editDate 23.12.15 ~ 23.12.17
+-->
 <header>
 	<div class="header-container">
 		<div class="header-left">

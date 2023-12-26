@@ -15,6 +15,10 @@ import com.groupware.officehi.service.NoticeService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+/**
+ * @author 정유진
+ * @editDate 23.12.19 ~ 23.12.20
+*/
 
 @Controller
 @RequiredArgsConstructor
