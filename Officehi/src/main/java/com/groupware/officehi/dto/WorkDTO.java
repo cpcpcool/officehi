@@ -7,6 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * @author 박재용
+ * @editDate 23.12.19 ~23.12.22
+ */
+
 @Setter @Getter
 @NoArgsConstructor @AllArgsConstructor
 public class WorkDTO {

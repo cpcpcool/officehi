@@ -1,9 +1,13 @@
-<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
+<!--
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+ * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,24 +137,38 @@ button {
 						</table>
 					</form:form>
 					<!-- 페이지네이션 -->
-					<div class="pagination d-flex justify-content-center mt-2">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
-							</ul>
-						</nav>
-					</div>
+					<form:form id="pagingForm" action="${context}admin/employees"
+						method="get" modelAttribute="pageMarker">
+						<form:hidden path="pageNum" />
+						<form:hidden path="amount" />
+						<div class="pagination d-flex justify-content-center mt-2">
+							<nav aria-label="Page navigation">
+								<ul class="pagination">
+									<c:if test="${pageMarker.prev}">
+										<li class="page-item">
+											<a class="page-link" href="${pageMarker.startPage - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+										</li>
+									</c:if>
+									<c:forEach var="num" begin="${pageMarker.startPage}" end="${pageMarker.endPage}">
+										<li class="page-item ${pageMaker.paging.pageNum==num ? 'active' : ''}">
+											<a class="page-link" href="${num}">${num}</a>
+										</li>
+									</c:forEach>
+									<c:if test="${pageMarker.next}">
+										<li class="page-item"><a class="page-link" href="${pageMarker.endPage + 1}" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span></a>
+										</li>
+									</c:if>
+								</ul>
+							</nav>
+						</div>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
 	<script type="text/javascript" src="<c:url value='/resources/js/employee.js' />"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/pagination.js' />"></script>
 </body>
 </html>

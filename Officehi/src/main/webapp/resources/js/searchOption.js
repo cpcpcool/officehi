@@ -1,3 +1,9 @@
+/**
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+ * (JS)
+ */
+
 document.addEventListener("DOMContentLoaded", function () {
     // select 요소 가져오기
     var selectElement = document.querySelector('select[name="searchType"]');

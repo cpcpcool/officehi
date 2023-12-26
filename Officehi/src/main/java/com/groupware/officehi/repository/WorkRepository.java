@@ -7,12 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import com.groupware.officehi.dto.WorkDTO;
 
+/**
+ * @author 박재용
+ * @editDate 23.12.19 ~23.12.22
+ */
+
 @Repository
 public interface WorkRepository {
 
 	void insert(WorkDTO work);
 
-	void update(WorkDTO work);
+	int update(WorkDTO work);
 
 	Integer checkDateDuplicate(Long userNo);
 

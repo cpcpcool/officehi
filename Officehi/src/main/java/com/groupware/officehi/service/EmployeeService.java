@@ -3,13 +3,19 @@ package com.groupware.officehi.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
+
+/**
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+ * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ */
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +44,12 @@ public class EmployeeService {
 		return employeeRepository.findAll();
 	}
 
-	public List<EmployeeDTO> searchUserName(String name) {
-		return employeeRepository.searchUserName(name);
+	public List<EmployeeDTO> findAllPagingEmployee(Paging paging) {
+		return employeeRepository.findAllPaging(paging);
+	}
+
+	public List<EmployeeDTO> searchUserName(String name, Paging paging) {
+		return employeeRepository.searchUserName(name, paging);
 	}
 
 	public List<EmployeeDTO> searchUserNo(Long userNo) {

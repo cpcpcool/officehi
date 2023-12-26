@@ -3,6 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
+<!--
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +98,7 @@
 						<div class="row mb-3">
 							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" value="${employee.profile}" disabled> <input type="file" class="form-control" id="profile" name="profile" value="${employee.profile}">
+								<input type="text" class="form-control" value="${employee.profile}" disabled>
 							</div>
 							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
 							<div class="col-sm">

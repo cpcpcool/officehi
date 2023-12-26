@@ -1,9 +1,12 @@
-<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
+<!--
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+-->
 <!DOCTYPE html>
 <html>
 <head>

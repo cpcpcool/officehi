@@ -1,6 +1,7 @@
-// class="retiredIcon"버튼을 클릭시
-// 해당 버튼의 id 속성을 가져오고
- 
+/**
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+ */
 
 $(".retiredIcon").click(function() {
 	var id = $(this).attr("id");

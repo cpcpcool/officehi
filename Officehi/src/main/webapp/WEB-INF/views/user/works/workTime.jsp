@@ -1,7 +1,11 @@
-<%@page import="java.time.LocalDate"%>
+<%@ page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url var="resPath" value="/resources" />
+<!--
+ * @author 박재용
+ * @editDate 23.12.18 ~ 23.12.20
+-->
 <!DOCTYPE html>
 <html>
 <head>

@@ -16,11 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
+import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
+
+/**
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+ * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ */
 
 @Controller
 @RequiredArgsConstructor
@@ -28,41 +36,51 @@ import lombok.RequiredArgsConstructor;
 public class AdminEmployeeController {
 
 	private final EmployeeService employeeService;
-
+	private int employeesTotal = -1; // 전체 직원데이터 수 조회용
+	
 	@GetMapping("")
-	public String employeeList(Model model, HttpServletRequest request) {
+	public String employeeList(Paging paging, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
-		if (session == null)
+		if (session == null) {
+			employeesTotal = -1;
 			return "redirect:/login";
+		}
 		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
+		if (loginUser == null) {
+			employeesTotal = -1;
 			return "redirect:/login";
+		}
 		loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
 		if (loginUser.getAdmin() != 1) {
 			return "alert/alert";
 		}
-
-		List<EmployeeDTO> employees = employeeService.findAllEmployee();
+		if (employeesTotal == -1)
+			employeesTotal = employeeService.findAllEmployee().size();
+		
+		List<EmployeeDTO> employees = employeeService.findAllPagingEmployee(paging);
 		model.addAttribute("employees", employees);
+		model.addAttribute("pageMarker", new PagingDTO(paging, employeesTotal));
+		
 		return "admin/employees/employeeTotal";
 	}
 
 	@PostMapping("/search")
 	public String findByUserName(@RequestParam("searchType") String searchType,
-			@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "userNo", required = false) Long uesrNo,
-			@RequestParam(name = "deptName", required = false) String deptName, Model model) {
+								@RequestParam(name = "name", required = false) String name,
+								@RequestParam(name = "userNo", required = false) Long uesrNo,
+								@RequestParam(name = "deptName", required = false) String deptName, Paging paging, Model model) {
 		List<EmployeeDTO> employees = null;
 
 		if ("name".equals(searchType)) {
-			employees = employeeService.searchUserName(name);
+			employees = employeeService.searchUserName(name, paging);
 		} else if ("userNo".equals(searchType)) {
 			employees = employeeService.searchUserNo(uesrNo);
 		} else if ("deptName".equals(searchType)) {
 			employees = employeeService.searchDeptName(deptName);
 		}
 		model.addAttribute("employees", employees);
+		model.addAttribute("pageMarker", new PagingDTO(paging, employeesTotal));
 		return "admin/employees/employeeTotal";
 	}
 

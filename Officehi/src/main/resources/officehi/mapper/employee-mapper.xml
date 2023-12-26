@@ -2,7 +2,11 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--
+ * @author 박재용
+ * @editDate 23.12.20 ~ 23.12.22
+ * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+-->
 <mapper
 	namespace="com.groupware.officehi.repository.EmployeeRepository">
 
@@ -43,17 +47,24 @@
 
 	<!-- 전체조회 -->
 	<select id="findAll" resultType="EmployeeDTO">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user;
 	</select>
+	
+	<!-- 페이지네이션 -->
+	<select id="findAllPaging" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		ORDER BY user_no
+		LIMIT #{amount} OFFSET #{offset};
+	</select>	
 	
 	<!-- 이름검색 -->
 	<select id="searchUserName" resultType="EmployeeDTO" parameterType="java.lang.String">
 		SELECT user_no, name,
 		phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
-		WHERE name LIKE concat('%', #{name}, '%');
+		WHERE name LIKE concat('%', #{name}, '%')
 	</select>
 	
 	<!-- 사번검색 -->
@@ -61,7 +72,7 @@
 		SELECT user_no, name,
 		phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
-		WHERE user_no LIKE concat('%', #{userNo}, '%');
+		WHERE user_no LIKE concat('%', #{userNo}, '%')
 	</select>
 	
 	<!-- 부서검색 -->
@@ -69,7 +80,7 @@
 		SELECT user_no, name,
 		phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
-		WHERE dept_name LIKE concat('%', #{deptName}, '%');
+		WHERE dept_name LIKE concat('%', #{deptName}, '%')
 	</select>
 	
 </mapper>

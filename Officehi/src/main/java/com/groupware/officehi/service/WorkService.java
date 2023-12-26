@@ -11,6 +11,11 @@ import com.groupware.officehi.repository.WorkRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author 박재용
+ * @editDate 23.12.19 ~23.12.22
+ */
+
 @Service
 @RequiredArgsConstructor
 public class WorkService {
@@ -21,8 +26,8 @@ public class WorkService {
 		workRepository.insert(work);
 	}
 
-	public void leaveTimeCheck(WorkDTO work) {
-		workRepository.update(work);
+	public int leaveTimeCheck(WorkDTO work) {
+		return workRepository.update(work);
 	}
 
 	public Integer checkDateDuplicte(Long userNo) {
