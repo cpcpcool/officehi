@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
 <!-- 
@@ -67,33 +68,35 @@ color: #222;
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="approval" items="${approvals}">
-								<tr>
-									<td>
-										<c:set var="status" value="${approval.status}" />
-										<c:choose>
-											<c:when test="${status == 1}">신청</c:when>
-											<c:when test="${status == 2}">반려</c:when>
-											<c:when test="${status == 3}">완료</c:when>
-										</c:choose>
-									</td>
-									<td>${approval.name}</td>
-									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
-									<td>${approval.deptName}</td>
-									<td>${approval.date}</td>
-									<td>
-										<c:if test="${approval.checkDate != '9999-01-01'}">
-											${approval.checkDate}
-										</c:if>
-									</td>
-									<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
+							<form:form modelAttribute="approval" action="${context}approvals/${approval.approvalNo}" method="delete">
+								<c:forEach var="approval" items="${approvals}">
+									<tr>
 										<td>
-											<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-											<a href="javascript:void(0)" onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+											<c:set var="status" value="${approval.status}" />
+											<c:choose>
+												<c:when test="${status == 1}">신청</c:when>
+												<c:when test="${status == 2}">반려</c:when>
+												<c:when test="${status == 3}">완료</c:when>
+											</c:choose>
 										</td>
-									</c:if>
-								</tr>
-							</c:forEach>
+										<td>${approval.name}</td>
+										<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
+										<td>${approval.deptName}</td>
+										<td>${approval.date}</td>
+										<td>
+											<c:if test="${approval.checkDate != '9999-01-01'}">
+												${approval.checkDate}
+											</c:if>
+										</td>
+										<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
+											<td>
+												<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
+												<a onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+											</td>
+										</c:if>
+									</tr>
+								</c:forEach>
+							</form:form>
 						</tbody>
 					</table>
 				</div>

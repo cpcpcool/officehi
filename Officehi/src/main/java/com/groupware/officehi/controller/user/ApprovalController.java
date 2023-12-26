@@ -7,10 +7,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -60,7 +62,7 @@ public class ApprovalController {
 		return "user/approvals/approvalList";
 	}
 	
-	// 결재 현황 조회
+	// 기안문, 참조문 보기 버튼 선택
 	@GetMapping("/search")
 	public String getApprovalListSearch(@RequestParam String search, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
@@ -117,7 +119,7 @@ public class ApprovalController {
 	}
 
 	// 결재 문서 수정 버튼 선택
-	@PostMapping("/{approval_no}")
+	@PutMapping("/{approval_no}")
 	public String editApproval(@PathVariable Long approval_no, @ModelAttribute ApprovalDTO approval,
 			HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
@@ -130,8 +132,8 @@ public class ApprovalController {
 	}
 
 	// 결재 문서 삭제 버튼 선택
-	@PostMapping("/{approval_no}/delete")
-	public String deleteApproval(@RequestParam Long approvalNo, HttpServletRequest request, Model model) {
+	@DeleteMapping("/{approvalNo}")
+	public String deleteApproval(@PathVariable Long approvalNo, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 

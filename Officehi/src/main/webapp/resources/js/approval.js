@@ -30,21 +30,9 @@ function deleteApproval(context, approvalNo) {
 	let isFormDelete = confirm("정말 삭제하시겠습니까?");
 	
 	if(isFormDelete) {
-		let form = document.createElement('form');
-		let formInput = document.createElement('input');
-	
-		form.setAttribute('action', context + 'approvals/' + approvalNo + '/delete');
-		form.setAttribute('method', 'post');
-	
-		formInput.setAttribute('type', 'input');
-		formInput.setAttribute('name', 'approvalNo');
-		formInput.setAttribute('value', approvalNo);
-	
-		form.appendChild(formInput);
-		document.body.appendChild(form);
-			
+		let form = document.getElementById('approval');
+		alert(form);
 		form.submit();
-		form.remove();
 	}
 }
 

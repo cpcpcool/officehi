@@ -110,7 +110,7 @@
 	
 	<update id="updateApproval">
 		UPDATE approval
-		SET title = #{title}, content = #{content}, checker1 = (SELECT user_no FROM user WHERE name LIKE #{checker1}) 
+		SET title = #{title}, content = #{content}, checker1 = (SELECT user_no FROM user WHERE name LIKE #{checker1} limit 1) 
 		WHERE approval_no = #{approvalNo};
 	</update>
 	
