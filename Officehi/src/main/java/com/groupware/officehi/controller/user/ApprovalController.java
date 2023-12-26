@@ -136,13 +136,13 @@ public class ApprovalController {
 	public String deleteApproval(@PathVariable Long approvalNo, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
-
-		approvalService.updateApproval(approvalNo);
+		
+		approvalService.delete(approvalNo);
 		return "redirect:/approvals";
 	}
 
 	// 승인, 반려버튼 선택시
-	@PostMapping("/{approvalNo}/status")
+	@PutMapping("status/{approvalNo}")
 	public String setApprovalStatus(@PathVariable Long approvalNo, @ModelAttribute ApprovalDTO approval,
 			HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))

@@ -59,7 +59,8 @@
 	
 	<select id="findApprovalByApprovalNo">
 		SELECT *
-		FROM approval
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
 		WHERE approval_no = #{approvalNo}
 	</select>
 	

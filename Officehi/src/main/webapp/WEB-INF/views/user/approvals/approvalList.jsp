@@ -27,18 +27,18 @@ form {
 .aside ul span {
 color: #222;
 }
-
 .aside ul span.selected {
 	font-weight: 800;
 	color: #345de3;
 }
-
 .table-group-divider tr td a {
 	color: #222;
 }
-
 .pagination nav ul li a {
 	color: #222;
+}
+table img {
+	vertical-align: top;
 }
 </style>
 </head>
@@ -90,8 +90,8 @@ color: #222;
 										</td>
 										<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
 											<td>
-												<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-												<a onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+												<a href="${context}approvals/${approval.approvalNo}" class="px-3" ><img src="${resPath}/img/edit.svg" alt="수정"></a>
+												<button onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})" class="p-0"><img src="${resPath}/img/delete.svg" alt="삭제"></button>
 											</td>
 										</c:if>
 									</tr>

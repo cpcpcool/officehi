@@ -61,7 +61,7 @@ color: #222;
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 문서 상세</h2>
-					<form:form modelAttribute="approval" id="approvalForm" action="${context}approvals/${approval.approvalNo}" method="put">
+					<form:form modelAttribute="approval" action="${context}approvals/${approval.approvalNo}" method="put">
 						<div class="row mb-3">
 							<div class="col-2">
 								<label class="form-label mt-2" for="category">서식</label>
@@ -121,9 +121,9 @@ color: #222;
 						<div>
 							<c:choose>
 								<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
-									<button class="btn btn-dark btn-small me-2" type="submit">수정</button>
+									<button type="submit" class="btn btn-dark btn-small me-2">수정</button>
 								</c:when>
-								<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
+								<c:when test="${!login && loginUser.admin == 0 && approval.status == 1}">
 									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">승인</a>
 									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">반려</a>
 								</c:when>

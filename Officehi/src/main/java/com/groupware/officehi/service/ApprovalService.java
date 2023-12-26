@@ -48,7 +48,7 @@ public class ApprovalService {
 		repository.updateApproval(approval);
 	}
 	
-	public void updateApproval(Long approvalNo) {
+	public void delete(Long approvalNo) {
 		repository.delete(approvalNo);
 	}
 	
