@@ -34,8 +34,14 @@ tbody {
 	padding-top: 16px;
 }
 th {
+	text-align: inherit;
+	text-align: -webkit-match-parent;
 	font-size: 18px;
 	font-weight: 700;
+}
+th.editDeleteTh {
+	width: 90px;
+	text-align: center;	
 }
 tr {
 	font-size: 16px;
@@ -72,6 +78,13 @@ button {
 	line-height: 1;
 	border-radius: 8px;
 	box-sizing: border-box;
+}
+.edit-btn, .delete-btn {
+	padding: 0;
+}
+.edit-btn-box {
+	display: flex;
+	justify-content: space-around;
 }
 a {
 	color: #222;
@@ -222,6 +235,6 @@ footer {
 }
 .footer-bottom p {
 	margin-top: 20px;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 }

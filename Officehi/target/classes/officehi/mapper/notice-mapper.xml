@@ -7,7 +7,8 @@
  * @editDate 23.12.18 ~ 23.12.19
  
  * @author 이승준
- * 기능 추가 23.12.24 ~ 23.12.26 
+ * 검색 기능 추가 23.12.24 ~ 23.12.26
+ * 삭제 기능 추가 23.12.26 ~ 23.12.26
 -->
 <mapper namespace="com.groupware.officehi.repository.NoticeRepository">
 	<insert id="insert" useGeneratedKeys="true" keyProperty="noticeNo" parameterType="NoticeDTO">
@@ -46,4 +47,10 @@
 		WHERE notice_no LIKE concat('%', #{noticeNo}, '%');
 	</select>
 	
+	<!-- 삭제 기능 -->
+	<delete id="delete" parameterType="java.lang.Long">
+		DELETE 
+		FROM notice 
+		WHERE notice_no = #{noticeNo}
+	</delete>
 </mapper>

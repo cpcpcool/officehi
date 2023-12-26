@@ -14,6 +14,7 @@ import com.groupware.officehi.dto.NoticeDTO;
  * 
  * @author 이승준
  * 검색 기능 추가 23.12.24 ~ 23.12.26
+ * 삭제 기능 추가 23.12.26 ~ 23.12.26
  */
 
 @Repository
@@ -29,5 +30,7 @@ public interface NoticeRepository {
 	List<NoticeDTO> searchTitle(@Param("title") String title);
 	List<NoticeDTO> searchContent(@Param("content") String content);
 	List<NoticeDTO> searchNoticeNo(@Param("noticeNo") Long noticeNo);
-	
+
+	/* 삭제 기능 */
+	int delete(@Param("noticeNo") Long noticeNo);
 }

@@ -52,6 +52,7 @@ public class ApprovalController {
 	// 결재 현황 조회
 	@GetMapping
 	public String getApprovalList(HttpServletRequest request, Model model) {
+		// 로그인 검증 메서드 호출
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,18 +16,17 @@ import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.service.NoticeService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
 * @author 이승준
 * @editDate 23.12.21 ~ 23.12.22
 * 검색 기능 추가 23.12.24 ~ 23.12.26
+* 삭제 기능 추가 23.12.26 ~ 23.12.26
 */
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/notices")
-@Slf4j
 public class AdminNoticeController {
 
 	private final NoticeService noticeService;
@@ -77,7 +77,12 @@ public class AdminNoticeController {
 			notices = noticeService.searchNoticeNo(noticeNo);
 		}
 		model.addAttribute("notices", notices);
-		log.info("notices >> " + notices.toString());
 		return "admin/notices/noticeTotal";
+	}
+	
+	@DeleteMapping("/{noticeNo}")
+	public String delete(@PathVariable Long noticeNo, Model model) {
+		noticeService.deleteNotice(noticeNo);
+		return "redirect:/admin/notices";
 	}
 }

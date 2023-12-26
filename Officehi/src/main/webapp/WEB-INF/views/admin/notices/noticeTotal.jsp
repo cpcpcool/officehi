@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!--
@@ -68,12 +69,14 @@
 					</div>
 
 					<!-- 리스트 -->
+					<form:form action="${context}admin/notices/${item.id}" method="delete" id="noticeTable">
 					<table class="table mt-3">
 						<thead>
 							<tr>
 								<th scope="col">공지 번호</th>
 								<th scope="col">제목</th>
 								<th scope="col">등록일</th>
+								<th scope="col" class="editDeleteTh">수정/삭제</th>
 							</tr>
 						</thead>
 						<tbody class="table-group-divider">
@@ -82,10 +85,21 @@
 									<td><a href="${context}admin/notices/${notice.noticeNo}">${notice.noticeNo}</a></td>
 									<td><a href="${context}admin/notices/${notice.noticeNo}">${notice.title}</a></td>
 									<td><a href="${context}admin/notices/${notice.noticeNo}">${notice.date}</a></td>
+									<td>
+										<div class="edit-btn-box">
+											<button type="button" class="edit-btn" onclick="location.href='${context}admin/notices/${notice.noticeNo}'">
+												<img alt="수정버튼" src="<c:url value='/resources/img/edit.svg' />">
+											</button>
+											<button type="button" class="delete-btn" id="${notice.noticeNo}">
+												<img alt="삭제버튼" src="<c:url value='/resources/img/delete.svg'/>">
+											</button>
+										</div>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+					</form:form>
 
 					<!-- 페이지네이션 -->
 					<div class="pagination d-flex justify-content-center mt-2">
@@ -106,5 +120,6 @@
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
+	<script type="text/javascript" src="<c:url value='/resources/js/adminNotices.js' />"></script>
 </body>
 </html>
