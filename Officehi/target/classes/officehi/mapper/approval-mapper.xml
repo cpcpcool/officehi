@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+ * @author 엄다빈
+ * @editDate 23.12.18 ~23.12.26
+  -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo">
+		INSERT INTO approval(user_no, date, title, content, category, checker1)
+		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
+	</insert>
+	
+	<select id="findByUserNo">
+		SELECT name
+		FROM user
+		WHERE user_no = #{userNo}
+	</select>
+
+	<select id="findApproval">
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+	</select>
+	
+	<select id="findApprovalByUserNoOrChercker">
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo};
+	</select>
+	
+	<select id="findUserNameAndDeptName">
+		SELECT user_no, name, dept_name
+		FROM user
+		WHERE user_no != #{userNo}
+	</select>
+	
+	<select id="findUserNameAndDeptNameByApprovalNo">		
+		SELECT *
+		FROM user u JOIN approval a
+		WHERE a.approval_no = #{approvalNo} AND u.user_no != a.checker1;
+	</select>
+	
+	<select id="findApprovalByUserNo">
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE a.user_no = #{userNo};
+	</select>
+	
+	<select id="findApprovalByChecker">
+		SELECT *
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo};
+	</select>
+	
+	<select id="findApprovalByApprovalNo">
+		SELECT *
+		FROM approval
+		WHERE approval_no = #{approvalNo}
+	</select>
+	
+	<select id="findApprovalByTitle">
+		SELECT *
+		FROM approval
+		WHERE title = like concat('%', #{title}, '%')
+	</select>
+	
+	<select id="findApprovalByDeptName">
+		
+	</select>
+	
+	<select id="findApprovalBydate">
+		
+	</select>
+	
+	<select id="findApprovalByCheckDate">
+		
+	</select>
+	
+	<select id="findByApprovalNo">
+		SELECT approval_no, a.user_no, date, title, content, status, category, check_date, name, position, dept_name,
+					(SELECT name
+					FROM approval a JOIN user u
+					ON a.checker1 = u.user_no
+					WHERE a.approval_no = #{approvalNo}) as checker1
+		FROM approval a LEFT JOIN user u
+		ON a.user_no = u.user_no
+		WHERE approval_no = #{approvalNo};
+	</select>
+	
+	<update id="updateApproval">
+		UPDATE approval
+		SET title = #{title}, content = #{content}, checker1 = (SELECT user_no FROM user WHERE name LIKE #{checker1}) 
+		WHERE approval_no = #{approvalNo};
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM approval
+		WHERE approval_no = #{approvalNo}
+	</delete>
+	
+	<update id="updateStatus">
+		UPDATE approval
+		SET check_date = curdate(), status = #{status}
+		WHERE approval_no = #{approvalNo}
+	</update>
+	
+</mapper>
