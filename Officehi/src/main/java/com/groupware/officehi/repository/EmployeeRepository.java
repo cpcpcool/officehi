@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.EmployeeDTO;
+import com.groupware.officehi.dto.FileDTO;
 
 /**
  * @author 박재용
@@ -19,7 +20,11 @@ import com.groupware.officehi.dto.EmployeeDTO;
 public interface EmployeeRepository {
 
 	void insert(EmployeeDTO employeeDTO);
+	
+	void insertFileInfo(FileDTO fileDTO);
 
+	String getFilePathByFileTypeNo(@Param("fileTypeNo") String fileTypeNo);
+	
 	Optional<EmployeeDTO> findByUserNo(@Param("userNo") Long userNo);
 
 	void update(EmployeeDTO employeeDTO);

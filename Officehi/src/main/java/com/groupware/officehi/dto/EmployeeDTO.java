@@ -2,6 +2,9 @@ package com.groupware.officehi.dto;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,8 +42,8 @@ public class EmployeeDTO {
 	
 	private String position;
 	
-	private String profile;
+	private MultipartFile profile;
 	
-	private String stamp;
+	private MultipartFile stamp;
 	
 }

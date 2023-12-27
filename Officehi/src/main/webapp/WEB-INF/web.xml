@@ -69,4 +69,12 @@
 		<extension>ico</extension>
 		<mime-type>image/x-icon</mime-type>
 	</mime-mapping>
+	
+	<multipart-config>
+		<location>C:\\upload\\temp</location>
+		<max-file-size>10485760</max-file-size>
+		<max-request-size>52428800</max-request-size>
+		<file-size-threshold>10485760</file-size-threshold>
+	</multipart-config>
+	
 </web-app>

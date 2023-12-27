@@ -13,12 +13,22 @@
 	<insert id="insert" keyProperty="userNo"
 		useGeneratedKeys="true" parameterType="EmployeeDTO">
 		INSERT INTO user(name, phone,
-		birth_date, to_date, dept_name, position, stamp, profile)
+		birth_date, to_date, dept_name, position)
 		VALUES
-		(#{name}, #{phone}, #{birthDate}, #{toDate}, #{deptName}, #{position},
-		#{stamp}, #{profile})
+		(#{name}, #{phone}, #{birthDate}, #{toDate}, #{deptName}, #{position})
+	</insert>
+	
+	<insert id="insertFileInfo" parameterType="FileDTO">
+		INSERT INTO FILE (FILE_NAME, ORIGINAL_FILE_NAME, FILE_TYPE_NO, user_no, FILE_PATH)
+				  VALUES (#{fileName}, #{originalFileName}, #{fileTypeNo}, #{userNo}, #{filePath})
 	</insert>
 
+	<select id="getFilePathByFileTypeNo" parameterType="String" resultType="String">
+		SELECT FILE_PATH
+		FROM FILE_TYPE
+		WHERE FILE_TYPE_NO = #{fileTypeNo}
+	</select>
+	
 	<select id="findByUserNo" resultType="EmployeeDTO">
 		SELECT *
 		FROM user
@@ -48,7 +58,7 @@
 	<!-- 전체조회 -->
 	<select id="findAll" resultType="EmployeeDTO">
 		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
-		FROM user;
+		FROM user
 	</select>
 	
 	<!-- 페이지네이션 -->
@@ -56,7 +66,7 @@
 		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		ORDER BY user_no
-		LIMIT #{amount} OFFSET #{offset};
+		LIMIT #{amount} OFFSET #{offset}
 	</select>	
 	
 	<!-- 이름검색 -->

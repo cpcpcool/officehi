@@ -61,7 +61,7 @@
 						<div class="row mb-3">
 							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
 							<div class="col-sm">
-								<form:input path="phone" cssClass="form-control" id="phone" placeholder="휴대폰 번호(-)"/>
+								<form:input path="phone" cssClass="form-control" id="phone" placeholder="휴대폰 번호(-)" maxlength="11"/>
 								<form:errors path="phone" cssClass="error" />
 							</div>
 							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
