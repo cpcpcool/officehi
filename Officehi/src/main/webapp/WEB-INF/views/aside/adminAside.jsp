@@ -7,18 +7,19 @@
 	<ul class="aside floating">
 		<li><span>사원 관리</span>
 			<ul>
-				<li><a href="${context}admin/employees"><span>사원 정보 관리</span></a></li>
+				<li><a href="${context}admin/employees" id="employees"><span>사원 정보 관리</span></a></li>
 			</ul>
 		</li>
 		<li><span>전자 결재</span>
 			<ul>
-				<li><a href="${context}admin/approvals"><span>결재 문서 관리</span></a></li>
+				<li><a href="${context}admin/approvals" id="approvals"><span>결재 문서 관리</span></a></li>
 			</ul>
 		</li>
 		<li><span>공지사항</span>
 			<ul>
-				<li><a href="${context}admin/notices"><span>공지사항 관리</span></a></li>
+				<li><a href="${context}admin/notices" id="notices"><span>공지사항 관리</span></a></li>
 			</ul>
 		</li>
 	</ul>
 </div>
+<script type="text/javascript" src="<c:url value='/resources/js/aside.js' />"></script>

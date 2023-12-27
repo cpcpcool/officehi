@@ -171,6 +171,9 @@ a {
 	font-weight: 600;
 	line-height: 1;
 }
+.aside a.active span{
+	color: #345de3;
+}
 
 /* Header */
 header {
