@@ -62,7 +62,6 @@ public class WorkController {
 			workService.arrivalTimeCheck(work);
 			return "redirect:/works";
 		}
-
 	}
 
 	@PostMapping("/leave")

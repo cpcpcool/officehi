@@ -118,7 +118,6 @@
 							<p>${duplicateMessage}</p>
 						</div>
 					</c:if>
-
 				</div>
 			</div>
 		</div>

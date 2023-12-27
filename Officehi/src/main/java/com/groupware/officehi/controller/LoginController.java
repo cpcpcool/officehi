@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.service.LoginService;
@@ -46,15 +49,17 @@ public class LoginController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) {
+		model.addAttribute("loginUserDTO", new LoginUserDTO());
 		return "index";
 	}
 
 	@PostMapping("/login")
-	public String postLoginForm(Long userNo, String pw, HttpServletRequest request) {
-		Optional<LoginUserDTO> loginUser = service.findByUserNoAndPw(userNo, pw);
+	public String postLoginForm(@ModelAttribute LoginUserDTO loginUserDTO, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+		Optional<LoginUserDTO> loginUser = service.findByUserNoAndPw(loginUserDTO.getUserNo(), loginUserDTO.getPw());
 		// 쿼리문 실행으로 가져온 객체가 없다면 로그인 화면으로 다시 리다이렉트, 있다면 로그인 성공 처리
 		if (!loginUser.isPresent()) {
+			redirectAttributes.addFlashAttribute("duplicateMessage", "로그인 정보를 다시 확인해주세요.");
 			return "redirect:/login";
 		}
 		HttpSession session = request.getSession();
