@@ -12,11 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
 import com.groupware.officehi.dto.ApprovalDTO;
 import com.groupware.officehi.dto.EmployeeDTO;
+import com.groupware.officehi.dto.FileDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.dto.WorkDTO;
@@ -50,8 +52,11 @@ public class MainController {
 		}
 		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 		// null 검사 필요
-		Optional<EmployeeDTO> user = employeeService.findByUserNo(loginUser.getUserNo());
+		Optional<EmployeeDTO> user = employeeService.findUserInfoByUserNo(loginUser.getUserNo());
 		model.addAttribute("user", user.get());
+		
+	    FileDTO profile = employeeService.findProfileFileByUserNo(loginUser.getUserNo()).get();
+		model.addAttribute("profile", profile);
 
 		Optional<NoticeDTO> notice = noticeService.findAll().stream().findFirst();
 		if (notice.isPresent())

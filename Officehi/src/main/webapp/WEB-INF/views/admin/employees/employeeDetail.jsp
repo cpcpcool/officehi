@@ -45,7 +45,7 @@
 
 					<!-- FORM -->
 
-					<form:form action="${context}admin/employees/${employee.userNo}" id="employeeInfo" method="post">
+					<form:form action="${context}admin/employees/${employee.userNo}" id="employeeInfo" method="post" enctype="multipart/form-data">
 						<div class="row mb-3">
 							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
 							<div class="col-sm">
@@ -98,11 +98,12 @@
 						<div class="row mb-3">
 							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" value="${employee.profile}" disabled>
+								<input type="text" class="form-control" value="${profileFile.originalFileName}" >
+								<input type="file" hidden="true">
 							</div>
 							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="stamp" name="stamp" value="${employee.stamp}" disabled>
+								<input type="text" class="form-control" id="stamp" name="stamp" value="${stampFile.originalFileName}" >
 							</div>
 						</div>
 						<!-- BUTTON -->

@@ -1,20 +1,15 @@
 package com.groupware.officehi.controller.admin;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletContext;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,20 +30,20 @@ import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 박재용
  * @editDate 23.12.20 ~ 23.12.22 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
  */
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/employees")
 public class AdminEmployeeController {
 
 	private final EmployeeService employeeService;
+	private final ResourceLoader resourceLoader;
+
 	private int employeesTotal = -1; // 전체 직원데이터 수 조회용 캐싱데이터
 	
 	public LoginUserDTO loginUser = null;
@@ -124,9 +119,13 @@ public class AdminEmployeeController {
 	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult, 
 							@RequestParam("profile") MultipartFile profileMultipartFile, 
 							@RequestParam("stamp") MultipartFile stampMultipartFile,
-							Model model) {
+							Model model,
+							HttpServletRequest req) {
 		if(bindingResult.hasErrors())
 			return "admin/employees/employeeAddForm";
+		
+		Resource resource = resourceLoader.getResource("classpath:/");
+
 		
 		// file외 user 정보 저장
 		employeeService.insertUserInfo(employeeDTO);
@@ -152,11 +151,19 @@ public class AdminEmployeeController {
 
 	@GetMapping("/{userNo}")
 	public String employeeDetail(@PathVariable Long userNo, Model model) {
-		Optional<EmployeeDTO> employee = employeeService.findByUserNo(userNo);
+		// 유저 정보
+		Optional<EmployeeDTO> employee = employeeService.findUserInfoByUserNo(userNo);
 		if (employee.get().getFromDate().equals("9999-01-01")) {
 			employee.get().setFromDate("-");
 		}
 		model.addAttribute("employee", employee.get());
+		
+		// 파일 정보
+		Optional<FileDTO> profileFile = employeeService.findProfileFileByUserNo(userNo);
+		model.addAttribute("profileFile", profileFile.get());
+		Optional<FileDTO> stampFile = employeeService.findStampFileByUserNo(userNo);
+		model.addAttribute("stampFile", stampFile.get());
+		
 		return "admin/employees/employeeDetail";
 	}
 

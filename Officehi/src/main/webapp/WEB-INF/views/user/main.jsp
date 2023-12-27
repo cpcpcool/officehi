@@ -23,8 +23,7 @@
 				<div class="aside floating">
 					<div class="profile-box">
 						<div class="profile-image-box">
-							<%-- <img src="${user.profile}" alt="프로필 이미지"> --%>
-							<img src="${resPath}/img/calender.svg" alt="프로필 이미지">
+							<img src="${resPath}/storage/profile/${profile.fileName}" alt="프로필 이미지">
 						</div>
 						<span>${user.deptName}</span>
 						<p><span>${user.name}</span> <span>${user.position}</span></p>

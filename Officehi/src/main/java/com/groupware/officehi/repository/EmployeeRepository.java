@@ -25,7 +25,10 @@ public interface EmployeeRepository {
 
 	String getFilePathByFileTypeNo(@Param("fileTypeNo") String fileTypeNo);
 	
-	Optional<EmployeeDTO> findByUserNo(@Param("userNo") Long userNo);
+	Optional<EmployeeDTO> findUserInfoByUserNo(@Param("userNo") Long userNo);
+
+	Optional<FileDTO> findProfileFileByUserNo(@Param("userNo") Long userNo);
+	Optional<FileDTO> findStampFileByUserNo(@Param("userNo") Long userNo);
 
 	void update(EmployeeDTO employeeDTO);
 

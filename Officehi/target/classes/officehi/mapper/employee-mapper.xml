@@ -19,7 +19,7 @@
 	</insert>
 	
 	<insert id="insertFileInfo" parameterType="FileDTO">
-		INSERT INTO FILE (FILE_NAME, ORIGINAL_FILE_NAME, FILE_TYPE_NO, user_no, FILE_PATH)
+		INSERT INTO file (file_name, original_file_name, file_type_no, user_no, file_path)
 				  VALUES (#{fileName}, #{originalFileName}, #{fileTypeNo}, #{userNo}, #{filePath})
 	</insert>
 
@@ -29,11 +29,24 @@
 		WHERE FILE_TYPE_NO = #{fileTypeNo}
 	</select>
 	
-	<select id="findByUserNo" resultType="EmployeeDTO">
+	<select id="findUserInfoByUserNo" resultType="EmployeeDTO">
 		SELECT *
 		FROM user
 		WHERE
 		user_no = #{userNo}
+	</select>
+
+	<select id="findProfileFileByUserNo" resultType="FileDTO">
+		SELECT *
+		FROM file
+		WHERE
+		user_no = #{userNo} and file_type_no ='1';
+	</select>
+	<select id="findStampFileByUserNo" resultType="FileDTO">
+		SELECT *
+		FROM file
+		WHERE
+		user_no = #{userNo} and file_type_no ='2';
 	</select>
 
 	<update id="update" parameterType="EmployeeDTO">
