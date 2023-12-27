@@ -9,4 +9,8 @@
 		where user_no = #{userNo} and pw = #{pw};
 	</select>
 
+	<insert id="saveUserInfo">
+		INSERT INTO login
+		VALUE (#{userNo}, '1111', '0');
+	</insert>
 </mapper>

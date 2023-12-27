@@ -3,6 +3,7 @@ package com.groupware.officehi.controller.admin;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ import com.groupware.officehi.dto.FileDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.EmployeeService;
+import com.groupware.officehi.service.LoginService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,8 +44,8 @@ import lombok.RequiredArgsConstructor;
 public class AdminEmployeeController {
 
 	private final EmployeeService employeeService;
-	private final ResourceLoader resourceLoader;
-
+	private final LoginService loginService;
+	
 	private int employeesTotal = -1; // 전체 직원데이터 수 조회용 캐싱데이터
 	
 	public LoginUserDTO loginUser = null;
@@ -124,11 +126,10 @@ public class AdminEmployeeController {
 		if(bindingResult.hasErrors())
 			return "admin/employees/employeeAddForm";
 		
-		Resource resource = resourceLoader.getResource("classpath:/");
-
-		
 		// file외 user 정보 저장
 		employeeService.insertUserInfo(employeeDTO);
+		// login 권한 부여
+		loginService.saveUserInfo(employeeDTO.getUserNo());
 		
 		// file 저장
 		FileDTO fileDTO = new FileDTO();
@@ -143,6 +144,7 @@ public class AdminEmployeeController {
 		fileDTO.setMultipartFile(stampMultipartFile);
 		fileDTO.setFileTypeNo("2");
 		employeeService.insertFileInfo(fileDTO);
+		
 		
 		model.addAttribute("employeeDTO", employeeDTO);
 

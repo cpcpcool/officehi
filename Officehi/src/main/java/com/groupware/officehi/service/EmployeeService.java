@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
+	
+	private final ServletContext servletContext;
 
 	public void insertUserInfo(EmployeeDTO employeeDTO) {
 		employeeRepository.insert(employeeDTO);
@@ -42,8 +46,10 @@ public class EmployeeService {
 				+ originalFileName.substring(originalFileName.lastIndexOf("."));
 
 		// OS 별 구분자 교체
-		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
 
+		filePath = filePath.replace("\\", "/");
+//		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
+ 
 		File file = new File(filePath, convertFileName);
 
 		// try catch로 예외 처리 안해줄 시 컴퓨터가 어떻게 할지 몰라서 필수로 해주기
