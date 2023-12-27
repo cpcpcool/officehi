@@ -27,3 +27,4 @@
 		</li>
 	</ul>
 </div>
+<script type="text/javascript" src="<c:url value='/resources/js/aside.js' />"></script>

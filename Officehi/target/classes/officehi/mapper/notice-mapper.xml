@@ -19,7 +19,7 @@
 	<select id="findAll" resultType="NoticeDTO">
 		select notice_no, date, content, title
 		from notice
-		order by date desc;
+		order by notice_no desc;
 	</select>
 	
 	<select id="findByNoticeNo" parameterType="Long" resultType="NoticeDTO">
