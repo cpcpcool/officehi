@@ -1,6 +1,10 @@
 package com.groupware.officehi.controller.admin;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.groupware.officehi.controller.LoginController.SessionConst;
+import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.service.NoticeService;
 
@@ -30,16 +36,56 @@ import lombok.RequiredArgsConstructor;
 public class AdminNoticeController {
 
 	private final NoticeService noticeService;
+	public LoginUserDTO loginUser = null;
+	
+	// 세션 + 관리자 여부 체크
+	public List<Boolean> sessionAndAdminCheck(HttpServletRequest request, Model model) {
+		List<Boolean> loginCheckList = new ArrayList<>();
+		Boolean isUser = true;
+		HttpSession session = request.getSession(false);
+		if (session == null) {
+			loginCheckList.add(true);
+			return loginCheckList;
+		}
+
+		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		if (loginUser == null) {
+			loginCheckList.add(true);
+			return loginCheckList;
+		}
+		
+		loginCheckList.add(false);
+		if(loginUser.getAdmin() != 1)
+			loginCheckList.add(isUser);
+		else
+			loginCheckList.add(!isUser);
+		
+		model.addAttribute("loginUser", loginUser);
+		
+		return loginCheckList;
+	}
 
 	@GetMapping("")
-	public String adminNotices(Model model) {
+	public String adminNotices(HttpServletRequest request,Model model) {
+		// 체크 메서드 호출
+		if(sessionAndAdminCheck(request, model).get(0))
+			return "redirect:/login";
+		if(sessionAndAdminCheck(request, model).get(1))
+			return "redirect:/main";
+		
 		List<NoticeDTO> notices = noticeService.findAll();
 		model.addAttribute("notices", notices);
 		return "/admin/notices/noticeTotal";
 	}
 
 	@GetMapping("/add")
-	public String add(Model model) {
+	public String add(HttpServletRequest request, Model model) {
+		// 체크 메서드 호출
+		if(sessionAndAdminCheck(request, model).get(0))
+			return "redirect:/login";
+		if(sessionAndAdminCheck(request, model).get(1))
+			return "redirect:/main";
+		
 		model.addAttribute("notice", new NoticeDTO());
 		return "/admin/notices/noticeAddForm";
 	}
@@ -51,7 +97,13 @@ public class AdminNoticeController {
 	}
 
 	@GetMapping("/{noticeNo}")
-	public String detail(@PathVariable("noticeNo") Long noticeNo, Model model) {
+	public String detail(@PathVariable("noticeNo") Long noticeNo, HttpServletRequest request, Model model) {
+		// 체크 메서드 호출
+		if(sessionAndAdminCheck(request, model).get(0))
+			return "redirect:/login";
+		if(sessionAndAdminCheck(request, model).get(1))
+			return "redirect:/main";
+		
 		NoticeDTO notice = noticeService.findByNoticeNo(noticeNo).get();
 		model.addAttribute("notice", notice);
 		return "/admin/notices/noticeDetail";
