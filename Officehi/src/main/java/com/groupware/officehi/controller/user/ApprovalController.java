@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
+import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.ApprovalService;
 
 import lombok.RequiredArgsConstructor;
@@ -53,29 +55,40 @@ public class ApprovalController {
 	
 	// 결재 현황 조회
 	@GetMapping
-	public String getApprovalList(HttpServletRequest request, Model model) {
+	public String getApprovalList(@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
-		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo());
+		int total = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo()).size();
+		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrCheckerPaging(loginUser.getUserNo(), paging);
+		
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("pageMaker", new PagingDTO(paging, total));
+		
 		return "user/approvals/approvalList";
 	}
 	
 	// 기안문, 참조문 보기 버튼 선택
 	@GetMapping("/search")
-	public String getApprovalListSearch(@RequestParam String search, HttpServletRequest request, Model model) {
+	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
+		int total;
 		List<ApprovalDTO> approvals;
 		
-		if(search.equals("my"))
-			approvals = approvalService.findApprovalByUserNo(loginUser.getUserNo());
-		else 
-			approvals = approvalService.findApprovalByChecker(loginUser.getUserNo());
+		if(search.equals("my")) {
+			total = approvalService.findAllByUserNo(loginUser.getUserNo()).size();
+			approvals = approvalService.findAllByUserNoPaging(loginUser.getUserNo(), paging);
+		} else if(search.equals("other")){ 
+			total = approvalService.findAllByChecker(loginUser.getUserNo()).size();
+			approvals = approvalService.findAllByCheckerPaging(loginUser.getUserNo(), paging);
+		} else {
+			return "redirect:/approvals";
+		}
 		
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("pageMaker", new PagingDTO(paging, total));
 		
 		return "user/approvals/approvalList";
 	}

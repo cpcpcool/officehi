@@ -7,15 +7,14 @@
  * @editDate 23.12.20 ~ 23.12.22
  * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
 -->
-<mapper
-	namespace="com.groupware.officehi.repository.EmployeeRepository">
+<mapper namespace="com.groupware.officehi.repository.EmployeeRepository">
 
-	<insert id="insert" keyProperty="userNo"
-		useGeneratedKeys="true" parameterType="EmployeeDTO">
+	<insert id="insert" keyProperty="userNo" useGeneratedKeys="true" parameterType="EmployeeDTO">
 		INSERT INTO user(name, phone,
 		birth_date, to_date, dept_name, position, stamp, profile)
 		VALUES
-		(#{name}, #{phone}, #{birthDate}, #{toDate}, #{deptName}, #{position},
+		(#{name}, #{phone},
+		#{birthDate}, #{toDate}, #{deptName}, #{position},
 		#{stamp}, #{profile})
 	</insert>
 
@@ -35,7 +34,8 @@
 		to_date = #{toDate},
 		dept_name = #{deptName},
 		position = #{position}
-		WHERE user_no = #{userNo}
+		WHERE user_no =
+		#{userNo}
 	</update>
 
 	<update id="updateFromDate" parameterType="EmployeeDTO">
@@ -50,15 +50,15 @@
 		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user;
 	</select>
-	
+
 	<!-- 페이지네이션 -->
 	<select id="findAllPaging" resultType="EmployeeDTO">
 		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		ORDER BY user_no
 		LIMIT #{amount} OFFSET #{offset};
-	</select>	
-	
+	</select>
+
 	<!-- 이름검색 -->
 	<select id="searchUserName" resultType="EmployeeDTO" parameterType="java.lang.String">
 		SELECT user_no, name,
@@ -66,7 +66,7 @@
 		FROM user
 		WHERE name LIKE concat('%', #{name}, '%')
 	</select>
-	
+
 	<!-- 사번검색 -->
 	<select id="searchUserNo" resultType="EmployeeDTO" parameterType="java.lang.Long">
 		SELECT user_no, name,
@@ -74,13 +74,14 @@
 		FROM user
 		WHERE user_no LIKE concat('%', #{userNo}, '%')
 	</select>
-	
+
 	<!-- 부서검색 -->
 	<select id="searchDeptName" resultType="EmployeeDTO" parameterType="java.lang.String">
 		SELECT user_no, name,
 		phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
-		WHERE dept_name LIKE concat('%', #{deptName}, '%')
+		WHERE dept_name LIKE concat('%',
+		#{deptName}, '%')
 	</select>
-	
+
 </mapper>

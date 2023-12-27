@@ -13,6 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결재 현황 조회</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -68,7 +69,7 @@ table img {
 							</tr>
 						</thead>
 						<tbody>
-							<form:form modelAttribute="approval" action="${context}approvals/${approval.approvalNo}" method="delete">
+							<form:form modelAttribute="approval" action="" method="delete">
 								<c:forEach var="approval" items="${approvals}">
 									<tr>
 										<td>
@@ -99,11 +100,36 @@ table img {
 							</form:form>
 						</tbody>
 					</table>
+					<c:set var="action" value="${context}approvals" />
+					<c:choose>
+						<c:when test="${param.search == 'my' or param.search == 'other'}">
+							<c:set var="action" value="${context}approvals/search" />
+						</c:when>
+					</c:choose>
+					<form:form id="pagingForm" modelAttribute="pageMaker" action="${action}" method="get">
+						<input type="hidden" name="search" value="${param.search}">
+						<form:hidden path="pageNum" />
+						<form:hidden path="amount" />
+						<nav aria-label="Page navigation">
+							<ul class="pagination mt-5 justify-content-center">
+								<c:if test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+								</c:if>
+								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+									<li class="page-item ${pageMaker.paging.pageNum == num ? 'active' : ''}"><a class="page-link" href="${num}">${num}</a></li>
+								</c:forEach>
+								<c:if test="${pageMaker.next}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</main>
 	<%@ include file="../../footer/footer.jsp"%>
 	<script src="${resPath}/js/approval.js" type="text/javascript" ></script>
+	<script src="${resPath}/js/pagination.js" type="text/javascript" ></script>
 </body>
 </html>
