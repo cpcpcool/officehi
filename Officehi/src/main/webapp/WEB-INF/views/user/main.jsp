@@ -16,7 +16,7 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 </head>
 <body id="main" onload="getTime()">
-	<%@ include file="../header/header.jsp" %>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp" %>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -111,6 +111,6 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="../footer/footer.jsp" %>
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp" %>
 </body>
 </html>

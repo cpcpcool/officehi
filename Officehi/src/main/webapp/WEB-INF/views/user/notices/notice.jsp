@@ -45,10 +45,10 @@ h2 {
 </style>
 </head>
 <body>
-	<%@ include file="../../header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/userAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>공지사항 조회</h2>
@@ -71,6 +71,6 @@ h2 {
 			</div>
 		</div>
 	</main>
-	<%@ include file="../../footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
 </body>
 </html>

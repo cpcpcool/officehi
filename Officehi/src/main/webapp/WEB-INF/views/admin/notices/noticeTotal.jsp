@@ -38,10 +38,10 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/adminAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/adminAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2 class="lgmg">공지사항 관리</h2>
@@ -119,7 +119,7 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 	<script type="text/javascript" src="<c:url value='/resources/js/adminNotices.js' />"></script>
 </body>
 </html>

@@ -36,10 +36,10 @@
 </style>
 </head>
 <body>
-	<%@ include file="../../header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/adminAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/adminAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2 class="lgmg">결재 문서 관리</h2>
@@ -88,7 +88,7 @@
 									</td>
 									<td>${approval.approvalNo}</td>
 									<td>${approval.name}</td>
-									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
+									<td><a href="${context}admin/approvals/${approval.approvalNo}">${approval.title}</a></td>
 									<td>${approval.deptName}</td>
 									<td>${approval.date}</td>
 									<td>
@@ -104,6 +104,6 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="../../footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 </body>
 </html>

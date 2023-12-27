@@ -47,17 +47,24 @@ color: #222;
 </style>
 </head>
 <body>
-	<%@ include file="../../header/header.jsp"%>
+	<c:choose>
+		<c:when test="${loginUser.admin == 0 }">
+			<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
+		</c:when>
+		<c:when test="${loginUser.admin == 1 }">
+			<%@ include file="/WEB-INF/views/header/adminHeader.jsp" %>
+		</c:when>
+	</c:choose>
 	<main>
 		<div class="main-container">
-					<c:choose>
-						<c:when test="${loginUser.admin == 0 }">
-							<%@ include file="../../aside/userAside.jsp" %>
-						</c:when>
-						<c:when test="${loginUser.admin == 1 }">
-							<%@ include file="../../aside/adminAside.jsp" %>
-						</c:when>
-					</c:choose>
+			<c:choose>
+				<c:when test="${loginUser.admin == 0 }">
+					<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
+				</c:when>
+				<c:when test="${loginUser.admin == 1 }">
+					<%@ include file="/WEB-INF/views/aside/adminAside.jsp" %>
+				</c:when>
+			</c:choose>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 문서 상세</h2>
@@ -135,7 +142,14 @@ color: #222;
 			</div>
 		</div>
 	</main>
-	<%@ include file="../../footer/footer.jsp"%>
+	<c:choose>
+		<c:when test="${loginUser.admin == 0 }">
+			<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
+		</c:when>
+		<c:when test="${loginUser.admin == 1 }">
+			<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
+		</c:when>
+	</c:choose>
 	<script src="${resPath}/js/approval.js" type="text/javascript"></script>
 </body>
 </html>
