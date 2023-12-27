@@ -31,6 +31,7 @@ public interface NoticeRepository {
 	List<NoticeDTO> searchContent(@Param("content") String content);
 	List<NoticeDTO> searchNoticeNo(@Param("noticeNo") Long noticeNo);
 
-	/* 삭제 기능 */
+	/* 수정/삭제 기능 */
+	void update(NoticeDTO notice);
 	int delete(@Param("noticeNo") Long noticeNo);
 }

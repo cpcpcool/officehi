@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 * @author 이승준
 * @editDate 23.12.21 ~ 23.12.22
 * 검색 기능 추가 23.12.24 ~ 23.12.26
-* 삭제 기능 추가 23.12.26 ~ 23.12.26
+* 수정/삭제 기능 추가 23.12.26 ~ 23.12.27
 */
 
 @Controller
@@ -58,7 +58,8 @@ public class AdminNoticeController {
 	}
 
 	@PostMapping("/{noticeNo}")
-	public String adminUpdate(@PathVariable("noticeNo") Long noticeNo) {
+	public String adminUpdate(@ModelAttribute NoticeDTO notice) {
+		noticeService.updateNoticeInfo(notice);
 		return "redirect:/admin/notices";
 	}
 	

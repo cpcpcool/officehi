@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!--
@@ -35,27 +36,27 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>공지사항 상세</h2>
-
-
-					<form action="${context}admin/notices" method="post">
+					<form:form action="${context}admin/notices/${notice.noticeNo}" modelAttribute="notice" method="post">
+					<%-- <form action="${context}admin/notices" method="post"> --%>
 						<div class="mt-4 mb-4 row g-1 align-items-center">
 							<div class="col-1">
 								<label for="" class="form-label mb-0">제목</label>
 							</div>
 							<div class="col-11">
-								<input type="text" class="form-control" id="noticeName" value="${notice.title}">
+								<form:input path="title" cssClass="form-control" id="noticeName"/>
+								<%-- <input type="text" class="form-control" id="noticeName" value="${notice.title}"> --%>
 							</div>
 						</div>
 						<div class="mb-4">
 							<label for="noticeContent" class="form-label mb-3">내용</label>
-							<textarea class="form-control form-control-lg " id="noticeContent" rows="3" style="height: 400px; resize: none;">${notice.content}</textarea>
+							<form:textarea path="content" class="form-control" id="noticeContent" rows="3" style="height: 400px; resize: none;"/>
 						</div>
-
 						<div class="noticeModify">
-							<button class="btn btn-dark btn-lg mt-3 me-3" id="arrival" type="button">수정 하기</button>
-							<button class="btn btn-outline-dark btn-lg mt-3" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
+							<button class="btn btn-dark mt-3 me-3" id="arrival" type="submit">수정 하기</button>
+							<button class="btn btn-outline-dark mt-3" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
 						</div>
-					</form>
+					<!-- </form> -->
+					</form:form>
 				</div>
 			</div>
 		</div>
