@@ -12,7 +12,6 @@
 <head>
 <meta charset="UTF-8">
 <title>사원 정보 상세</title>
-<script type="text/javascript" src="${resPath}/js/employeeEdit.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
@@ -96,13 +95,21 @@
 							</div>
 						</div>
 						<div class="row mb-3">
-							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
+							<label for="profile" class="col-sm-2 col-form-label">프로필이미지</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="profile" name="profile" value="${profileFile.originalFileName}">
+								<div class="input-group flex-wrap">
+									<input type="text" class="form-control" id="profile" name="profile" value="${profileFile.originalFileName}">
+									<button type="button" id="profileFileButton" class="btn btn-outline-secondary" onclick="onClickProfileFileUpload()">파일추가</button>
+								</div>
+								<input type="file" id="profileFileInput" style="display: none;">
 							</div>
-							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
+							<label for="stamp" class="col-sm-2 col-form-label">인감이미지</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="stamp" name="stamp" value="${stampFile.originalFileName}">
+								<div class="input-group flex-wrap">
+									<input type="text" class="form-control" id="stamp" name="stamp" value="${stampFile.originalFileName}">
+									<button type="button" id="stampFileButton" class="btn btn-outline-secondary" onclick="onClickStampFileUpload">파일추가</button>
+								</div>
+								<input type="file" id="stampFileInput" style="display: none;">
 							</div>
 						</div>
 						<!-- BUTTON -->
@@ -116,5 +123,7 @@
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
+	<script type="text/javascript" src="${resPath}/js/employeeEdit.js"></script>
+	<script type="text/javascript" src="${resPath}/js/fileUpload.js"></script>
 </body>
 </html>
