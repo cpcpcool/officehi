@@ -15,7 +15,9 @@ import lombok.RequiredArgsConstructor;
  * @author 정유진
  * @editDate 23.12.18 ~ 23.12.19
  * 
- * @author 이승준 검색 기능 추가 23.12.24 ~ 23.12.26
+ * @author 이승준
+ * 검색 기능 추가 23.12.24 ~ 23.12.26
+ * 수정/삭제 기능 추가 23.12.26 ~ 23.12.27
  */
 
 @Service
@@ -49,7 +51,17 @@ public class NoticeService {
 		return noticeRepository.searchContent(content);
 	}
 
+	public List<NoticeDTO> searchContent(String content) {
+		return noticeRepository.searchContent(content);
+	}
 	public List<NoticeDTO> searchNoticeNo(Long noticeNo) {
 		return noticeRepository.searchNoticeNo(noticeNo);
+	}
+	/* 수정/삭제 기능 */
+	public void updateNoticeInfo(NoticeDTO notice) {
+		noticeRepository.update(notice);
+	}
+	public int deleteNotice(Long noticeNo) {
+		return noticeRepository.delete(noticeNo);
 	}
 }

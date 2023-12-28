@@ -57,10 +57,10 @@
 
 </head>
 <body onload="getTime()">
-	<%@ include file="/WEB-INF/views/header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/userAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>출퇴근 시간 기록</h2>
@@ -118,11 +118,10 @@
 							<p>${duplicateMessage}</p>
 						</div>
 					</c:if>
-
 				</div>
 			</div>
 		</div>
 	</main>
-	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
 </body>
 </html>

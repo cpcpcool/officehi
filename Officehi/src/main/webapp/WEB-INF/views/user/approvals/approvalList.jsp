@@ -44,10 +44,10 @@ table img {
 </style>
 </head>
 <body>
-	<%@ include file="../../header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/userAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 현황 조회</h2>
@@ -128,7 +128,7 @@ table img {
 			</div>
 		</div>
 	</main>
-	<%@ include file="../../footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
 	<script src="${resPath}/js/approval.js" type="text/javascript" ></script>
 	<script src="${resPath}/js/pagination.js" type="text/javascript" ></script>
 </body>

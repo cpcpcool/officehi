@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,7 +49,7 @@ public class AdminApprovalController {
 		
 		return false;
 	}
-
+	
 	// 관리자 결재 문서 리스트
 	@GetMapping
 	public String getAdminApprovalList(@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
@@ -65,6 +66,18 @@ public class AdminApprovalController {
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		
 		return "admin/approvals/approvalTotal";
+	}
+	
+	// 결재 문서 상세 보기
+	@GetMapping("/{approval_no}")
+	public String getApproval(@PathVariable Long approval_no, HttpServletRequest request, Model model) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+
+		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
+		model.addAttribute("approval", approval);
+
+		return "user/approvals/approval";
 	}
 	
 	@GetMapping("/search")

@@ -10,7 +10,7 @@ body {
 	background-color: #f6f6f6;
 }
 main {
-	min-height: calc(100vh - 210px - 80px); /* 전체화면 높이에서 헤더 높이와 푸터 높이를 뺌 */
+	min-height: calc(100vh - 200px - 80px); /* 전체화면 높이에서 헤더 높이와 푸터 높이를 뺌 */
 	padding: 40px 20px;
 	font-size: 20px;
 	box-sizing: border-box;
@@ -34,8 +34,14 @@ tbody {
 	padding-top: 16px;
 }
 th {
+	text-align: inherit;
+	text-align: -webkit-match-parent;
 	font-size: 18px;
 	font-weight: 700;
+}
+th.editDeleteTh {
+	width: 90px;
+	text-align: center;	
 }
 tr {
 	font-size: 16px;
@@ -46,9 +52,24 @@ thead tr th {
 }
 tbody tr td {
 	padding-top: 20px;
+	font-feature-settings: "tnum";
+	font-variant-numeric: tabular-nums;
+}
+tbody te td a {
+	font-feature-settings: "tnum";
+	font-variant-numeric: tabular-nums;
 }
 tbody tr:first-of-type td {
 	padding-top: 16px;
+}
+.ellipsis {
+	display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 0.5em;
+    box-sizing: border-box;
 }
 input {
 	width: 100%;
@@ -72,6 +93,13 @@ button {
 	line-height: 1;
 	border-radius: 8px;
 	box-sizing: border-box;
+}
+.edit-btn, .delete-btn {
+	padding: 0;
+}
+.edit-btn-box {
+	display: flex;
+	justify-content: space-around;
 }
 a {
 	color: #222;
@@ -143,6 +171,9 @@ a {
 	font-weight: 600;
 	line-height: 1;
 }
+.aside a.active span{
+	color: #345de3;
+}
 
 /* Header */
 header {
@@ -210,7 +241,7 @@ footer {
 	margin-right: 0;
 }
 .footer-menu a {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 }
 .footer-bottom {
@@ -220,8 +251,11 @@ footer {
 	padding: 32px 0;
 	flex-direction: column;
 }
+.footer-bottom .footer-container img {
+	height: 34px;
+}
 .footer-bottom p {
 	margin-top: 20px;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 }

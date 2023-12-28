@@ -3,6 +3,10 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
+<!--  
+* @author 이승준
+* @editDate 23.12.20 ~ 23.12.21
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +20,7 @@
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 </head>
 <body id="main" onload="getTime()">
-	<%@ include file="../header/header.jsp" %>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp" %>
 	<main>
 		<div class="main-container">
 			<div class="aside-box">
@@ -110,6 +114,6 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="../footer/footer.jsp" %>
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp" %>
 </body>
 </html>

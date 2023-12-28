@@ -38,10 +38,10 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/adminAside.jsp"%>
+			<%@ include file="/WEB-INF/views/aside/adminAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>사원 정보 등록</h2>
@@ -122,6 +122,6 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 </body>
 </html>

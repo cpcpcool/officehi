@@ -29,10 +29,10 @@ thead {
 </style>
 </head>
 <body>
-	<%@ include file="../../header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../../aside/userAside.jsp"%>
+			<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>공지사항 조회</h2>
@@ -79,5 +79,7 @@ thead {
 	</main>
 <%@ include file="../../footer/footer.jsp"%>
 <script type="text/javascript" src="<c:url value='/resources/js/pagination.js' />"></script>
+
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
 </body>
 </html>

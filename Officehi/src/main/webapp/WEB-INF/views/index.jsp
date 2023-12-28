@@ -1,8 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
+<!--  
+* @author 이승준
+* @editDate 23.12.18 ~ 23.12.20
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +24,14 @@
 		<div class="content-box floating">
 			<h1><img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고"></h1>
 			<h2>로그인</h2>
-			<form action="<c:url value='/login' />" method="post">
-				<input type="text" id="userNo" name="userNo" placeholder="아이디를 입력해주세요">
-				<input type="password" id="pw" name="pw" placeholder="비밀번호를 입력해주세요">
+			<form:form action="${context}login" modelAttribute="loginUserDTO" method="post">
+				<form:input path="userNo" cssClass="form-control" type="text" id="userNo" placeholder="아이디를 입력해주세요"/>
+				<form:input path="pw" cssClass="form-control" type="password" id="pw" placeholder="비밀번호를 입력해주세요"/>
+				<c:if test="${not empty duplicateMessage}">
+					<p class="login-message">${duplicateMessage}</p>
+				</c:if>
 				<button type="submit" id="login-btn">로그인</button>
-			</form>
+			</form:form>
 		</div>
 	</main>
 </body>

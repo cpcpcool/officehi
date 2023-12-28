@@ -69,10 +69,10 @@ td {
 </style>
 </head>
 <body>
-	<%@ include file="../header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../aside/userAside.jsp"%>
+			<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>마이 페이지</h2>
@@ -116,6 +116,6 @@ td {
 		</div>
 	</main>
 
-	<%@ include file="../footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
 </body>
 </html>
