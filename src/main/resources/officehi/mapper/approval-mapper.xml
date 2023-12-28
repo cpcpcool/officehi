@@ -33,15 +33,22 @@
 	</select>
 
 	<select id="findUserNameAndDeptName">
-		SELECT user_no, name, dept_name
+		SELECT *
 		FROM user
-		WHERE user_no != #{userNo}
+		WHERE position NOT IN
+		<foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
 	</select>
 	
 	<select id="findUserNameAndDeptNameByApprovalNo">		
 		SELECT *
 		FROM user u JOIN approval a
-		WHERE a.approval_no = #{approvalNo} AND u.user_no != a.checker1
+		WHERE a.approval_no = #{approvalNo} AND
+		u.user_no != a.checker1 AND
+		position NOT IN((SELECT position
+					   FROM user
+                       WHERE user_no = #{userNo}), '')
 	</select>
 	
 	<select id="findAllByApprovalNo">

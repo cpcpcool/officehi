@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
 import com.groupware.officehi.repository.ApprovalRepository;
+import com.groupware.officehi.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class ApprovalService {
 	
 	private final ApprovalRepository repository;
+	private final EmployeeRepository employeeRepository;
 	
 	public void insertApproval(ApprovalDTO approval) {
 		repository.insert(approval);
@@ -34,12 +36,30 @@ public class ApprovalService {
 		return repository.findAll();
 	}
 	
-	public List<ApprovalDTO> findAllUserNameAndDeptName(Long userNo) {
-		return repository.findUserNameAndDeptName(userNo);
+	public List<ApprovalDTO> findUserNameAndDeptName(Long userNo) {
+		String positionSearch = employeeRepository.findUserInfoByUserNo(userNo).get().getPosition();
+		String[] positionScope = {};
+		
+		switch(positionSearch) {
+		case "팀장":
+			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
+			break;
+		case "대리":
+			positionScope = new String[]{"사원", "주임", "대리"};
+			break;
+		case "주임":
+			positionScope = new String[]{"사원", "주임"};
+			break;
+		case "사원":
+			positionScope = new String[]{"사원"};
+			break;
+		}
+		
+		return repository.findUserNameAndDeptName(positionScope);
 	}
 	
-	public List<ApprovalDTO> findAllUserNameAndDeptNameByApprovalNo(Long approvalNo) {
-		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo);
+	public List<ApprovalDTO> findUserNameAndDeptNameByApprovalNo(Long approvalNo, Long userNo) {
+		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo, userNo);
 	}
 
 	public List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo) {

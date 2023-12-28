@@ -23,8 +23,8 @@ public interface ApprovalRepository {
 	List<ApprovalDTO> findAll();
 	List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo);
 	
-	List<ApprovalDTO> findUserNameAndDeptName(Long userNo);
-	List<ApprovalDTO> findUserNameAndDeptNameByApprovalNo(Long approvalNo);
+	List<ApprovalDTO> findUserNameAndDeptName(String[] position);
+	List<ApprovalDTO> findUserNameAndDeptNameByApprovalNo(@Param(value = "approvalNo") Long approvalNo, @Param(value = "userNo") Long userNo);
 	
 	List<ApprovalDTO> findAllByApprovalNo(Long approvalNo);
 	List<ApprovalDTO> findAllByUserNo(Long userNo);

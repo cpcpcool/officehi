@@ -24,14 +24,12 @@ import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.ApprovalService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 엄다빈
  * @editDate 23.12.18 ~ 23.12.26
  */
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/approvals")
@@ -101,7 +99,8 @@ public class ApprovalController {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
-		List<ApprovalDTO> userList = approvalService.findAllUserNameAndDeptName(loginUser.getUserNo());
+		List<ApprovalDTO> userList = approvalService.findUserNameAndDeptName(loginUser.getUserNo());
+		
 		model.addAttribute("userList", userList);
 		model.addAttribute("approval", new ApprovalDTO());
 		
@@ -127,11 +126,7 @@ public class ApprovalController {
 			return "redirect:/login";
 
 		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
-		List<ApprovalDTO> userList = approvalService.findAllUserNameAndDeptNameByApprovalNo(approval.getApprovalNo());
-		
-		log.info("approval >> {}", approval);
-		log.info("approval.getApprovalNo >> {}", approval.getApprovalNo());
-		log.info("approval.getCheckerName1 >> {}", approval.getCheckerName1());
+		List<ApprovalDTO> userList = approvalService.findUserNameAndDeptNameByApprovalNo(approval.getApprovalNo(), loginUser.getUserNo());
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
