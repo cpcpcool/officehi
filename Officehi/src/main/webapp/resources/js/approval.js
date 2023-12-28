@@ -12,10 +12,10 @@ function updateApproval(context, approvalNo, status) {
 		isFormUpdate = confirm("승인하시겠습니까?");
 		
 	if(isFormUpdate) {
-		let form = document.getElementById('approvalForm');
+		let form = document.getElementById('approval');
 		let formInput = document.createElement('input');
 		
-		form.setAttribute('action', context + 'approvals/' + approvalNo + '/status');
+		form.setAttribute('action', context + 'approvals/status/' + approvalNo);
 		formInput.setAttribute('name', 'status');
 		formInput.setAttribute('value', status);
 		
@@ -30,20 +30,22 @@ function deleteApproval(context, approvalNo) {
 	let isFormDelete = confirm("정말 삭제하시겠습니까?");
 	
 	if(isFormDelete) {
-		let form = document.createElement('form');
-		let formInput = document.createElement('input');
-	
-		form.setAttribute('action', context + 'approvals/' + approvalNo + '/delete');
-		form.setAttribute('method', 'post');
-	
-		formInput.setAttribute('type', 'input');
-		formInput.setAttribute('name', 'approvalNo');
-		formInput.setAttribute('value', approvalNo);
-	
-		form.appendChild(formInput);
-		document.body.appendChild(form);
-			
+		let form = document.getElementById('approval');
+		
+		form.setAttribute('action', context + 'approvals/' + approvalNo);
+		
 		form.submit();
-		form.remove();
+	}
+}
+
+function searchApproval() {
+	let searchValue = document.getElementById('searchValue');
+	let search = document.getElementById('search');
+	let searchOption = search.options[search.selectedIndex].value;
+	
+	if(searchOption == 'date' || searchOption == 'checkDate') {
+		searchValue.setAttribute('type', 'date');
+	} else {
+		searchValue.setAttribute('type', 'type');
 	}
 }

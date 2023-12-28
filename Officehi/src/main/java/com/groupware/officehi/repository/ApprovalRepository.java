@@ -3,8 +3,10 @@ package com.groupware.officehi.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
 
 /**
@@ -15,24 +17,37 @@ import com.groupware.officehi.dto.ApprovalDTO;
 @Repository
 public interface ApprovalRepository {
 	void insert(ApprovalDTO insert);
-
 	String findUserByUserNo(Long userNo);
 
-	List<ApprovalDTO> findApproval();
+	List<ApprovalDTO> findAll();
 	List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo);
+	
 	List<ApprovalDTO> findUserNameAndDeptName(Long userNo);
 	List<ApprovalDTO> findUserNameAndDeptNameByApprovalNo(Long approvalNo);
-	List<ApprovalDTO> findApprovalByUserNo(Long userNo);
-	List<ApprovalDTO> findApprovalByChecker(Long userNo);
 	
-	List<ApprovalDTO> findApprovalByApprovalNo(Long approvalNo);
-	List<ApprovalDTO> findApprovalByTitle(String title);
-	List<ApprovalDTO> findApprovalByDeptName(String deptName);
-	List<ApprovalDTO> findApprovalBydate(String date);
-	List<ApprovalDTO> findApprovalByCheckDate(String checkDate);
+	List<ApprovalDTO> findAllByApprovalNo(Long approvalNo);
+	List<ApprovalDTO> findAllByUserNo(Long userNo);
+	List<ApprovalDTO> findAllByChecker(Long userNo);
+	List<ApprovalDTO> findAllByUserName(String userName);
+	List<ApprovalDTO> findAllByTitle(String title);
+	List<ApprovalDTO> findAllByDeptName(String deptName);
+	List<ApprovalDTO> findAllBydate(String date);
+	List<ApprovalDTO> findAllByCheckDate(String checkDate);
 	
 	Optional<ApprovalDTO> findByApprovalNo(Long approvalNo);
 	void updateApproval(ApprovalDTO approval);
 	void delete(Long ApprovalNo);
 	void updateStatus(ApprovalDTO approval);
+	
+	// paging query
+	List<ApprovalDTO> findAllPaging(Paging paging);
+	List<ApprovalDTO> findApprovalByUserNoOrCheckerPaging(@Param(value = "userNo") Long userNo, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByApprovalNoPaging(@Param(value = "approvalNo") Long approvalNo, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByUserNoPaging(@Param(value = "userNo") Long userNo, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByCheckerPaging(@Param(value = "userNo") Long userNo, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByUserNamePaging(@Param(value = "userName") String userName, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByTitlePaging(@Param(value = "title") String title, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByDeptNamePaging(@Param(value = "deptName") String deptName, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllBydatePaging(@Param(value = "date") String date, @Param(value = "paging") Paging paging);
+	List<ApprovalDTO> findAllByCheckDatePaging(@Param(value = "checkDate") String checkDate, @Param(value = "paging") Paging paging);
 }

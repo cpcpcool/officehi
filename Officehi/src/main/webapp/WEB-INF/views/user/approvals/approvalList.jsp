@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
 <!-- 
@@ -12,6 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>결재 현황 조회</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
@@ -26,18 +28,18 @@ form {
 .aside ul span {
 color: #222;
 }
-
 .aside ul span.selected {
 	font-weight: 800;
 	color: #345de3;
 }
-
 .table-group-divider tr td a {
 	color: #222;
 }
-
 .pagination nav ul li a {
 	color: #222;
+}
+table img {
+	vertical-align: top;
 }
 </style>
 </head>
@@ -67,40 +69,67 @@ color: #222;
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="approval" items="${approvals}">
-								<tr>
-									<td>
-										<c:set var="status" value="${approval.status}" />
-										<c:choose>
-											<c:when test="${status == 1}">신청</c:when>
-											<c:when test="${status == 2}">반려</c:when>
-											<c:when test="${status == 3}">완료</c:when>
-										</c:choose>
-									</td>
-									<td>${approval.name}</td>
-									<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
-									<td>${approval.deptName}</td>
-									<td>${approval.date}</td>
-									<td>
-										<c:if test="${approval.checkDate != '9999-01-01'}">
-											${approval.checkDate}
-										</c:if>
-									</td>
-									<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
+							<form:form modelAttribute="approval" action="" method="delete">
+								<c:forEach var="approval" items="${approvals}">
+									<tr>
 										<td>
-											<a href="${context}approvals/${approval.approvalNo}" class="px-3"><img src="${resPath}/img/edit.svg" alt="수정"></a>
-											<a href="javascript:void(0)" onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})"><img src="${resPath}/img/delete.svg" alt="삭제"></a>
+											<c:set var="status" value="${approval.status}" />
+											<c:choose>
+												<c:when test="${status == 1}">신청</c:when>
+												<c:when test="${status == 2}">반려</c:when>
+												<c:when test="${status == 3}">완료</c:when>
+											</c:choose>
 										</td>
-									</c:if>
-								</tr>
-							</c:forEach>
+										<td>${approval.name}</td>
+										<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
+										<td>${approval.deptName}</td>
+										<td>${approval.date}</td>
+										<td>
+											<c:if test="${approval.checkDate != '9999-01-01'}">
+												${approval.checkDate}
+											</c:if>
+										</td>
+										<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
+											<td>
+												<a href="${context}approvals/${approval.approvalNo}" class="px-3" ><img src="${resPath}/img/edit.svg" alt="수정"></a>
+												<button onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})" class="p-0"><img src="${resPath}/img/delete.svg" alt="삭제"></button>
+											</td>
+										</c:if>
+									</tr>
+								</c:forEach>
+							</form:form>
 						</tbody>
 					</table>
+					<c:set var="action" value="${context}approvals" />
+					<c:choose>
+						<c:when test="${param.search == 'my' or param.search == 'other'}">
+							<c:set var="action" value="${context}approvals/search" />
+						</c:when>
+					</c:choose>
+					<form:form id="pagingForm" modelAttribute="pageMaker" action="${action}" method="get">
+						<input type="hidden" name="search" value="${param.search}">
+						<form:hidden path="pageNum" />
+						<form:hidden path="amount" />
+						<nav aria-label="Page navigation">
+							<ul class="pagination mt-5 justify-content-center">
+								<c:if test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+								</c:if>
+								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+									<li class="page-item ${pageMaker.paging.pageNum == num ? 'active' : ''}"><a class="page-link" href="${num}">${num}</a></li>
+								</c:forEach>
+								<c:if test="${pageMaker.next}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+								</c:if>
+							</ul>
+						</nav>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</main>
 	<%@ include file="../../footer/footer.jsp"%>
 	<script src="${resPath}/js/approval.js" type="text/javascript" ></script>
+	<script src="${resPath}/js/pagination.js" type="text/javascript" ></script>
 </body>
 </html>

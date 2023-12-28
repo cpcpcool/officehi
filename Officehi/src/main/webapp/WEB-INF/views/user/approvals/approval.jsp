@@ -5,7 +5,7 @@
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
 <c:set var="login" value="false" />
-<c:if test="${loginUser.userNo != approval.userNo}">
+<c:if test="${loginUser.userNo == approval.userNo}">
 	<c:set var="login" value="true" />
 </c:if>
 <!-- 
@@ -61,7 +61,7 @@ color: #222;
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 문서 상세</h2>
-					<form:form modelAttribute="approval" id="approvalForm" action="${context}approvals/${approval.approvalNo}" method="post">
+					<form:form modelAttribute="approval" action="${context}approvals/${approval.approvalNo}" method="put">
 						<div class="row mb-3">
 							<div class="col-2">
 								<label class="form-label mt-2" for="category">서식</label>
@@ -74,7 +74,7 @@ color: #222;
 							</div>
 							<div class="col">
 								<c:choose>
-									<c:when test="${loginUser.userNo == approval.userNo && loginUser.admin == 0 && approval.status == 1}">
+									<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
 										<form:select path="checker1" class="form-select">
 											<form:option value="${approval.checker1}" selected="true" />
 											<form:options items="${userList}" itemValue="name" itemLabel="name"/>
@@ -91,7 +91,7 @@ color: #222;
 								<label class="form-label" for="title">문서 제목</label>
 							</div>
 							<div class="col">
-								<form:input path="title" cssClass="form-control" value="${approval.title}" readonly="${login}" />
+								<form:input path="title" cssClass="form-control" value="${approval.title}" readonly="${!login}" />
 							</div>
 						</div>
 						<div class="row mb-3">
@@ -115,15 +115,15 @@ color: #222;
 								<label class="form-label" for="content">내용</label>
 							</div>
 							<div class="">
-								<form:textarea path="content" cssClass="form-control w-100" style="height: 400px; resize: none;" readonly="${login}" />
+								<form:textarea path="content" cssClass="form-control w-100" style="height: 400px; resize: none;" readonly="${!login}" />
 							</div>
 						</div>
 						<div>
 							<c:choose>
-								<c:when test="${loginUser.userNo == approval.userNo && loginUser.admin == 0 && approval.status == 1}">
-									<button class="btn btn-dark btn-small me-2" style="display: ${display};" type="submit">수정</button>
+								<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
+									<button type="submit" class="btn btn-dark btn-small me-2">수정</button>
 								</c:when>
-								<c:when test="${loginUser.userNo != approval.userNo && loginUser.admin == 0 && approval.status == 1}">
+								<c:when test="${!login && loginUser.admin == 0 && approval.status == 1}">
 									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">승인</a>
 									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">반려</a>
 								</c:when>

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
 import com.groupware.officehi.repository.ApprovalRepository;
 
@@ -28,8 +29,8 @@ public class ApprovalService {
 		return repository.findUserByUserNo(userNo);
 	}
 	
-	public List<ApprovalDTO> findApproval() {
-		return repository.findApproval();
+	public List<ApprovalDTO> findAll() {
+		return repository.findAll();
 	}
 	
 	public List<ApprovalDTO> findAllUserNameAndDeptName(Long userNo) {
@@ -39,6 +40,42 @@ public class ApprovalService {
 	public List<ApprovalDTO> findAllUserNameAndDeptNameByApprovalNo(Long approvalNo) {
 		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo);
 	}
+
+	public List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo) {
+		return repository.findApprovalByUserNoOrChecker(userNo);
+	}
+	
+	public List<ApprovalDTO> findAllByApprovalNo(Long approvalNo) {
+		return repository.findAllByApprovalNo(approvalNo);
+	}
+	
+	public List<ApprovalDTO> findAllByUserNo(Long userNo) {
+		return repository.findAllByUserNo(userNo);
+	}
+	
+	public List<ApprovalDTO> findAllByChecker(Long userNo) {
+		return repository.findAllByChecker(userNo);
+	}
+	
+	public List<ApprovalDTO> findAllByUserName(String userName) {
+		return repository.findAllByUserName(userName);
+	}
+	
+	public List<ApprovalDTO> findAllByTitle(String title) {
+		return repository.findAllByTitle(title);
+	}
+	
+	public List<ApprovalDTO> findAllByDeptName(String deptName) {
+		return repository.findAllByDeptName(deptName);
+	}
+	
+	public List<ApprovalDTO> findAllBydate(String date) {
+		return repository.findAllBydate(date);
+	}
+	
+	public List<ApprovalDTO> findAllByCheckDate(String checkDate) {
+		return repository.findAllByCheckDate(checkDate);
+	}	
 	
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
 		return repository.findByApprovalNo(approvalNo);
@@ -48,7 +85,7 @@ public class ApprovalService {
 		repository.updateApproval(approval);
 	}
 	
-	public void updateApproval(Long approvalNo) {
+	public void delete(Long approvalNo) {
 		repository.delete(approvalNo);
 	}
 	
@@ -56,35 +93,44 @@ public class ApprovalService {
 		repository.updateStatus(approval);
 	}
 	
-	public List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo) {
-		return repository.findApprovalByUserNoOrChecker(userNo);
+	// paging query
+	public List<ApprovalDTO> findAllPaging(Paging paging) {
+		return repository.findAllPaging(paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalByUserNo(Long userNo) {
-		return repository.findApprovalByUserNo(userNo);
+	public List<ApprovalDTO> findApprovalByUserNoOrCheckerPaging(Long userNo, Paging paging) {
+		return repository.findApprovalByUserNoOrCheckerPaging(userNo, paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalByChecker(Long userNo) {
-		return repository.findApprovalByChecker(userNo);
+	public List<ApprovalDTO> findAllByApprovalNoPaging(Long approvalNo, Paging paging) {
+		return repository.findAllByApprovalNoPaging(approvalNo, paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalByApprovalNo(Long approvalNo) {
-		return repository.findApprovalByApprovalNo(approvalNo);
+	public List<ApprovalDTO> findAllByUserNoPaging(Long userNo, Paging paging) {
+		return repository.findAllByUserNoPaging(userNo, paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalByTitle(String title) {
-		return repository.findApprovalByTitle(title);
+	public List<ApprovalDTO> findAllByCheckerPaging(Long userNo, Paging paging) {
+		return repository.findAllByCheckerPaging(userNo, paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalByDeptName(String deptName) {
-		return repository.findApprovalByDeptName(deptName);
+	public List<ApprovalDTO> findAllByUserNamePaging(String userName, Paging paging) {
+		return repository.findAllByUserNamePaging(userName, paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalBydate(String date) {
-		return repository.findApprovalBydate(date);
+	public List<ApprovalDTO> findAllByTitlePaging(String title, Paging paging) {
+		return repository.findAllByTitlePaging(title, paging);
 	}
 	
-	public List<ApprovalDTO> findApprovalByCheckDate(String checkDate) {
-		return repository.findApprovalByCheckDate(checkDate);
+	public List<ApprovalDTO> findAllByDeptNamePaging(String deptName, Paging paging) {
+		return repository.findAllByDeptNamePaging(deptName, paging);
+	}
+	
+	public List<ApprovalDTO> findAllBydatePaging(String date, Paging paging) {
+		return repository.findAllBydatePaging(date, paging);
+	}
+	
+	public List<ApprovalDTO> findAllByCheckDatePaging(String checkDate, Paging paging) {
+		return repository.findAllByCheckDatePaging(checkDate, paging);
 	}
 }

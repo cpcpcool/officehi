@@ -8,12 +8,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
+import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.ApprovalService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,68 +32,83 @@ import lombok.RequiredArgsConstructor;
 public class AdminApprovalController {
 
 	private final ApprovalService approvalService;
+	public LoginUserDTO loginUser = null;
+	
+	// 로그인 검증
+	public boolean loginCheck(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+		if (session == null)
+			return true;
+
+		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		if (loginUser == null)
+			return true;
+		
+		model.addAttribute("loginUser", loginUser);
+		
+		return false;
+	}
 
 	// 관리자 결재 문서 리스트
 	@GetMapping
-	public String getAdminApprovalList(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
+	public String getAdminApprovalList(@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+		if(loginCheck(request, model))
 			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
+		
 		if (loginUser.getAdmin() != 1)
-			return "redirect:/main";
-
-		model.addAttribute("loginUser", loginUser);
-
-		List<ApprovalDTO> approvals = approvalService.findApproval();
+			return "alert/alert";
+		
+		int totalRow = approvalService.findAll().size();
+		List<ApprovalDTO> approvals = approvalService.findAllPaging(paging);
+		
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
+		
 		return "admin/approvals/approvalTotal";
 	}
 	
 	@GetMapping("/search")
-	public String getAdminApprovalListSearch(@RequestParam String searchType, HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
-			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
+	public String getAdminApprovalListSearch(@RequestParam String search, @RequestParam String searchValue, @ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+		if(loginCheck(request, model))
 			return "redirect:/login";
 
 		if (loginUser.getAdmin() != 1)
-			return "redirect:/main";
-
-		model.addAttribute("loginUser", loginUser);
-		Object serachValue = model.getAttribute("serachValue");
+			return "alert/alert";
 		
-		List<ApprovalDTO> approvals = null;
+		List<ApprovalDTO> approvals;
+		int totalRow = 0;
 		
-		switch(searchType) {
+		switch(search) {
 		case "approvalNo":
-			approvals = approvalService.findApprovalByUserNo((Long)serachValue);
+			totalRow = approvalService.findAllByApprovalNo(Long.valueOf(searchValue)).size();
+			approvals = approvalService.findAllByApprovalNoPaging(Long.valueOf(searchValue), paging);
 			break;
-		case "userNo":
-			approvals = approvalService.findApprovalByUserNo((Long)serachValue);
+		case "userName":
+			totalRow = approvalService.findAllByUserName(searchValue).size();
+			approvals = approvalService.findAllByUserNamePaging(searchValue, paging);
 			break;
 		case "title":
-			approvals = approvalService.findApprovalByTitle(serachValue.toString());
+			totalRow = approvalService.findAllByTitle(searchValue).size();
+			approvals = approvalService.findAllByTitlePaging(searchValue, paging);
 			break;
 		case "deptName":
-			approvals = approvalService.findApprovalByDeptName(serachValue.toString());
+			totalRow = approvalService.findAllByDeptName(searchValue).size();
+			approvals = approvalService.findAllByDeptNamePaging(searchValue, paging);
 			break;
 		case "date":
-			approvals = approvalService.findApprovalBydate(serachValue.toString());
+			totalRow = approvalService.findAllBydate(searchValue).size();
+			approvals = approvalService.findAllBydatePaging(searchValue, paging);
 			break;
 		case "checkDate":
-			approvals = approvalService.findApprovalByCheckDate(serachValue.toString());
+			totalRow = approvalService.findAllByCheckDate(searchValue).size();
+			approvals = approvalService.findAllByCheckDatePaging(searchValue, paging);
 			break;
+		default:
+			return "admin/approvals/approvalTotal";
 		}
 		
 		model.addAttribute("approvals", approvals);
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "admin/approvals/approvalTotal";
 	}
 }

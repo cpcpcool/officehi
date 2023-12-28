@@ -9,7 +9,6 @@ $(document).ready(function() {
 	
 	$(".page-item a").on("click", function(e) {
 	    e.preventDefault();
-	    console.log('페이지 이동');
 	    var pageNum = $(this).attr("href");
 	    pagingForm.find("input[name='pageNum']").val(pageNum); // 페이지 번호를 form의 input에 할당
 	    pagingForm.submit();

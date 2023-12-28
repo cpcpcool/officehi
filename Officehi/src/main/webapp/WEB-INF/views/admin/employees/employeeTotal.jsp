@@ -150,7 +150,7 @@ button {
 										</li>
 									</c:if>
 									<c:forEach var="num" begin="${pageMarker.startPage}" end="${pageMarker.endPage}">
-										<li class="page-item ${pageMaker.paging.pageNum==num ? 'active' : ''}">
+										<li class="page-item ${pageMarker.paging.pageNum==num ? 'active' : ''}">
 											<a class="page-link" href="${num}">${num}</a>
 										</li>
 									</c:forEach>
