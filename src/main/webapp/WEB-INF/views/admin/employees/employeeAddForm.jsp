@@ -101,15 +101,28 @@
 							</div>
 						</div>
 						<div class="row mb-3">
-							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
+							<label for="profile" class="col-sm-2 col-form-label">프로필이미지</label>
 							<div class="col-sm">
-								<form:input path="profile" cssClass="form-control" id="profile" type="file"/>
-								<form:errors path="profile" cssClass="error" />
+								<div class="input-group flex-wrap">
+									<input type="text" class="form-control" id="profileFileName"
+										name="profileFileName" value="${profileFile.originalFileName}">
+									<input type="file" id="profile" name="profile"
+										style="display: none;"
+										onchange="updateFileName('profile', 'profileFileName')">
+									<button type="button" class="btn btn-outline-secondary"
+										onclick="document.getElementById('profile').click()">파일추가</button>
 								</div>
-							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
+							</div>
+							<label for="stamp" class="col-sm-2 col-form-label">인감이미지</label>
 							<div class="col-sm">
-								<form:input path="stamp" cssClass="form-control" id="stamp" type="file"/>
-								<form:errors path="stamp" cssClass="error" />
+								<div class="input-group flex-wrap">
+									<input type="text" class="form-control" id="stampFileName" name="stampFileName"
+										value="${stampFile.originalFileName}"> <input
+										type="file" id="stamp" name="stamp"										style="display: none;"
+										onchange="updateFileName('stamp', 'stampFileName')">
+									<button type="button" class="btn btn-outline-secondary"
+										onclick="document.getElementById('stamp').click()">파일추가</button>
+								</div>
 							</div>
 						</div>
 						<!-- BUTTON -->
@@ -123,5 +136,6 @@
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
+	<script type="text/javascript" src="${resPath}/js/fileUpload.js"></script>
 </body>
 </html>

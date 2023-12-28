@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
@@ -13,9 +14,12 @@
 <meta charset="UTF-8">
 <title>사원 정보 상세</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
+<link rel="icon" type="image/x-icon"
+	href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css"
+	rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <style type="text/css">
@@ -44,15 +48,18 @@
 
 					<!-- FORM -->
 
-					<form:form action="${context}admin/employees/${employee.userNo}" id="employeeInfo" method="post" enctype="multipart/form-data">
+					<form:form action="${context}admin/employees/${employee.userNo}"
+						id="employeeInfo" method="post" enctype="multipart/form-data">
 						<div class="row mb-3">
 							<label for="userNo" class="col-sm-2 col-form-label">사번</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="userNo" name="userNo" value="${employee.userNo}" readonly>
+								<input type="text" class="form-control" id="userNo"
+									name="userNo" value="${employee.userNo}" readonly>
 							</div>
 							<label for="name" class="col-sm-2 col-form-label">이름</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="name" name="name" value="${employee.name}">
+								<input type="text" class="form-control" id="name" name="name"
+									value="${employee.name}">
 								<div class="valid-feedback">Valid.</div>
 								<div class="invalid-feedback">Please fill out this field.</div>
 							</div>
@@ -60,31 +67,37 @@
 						<div class="row mb-3">
 							<label for="phone" class="col-sm-2 col-form-label">휴대폰 번호</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="phone" name="phone" value="${employee.phone}" maxlength="13">
+								<input type="text" class="form-control" id="phone" name="phone"
+									value="${employee.phone}" maxlength="13">
 							</div>
 							<label for="birthDate" class="col-sm-2 col-form-label">생년월일</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="birthDate" name="birthDate" value="${employee.birthDate}">
+								<input type="text" class="form-control" id="birthDate"
+									name="birthDate" value="${employee.birthDate}">
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="toDate" class="col-sm-2 col-form-label">입사일</label>
 							<div class="col-sm">
-								<input type="date" class="form-control" id="toDate" name="toDate" value="${employee.toDate}">
+								<input type="date" class="form-control" id="toDate"
+									name="toDate" value="${employee.toDate}">
 							</div>
 							<label for="fromDate" class="col-sm-2 col-form-label">퇴사일</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="fromDate" name="fromDate" value="${employee.fromDate}" disabled>
+								<input type="text" class="form-control" id="fromDate"
+									name="fromDate" value="${employee.fromDate}" disabled>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label for="deptName" class="col-sm-2 col-form-label">부서명</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="deptName" name="deptName" value="${employee.deptName}">
+								<input type="text" class="form-control" id="deptName"
+									name="deptName" value="${employee.deptName}">
 							</div>
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">
-								<select class="form-select" aria-label="position" name="position">
+								<select class="form-select" aria-label="position"
+									name="position">
 									<option selected>${employee.position}</option>
 									<option>사원</option>
 									<option>주임</option>
@@ -98,24 +111,33 @@
 							<label for="profile" class="col-sm-2 col-form-label">프로필이미지</label>
 							<div class="col-sm">
 								<div class="input-group flex-wrap">
-									<input type="text" class="form-control" id="profile" name="profile" value="${profileFile.originalFileName}">
-									<button type="button" id="profileFileButton" class="btn btn-outline-secondary" onclick="onClickProfileFileUpload()">파일추가</button>
+									<input type="text" class="form-control" id="profileFileName"
+										name="profileFileName" value="${profileFile.originalFileName}">
+									<input type="file" id="profile" name="profile"
+										style="display: none;"
+										onchange="updateFileName('profile', 'profileFileName')">
+									<button type="button" class="btn btn-outline-secondary"
+										onclick="document.getElementById('profile').click()">파일변경</button>
 								</div>
-								<input type="file" id="profileFileInput" style="display: none;">
 							</div>
 							<label for="stamp" class="col-sm-2 col-form-label">인감이미지</label>
 							<div class="col-sm">
 								<div class="input-group flex-wrap">
-									<input type="text" class="form-control" id="stamp" name="stamp" value="${stampFile.originalFileName}">
-									<button type="button" id="stampFileButton" class="btn btn-outline-secondary" onclick="onClickStampFileUpload">파일추가</button>
+									<input type="text" class="form-control" id="stampFileName" name="stampFileName"
+										value="${stampFile.originalFileName}"> <input
+										type="file" id="stamp" name="stamp"										style="display: none;"
+										onchange="updateFileName('stamp', 'stampFileName')">
+									<button type="button" class="btn btn-outline-secondary"
+										onclick="document.getElementById('stamp').click()">파일변경</button>
 								</div>
-								<input type="file" id="stampFileInput" style="display: none;">
 							</div>
 						</div>
 						<!-- BUTTON -->
 						<div class="employeeEdit">
-							<button class="btn btn-dark btn-lg mt-3 me-3 .editButton" id="${employee.userNo}" type="submit">수정 하기</button>
-							<button class="btn btn-outline-dark btn-lg mt-3" id="cancel" onclick="history.go(-1)" type="button">뒤로 가기</button>
+							<button class="btn btn-dark btn-lg mt-3 me-3 .editButton"
+								id="${employee.userNo}" type="submit">수정 하기</button>
+							<button class="btn btn-outline-dark btn-lg mt-3" id="cancel"
+								onclick="history.go(-1)" type="button">뒤로 가기</button>
 						</div>
 					</form:form>
 				</div>

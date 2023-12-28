@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +32,9 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @author 박재용
- * @editDate 23.12.20 ~ 23.12.22 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ * @editDate 23.12.20 ~ 23.12.22 
+ * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ * 파일 업로드 및 수정 기능 추가 23.12.26 ~ 23.12.29
  */
 @Controller
 @RequiredArgsConstructor
@@ -126,7 +129,7 @@ public class AdminEmployeeController {
 	@PostMapping("/add")
 	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult,
 			@RequestParam("profile") MultipartFile profileMultipartFile,
-			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest req) {
+			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request) {
 		if (bindingResult.hasErrors())
 			return "admin/employees/employeeAddForm";
 
@@ -165,22 +168,38 @@ public class AdminEmployeeController {
 
 		// 파일 정보
 		Optional<FileDTO> profileFile = employeeService.findProfileFileByUserNo(userNo);
-		if(profileFile.isPresent())
+		if (profileFile.isPresent())
 			model.addAttribute("profileFile", profileFile.get());
 		else
 			model.addAttribute("profileFile", profileFile.orElse(new FileDTO("-")));
-			
+
 		Optional<FileDTO> stampFile = employeeService.findStampFileByUserNo(userNo);
-		if(stampFile.isPresent())
+		if (stampFile.isPresent())
 			model.addAttribute("stampFile", stampFile.get());
 		else
 			model.addAttribute("stampFile", stampFile.orElse(new FileDTO("-")));
-			
+
 		return "admin/employees/employeeDetail";
 	}
 
 	@PostMapping("/{userNo}")
-	public String employeeInfoEdit(@PathVariable Long userNo, @ModelAttribute EmployeeDTO employeeDTO) {
+	public String employeeInfoEdit(@PathVariable Long userNo, @ModelAttribute EmployeeDTO employeeDTO,
+								@RequestParam("profile") MultipartFile profileMultipartFile,
+								@RequestParam("stamp") MultipartFile stampMultipartFile, Model model) {
+
+		FileDTO fileDTO = new FileDTO();
+		fileDTO.setUserNo(employeeDTO.getUserNo());
+
+		// profile 증명사진 변경저장
+		fileDTO.setMultipartFile(profileMultipartFile);
+		fileDTO.setFileTypeNo("1");
+		employeeService.updateFileInfo(fileDTO);
+
+		// stamp 인감 변경저장
+		fileDTO.setMultipartFile(stampMultipartFile);
+		fileDTO.setFileTypeNo("2");
+		employeeService.updateFileInfo(fileDTO);
+
 		employeeService.updateUserInfo(employeeDTO);
 		return "redirect:/admin/employees";
 	}

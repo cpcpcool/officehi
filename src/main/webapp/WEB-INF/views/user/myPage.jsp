@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
@@ -12,9 +13,12 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
+<link rel="icon" type="image/x-icon"
+	href="<c:url value='/resources/img/favicon.ico'/>" />
 <link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css"
+	rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/header.css" rel="stylesheet">
 <link href="${resPath}/css/footer.css" rel="stylesheet">
@@ -72,50 +76,87 @@ td {
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="/WEB-INF/views/aside/userAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/userAside.jsp"%>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>마이 페이지</h2>
 					<hr>
-						<table>
+					<table>
 						<tr>
 							<th class="text-left">사번</th>
-							<td><input type="text" name="user_no" id="user_no" value="${loginUser.userNo}" readonly></td>
+							<td><input type="text" name="user_no" id="user_no"
+								value="${loginUser.userNo}" readonly></td>
 							<th class="text-left">이름</th>
-							<td><input type=text name=name id="name" value="${mypageuser.name}" readonly></td>
+							<td><input type=text name=name id="name"
+								value="${mypageuser.name}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">휴대폰 번호</th>
-							<td><input type=text name=phone id="phone" value="${mypageuser.phone}" readonly></td>
+							<td><input type=text name=phone id="phone"
+								value="${mypageuser.phone}" readonly></td>
 							<th class="text-left">생년월일</th>
-							<td><input type=text name=birth_date id="birth_date" value="${mypageuser.birthDate}" readonly></td>
-						</tr>
-						<tr>
-							<th class="text-left">인감 이미지 경로</th>
-							<td><input type=text name=stamp id="stamp" value="${stamp}" readonly></td>
-							<th class="text-left">프로필 이미지 경로</th>
-							<td><input type=text name=profile id="profile" value="${profile}" readonly></td>
+							<td><input type=text name=birth_date id="birth_date"
+								value="${mypageuser.birthDate}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">입사일</th>
-							<td><input type=text name=to_date id="to_date" value="${mypageuser.toDate}" readonly></td>
+							<td><input type=text name=to_date id="to_date"
+								value="${mypageuser.toDate}" readonly></td>
 							<th class="text-left">퇴사일</th>
-							<td><input type=text name=from_date id="from_date" value="${mypageuser.fromDate}" readonly></td>
+							<td><input type=text name=from_date id="from_date"
+								value="${mypageuser.fromDate}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">부서명</th>
-							<td><input type=text name=dept_name id="dept_name" value="${mypageuser.deptName}" readonly></td>
+							<td><input type=text name=dept_name id="dept_name"
+								value="${mypageuser.deptName}" readonly></td>
 							<th class="text-left">직급</th>
-							<td><input type=text name=position id="position" value="${mypageuser.position}" readonly></td>
+							<td><input type=text name=position id="position"
+								value="${mypageuser.position}" readonly></td>
+						</tr>
 					</table>
-					<div class="btn_area">
-						<button type="button" class="btn btn-white btn-outline-dark btn-small mt-3" onclick="history.go(-1); return false;">뒤로 가기</button>
-					</div>
+					<form:form action="${context}myPage" id="employeeInfo"
+						method="post" enctype="multipart/form-data"
+						cssClass="mt-3 small bold text-bold">
+
+						<div class="row mb-3">
+							<label for="profile" class="col-sm-2 col-form-label">프로필이미지</label>
+							<div class="col-sm">
+								<div class="input-group flex-wrap">
+									<input type="text" class="form-control" id="profileFileName"
+										name="profileFileName" value="${profile}"> <input
+										type="file" id="profile" name="profile" style="display: none;"
+										onchange="updateFileName('profile', 'profileFileName')">
+									<button type="button" class="btn btn-outline-secondary"
+										onclick="document.getElementById('profile').click()">파일변경</button>
+								</div>
+							</div>
+							<label for="stamp" class="col-sm-2 col-form-label">인감이미지</label>
+							<div class="col-sm">
+								<div class="input-group flex-wrap">
+									<input type="text" class="form-control" id="stampFileName"
+										name="stampFileName" value="${stamp}"> <input
+										type="file" id="stamp" name="stamp" style="display: none;"
+										onchange="updateFileName('stamp', 'stampFileName')">
+									<button type="button" class="btn btn-outline-secondary"
+										onclick="document.getElementById('stamp').click()">파일변경</button>
+								</div>
+							</div>
+						</div>
+						<div class="btn_area">
+							<button type="submit"
+								class="btn btn-white btn-primary btn-small mt-3">정보 변경</button>
+							<button type="button"
+								class="btn btn-white btn-outline-dark btn-small mt-3"
+								onclick="history.go(-1); return false;">뒤로 가기</button>
+						</div>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</main>
 
 	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
+	<script type="text/javascript" src="${resPath}/js/fileUpload.js"></script>
 </body>
 </html>
