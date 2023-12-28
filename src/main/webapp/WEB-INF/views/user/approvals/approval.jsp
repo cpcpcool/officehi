@@ -83,12 +83,12 @@ color: #222;
 								<c:choose>
 									<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
 										<form:select path="checker1" class="form-select">
-											<form:option value="${approval.checker1}" selected="true" />
-											<form:options items="${userList}" itemValue="name" itemLabel="name"/>
+											<form:option value="${approval.checker1}" label="${approval.checkerName1}" selected="true" />
+											<form:options items="${userList}" itemValue="userNo" itemLabel="name"/>
 										</form:select>
 									</c:when>
 									<c:otherwise>
-										<form:input path="checker1" class="form-control" readonly="true" />
+										<span class="form-control">${approval.checkerName1}</span>
 									</c:otherwise>
 								</c:choose>
 							</div>

@@ -24,6 +24,7 @@ public class ApprovalDTO {
 	private Integer status;
 	private String category;
 	private String checkDate;
-	private String checker1;
+	private Long checker1;
+	private String checkerName1;
 	
 }

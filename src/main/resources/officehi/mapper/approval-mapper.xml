@@ -10,7 +10,7 @@
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo">
 		INSERT INTO approval(user_no, date, title, content, category, checker1)
-		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1} limit 1))
+		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, #{checker1})
 	</insert>
 	
 	<select id="findByUserNo">
@@ -100,11 +100,9 @@
 	</select>
 	
 	<select id="findByApprovalNo">
-		SELECT approval_no, a.user_no, date, title, content, status, category, check_date, name, position, dept_name,
-					(SELECT name
-					FROM approval a JOIN user u
-					ON a.checker1 = u.user_no
-					WHERE a.approval_no = #{approvalNo}) as checker1
+		SELECT *, (SELECT name
+					FROM user u JOIN approval a
+					WHERE a.approval_no = #{approvalNo} AND u.user_no = a.checker1) as checkerName1
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE approval_no = #{approvalNo}
@@ -112,7 +110,7 @@
 	
 	<update id="updateApproval">
 		UPDATE approval
-		SET title = #{title}, content = #{content}, checker1 = (SELECT user_no FROM user WHERE name LIKE #{checker1} limit 1) 
+		SET title = #{title}, content = #{content}, checker1 = #{checker1}
 		WHERE approval_no = #{approvalNo}
 	</update>
 	

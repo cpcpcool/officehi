@@ -6,10 +6,8 @@
 document.addEventListener('DOMContentLoaded', function () {
 	var currentUrl = window.location.toString();
 	currentUrlNoSlash = currentUrl.replace(/\//g, "");
-	console.log(currentUrlNoSlash);
 	const urlArray = ["notices", "approvalsadd", "approvals", "workslist", "works", "mypage","employees"];
 	for (const url of urlArray) {
-		console.log(url);
 		if (currentUrlNoSlash.includes(url)) {
 			var pointElement = document.querySelector('#' + url);
 			pointElement.classList.add("active");
