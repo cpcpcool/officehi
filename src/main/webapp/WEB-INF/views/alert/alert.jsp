@@ -11,6 +11,7 @@
 <title>관리자 경고</title>
 </head>
 <body>
+<c:url value="접근할 수 없는 페이지입니다." var="msg" />
 <c:url value="/main" var="mainUrl" />
 <script>
 	var msg = "<c:out value='${msg}'/>";

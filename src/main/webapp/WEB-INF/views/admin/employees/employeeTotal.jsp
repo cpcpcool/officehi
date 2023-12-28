@@ -65,7 +65,7 @@ button {
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/header/header.jsp"%>
+	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
 			<%@ include file="../../aside/adminAside.jsp" %>
@@ -167,7 +167,7 @@ button {
 			</div>
 		</div>
 	</main>
-	<%@ include file="/WEB-INF/views/footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 	<script type="text/javascript" src="<c:url value='/resources/js/employee.js' />"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/pagination.js' />"></script>
 </body>

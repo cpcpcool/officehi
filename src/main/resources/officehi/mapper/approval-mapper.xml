@@ -10,7 +10,7 @@
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo">
 		INSERT INTO approval(user_no, date, title, content, category, checker1)
-		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1}))
+		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, (select user_no from user where name like #{checker1} limit 1))
 	</insert>
 	
 	<select id="findByUserNo">

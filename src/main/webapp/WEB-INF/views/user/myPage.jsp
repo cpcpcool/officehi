@@ -92,9 +92,9 @@ td {
 						</tr>
 						<tr>
 							<th class="text-left">인감 이미지 경로</th>
-							<td><input type=text name=stamp id="stamp" value="${mypageuser.stamp}" readonly></td>
+							<td><input type=text name=stamp id="stamp" value="${stamp}" readonly></td>
 							<th class="text-left">프로필 이미지 경로</th>
-							<td><input type=text name=profile id="profile" value="${mypageuser.profile}" readonly></td>
+							<td><input type=text name=profile id="profile" value="${profile}" readonly></td>
 						</tr>
 						<tr>
 							<th class="text-left">입사일</th>

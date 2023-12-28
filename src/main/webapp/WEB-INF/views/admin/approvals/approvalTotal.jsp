@@ -132,9 +132,8 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="../../footer/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 	<script src="${resPath}/js/approval.js" type="text/javascript"></script>
 	<script src="${resPath}/js/pagination.js" type="text/javascript"></script>
-	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 </body>
 </html>

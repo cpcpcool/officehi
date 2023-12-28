@@ -49,19 +49,6 @@ public class AdminEmployeeController {
 	private int employeesTotal = -1; // 전체 직원데이터 수 조회용 캐싱데이터
 	
 	public LoginUserDTO loginUser = null;
-	@GetMapping
-	public String employeeList(Paging paging, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session == null) {
-			employeesTotal = -1;
-			return "redirect:/login";
-		}
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null) {
-			employeesTotal = -1;
-			return "redirect:/login";
-		}
-		loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
 	// 로그인 검증
 	public boolean loginCheck(HttpServletRequest request, Model model) {
@@ -79,16 +66,15 @@ public class AdminEmployeeController {
 
 	@GetMapping
 	public String employeeList(Paging paging, HttpServletRequest request, Model model) {
-		if (loginCheck(request, model)) {
-			employeesTotal = -1;
+		if (loginCheck(request, model))
 			return "redirect:/login";
-		}
-		if (employeesTotal == -1)
-			employeesTotal = employeeService.findAllEmployee().size();
-
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";	
+		
 		List<EmployeeDTO> employees = employeeService.findAllPagingEmployee(paging);
 		model.addAttribute("employees", employees);
-		model.addAttribute("pageMarker", new PagingDTO(paging, employeesTotal));
+		model.addAttribute("pageMarker", new PagingDTO(paging, employeeService.findAllEmployee().size()));
 
 		return "admin/employees/employeeTotal";
 	}

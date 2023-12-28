@@ -77,9 +77,8 @@ thead {
 			</div>
 		</div>
 	</main>
-<%@ include file="../../footer/footer.jsp"%>
-<script type="text/javascript" src="<c:url value='/resources/js/pagination.js' />"></script>
-
 	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
+	<script type="text/javascript" src="<c:url value='/resources/js/pagination.js' />"></script>
+
 </body>
 </html>
