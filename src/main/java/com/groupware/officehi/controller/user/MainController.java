@@ -62,7 +62,7 @@ public class MainController {
 		if (notice.isPresent())
 			model.addAttribute("notice", notice.get());
 
-		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo());
+		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo(), null);
 		model.addAttribute("approvals", approvals.stream().limit(7).collect(Collectors.toList()));
 		return "/user/main";
 	}

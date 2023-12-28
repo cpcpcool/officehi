@@ -59,8 +59,8 @@ public class AdminApprovalController {
 		if (loginUser.getAdmin() != 1)
 			return "alert/alert";
 		
-		int totalRow = approvalService.findAll().size();
-		List<ApprovalDTO> approvals = approvalService.findAllPaging(paging);
+		int totalRow = approvalService.findAll(null).size();
+		List<ApprovalDTO> approvals = approvalService.findAll(paging);
 		
 		model.addAttribute("approvals", approvals);
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
@@ -97,28 +97,28 @@ public class AdminApprovalController {
 		
 		switch(search) {
 		case "approvalNo":
-			totalRow = approvalService.findAllByApprovalNo(Long.valueOf(searchValue)).size();
-			approvals = approvalService.findAllByApprovalNoPaging(Long.valueOf(searchValue), paging);
+			totalRow = approvalService.findAllByApprovalNo(Long.valueOf(searchValue), null).size();
+			approvals = approvalService.findAllByApprovalNo(Long.valueOf(searchValue), paging);
 			break;
 		case "userName":
-			totalRow = approvalService.findAllByUserName(searchValue).size();
-			approvals = approvalService.findAllByUserNamePaging(searchValue, paging);
+			totalRow = approvalService.findAllByUserName(searchValue, null).size();
+			approvals = approvalService.findAllByUserName(searchValue, paging);
 			break;
 		case "title":
-			totalRow = approvalService.findAllByTitle(searchValue).size();
-			approvals = approvalService.findAllByTitlePaging(searchValue, paging);
+			totalRow = approvalService.findAllByTitle(searchValue, null).size();
+			approvals = approvalService.findAllByTitle(searchValue, paging);
 			break;
 		case "deptName":
-			totalRow = approvalService.findAllByDeptName(searchValue).size();
-			approvals = approvalService.findAllByDeptNamePaging(searchValue, paging);
+			totalRow = approvalService.findAllByDeptName(searchValue, null).size();
+			approvals = approvalService.findAllByDeptName(searchValue, paging);
 			break;
 		case "date":
-			totalRow = approvalService.findAllBydate(searchValue).size();
-			approvals = approvalService.findAllBydatePaging(searchValue, paging);
+			totalRow = approvalService.findAllBydate(searchValue, null).size();
+			approvals = approvalService.findAllBydate(searchValue, paging);
 			break;
 		case "checkDate":
-			totalRow = approvalService.findAllByCheckDate(searchValue).size();
-			approvals = approvalService.findAllByCheckDatePaging(searchValue, paging);
+			totalRow = approvalService.findAllByCheckDate(searchValue, null).size();
+			approvals = approvalService.findAllByCheckDate(searchValue, paging);
 			break;
 		default:
 			return "admin/approvals/approvalTotal";

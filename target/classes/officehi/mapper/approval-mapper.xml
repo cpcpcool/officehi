@@ -23,6 +23,9 @@
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findApprovalByUserNoOrChecker">
@@ -30,6 +33,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo}
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 
 	<select id="findUserNameAndDeptName">
@@ -46,9 +52,10 @@
 		FROM user u JOIN approval a
 		WHERE a.approval_no = #{approvalNo} AND
 		u.user_no != a.checker1 AND
-		position NOT IN((SELECT position
-					   FROM user
-                       WHERE user_no = #{userNo}), '')
+		position NOT IN
+		<foreach collection="position" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
 	</select>
 	
 	<select id="findAllByApprovalNo">
@@ -56,6 +63,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE approval_no = #{approvalNo}
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllByUserNo">
@@ -63,6 +73,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE a.user_no = #{userNo}
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllByChecker">
@@ -70,12 +83,18 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo}
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllByUserName">
 		SELECT *
 		FROM approval a, user u
 		WHERE a.user_no = u.user_no AND u.name like concat('%', #{userName}, '%')
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllByTitle">
@@ -83,6 +102,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE title like concat('%', #{title}, '%')
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllByDeptName">
@@ -90,6 +112,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE dept_name like concat('%', #{deptName}, '%') 
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllBydate">
@@ -97,6 +122,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE date = #{date}
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findAllByCheckDate">
@@ -104,6 +132,9 @@
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE check_date = #{checkDate}
+		<if test="paging != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 	
 	<select id="findByApprovalNo">
@@ -131,83 +162,4 @@
 		SET check_date = curdate(), status = #{status}
 		WHERE approval_no = #{approvalNo}
 	</update>
-	
-	<!-- paging query -->
-	<select id="findAllPaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		LIMIT #{amount} OFFSET #{offset}
-	</select>
-		
-	<select id="findApprovalByUserNoOrCheckerPaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo}
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByApprovalNoPaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE approval_no = #{approvalNo}
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByUserNoPaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE a.user_no = #{userNo}
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByCheckerPaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo}
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByUserNamePaging">
-		SELECT *
-		FROM approval a, user u
-		WHERE a.user_no = u.user_no AND u.name like concat('%', #{userName}, '%')
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByTitlePaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE title like concat('%', #{title}, '%')
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByDeptNamePaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE dept_name like concat('%', #{deptName}, '%')
-		LIMIT #{paging.amount} OFFSET #{paging.offset} 
-	</select>
-	
-	<select id="findAllBydatePaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE date = #{date}
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
-	
-	<select id="findAllByCheckDatePaging">
-		SELECT *
-		FROM approval a LEFT JOIN user u
-		ON a.user_no = u.user_no
-		WHERE check_date = #{checkDate}
-		LIMIT #{paging.amount} OFFSET #{paging.offset}
-	</select>
 </mapper>

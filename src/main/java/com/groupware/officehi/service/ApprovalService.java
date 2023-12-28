@@ -32,8 +32,8 @@ public class ApprovalService {
 		return repository.findUserByUserNo(userNo);
 	}
 	
-	public List<ApprovalDTO> findAll() {
-		return repository.findAll();
+	public List<ApprovalDTO> findAll(Paging paging) {
+		return repository.findAll(paging);
 	}
 	
 	public List<ApprovalDTO> findUserNameAndDeptName(Long userNo) {
@@ -59,43 +59,61 @@ public class ApprovalService {
 	}
 	
 	public List<ApprovalDTO> findUserNameAndDeptNameByApprovalNo(Long approvalNo, Long userNo) {
-		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo, userNo);
+		String positionSearch = employeeRepository.findUserInfoByUserNo(userNo).get().getPosition();
+		String[] positionScope = {};
+		
+		switch(positionSearch) {
+		case "팀장":
+			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
+			break;
+		case "대리":
+			positionScope = new String[]{"사원", "주임", "대리"};
+			break;
+		case "주임":
+			positionScope = new String[]{"사원", "주임"};
+			break;
+		case "사원":
+			positionScope = new String[]{"사원"};
+			break;
+		}
+		
+		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo, positionScope);
 	}
 
-	public List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo) {
-		return repository.findApprovalByUserNoOrChecker(userNo);
+	public List<ApprovalDTO> findApprovalByUserNoOrChecker(Long userNo, Paging paging) {
+		return repository.findApprovalByUserNoOrChecker(userNo, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByApprovalNo(Long approvalNo) {
-		return repository.findAllByApprovalNo(approvalNo);
+	public List<ApprovalDTO> findAllByApprovalNo(Long approvalNo, Paging paging) {
+		return repository.findAllByApprovalNo(approvalNo, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByUserNo(Long userNo) {
-		return repository.findAllByUserNo(userNo);
+	public List<ApprovalDTO> findAllByUserNo(Long userNo, Paging paging) {
+		return repository.findAllByUserNo(userNo, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByChecker(Long userNo) {
-		return repository.findAllByChecker(userNo);
+	public List<ApprovalDTO> findAllByChecker(Long userNo, Paging paging) {
+		return repository.findAllByChecker(userNo, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByUserName(String userName) {
-		return repository.findAllByUserName(userName);
+	public List<ApprovalDTO> findAllByUserName(String userName, Paging paging) {
+		return repository.findAllByUserName(userName, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByTitle(String title) {
-		return repository.findAllByTitle(title);
+	public List<ApprovalDTO> findAllByTitle(String title, Paging paging) {
+		return repository.findAllByTitle(title, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByDeptName(String deptName) {
-		return repository.findAllByDeptName(deptName);
+	public List<ApprovalDTO> findAllByDeptName(String deptName, Paging paging) {
+		return repository.findAllByDeptName(deptName, paging);
 	}
 	
-	public List<ApprovalDTO> findAllBydate(String date) {
-		return repository.findAllBydate(date);
+	public List<ApprovalDTO> findAllBydate(String date, Paging paging) {
+		return repository.findAllBydate(date, paging);
 	}
 	
-	public List<ApprovalDTO> findAllByCheckDate(String checkDate) {
-		return repository.findAllByCheckDate(checkDate);
+	public List<ApprovalDTO> findAllByCheckDate(String checkDate, Paging paging) {
+		return repository.findAllByCheckDate(checkDate, paging);
 	}	
 	
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
@@ -112,46 +130,5 @@ public class ApprovalService {
 	
 	public void updateStatus(ApprovalDTO approval) {
 		repository.updateStatus(approval);
-	}
-	
-	// paging query
-	public List<ApprovalDTO> findAllPaging(Paging paging) {
-		return repository.findAllPaging(paging);
-	}
-	
-	public List<ApprovalDTO> findApprovalByUserNoOrCheckerPaging(Long userNo, Paging paging) {
-		return repository.findApprovalByUserNoOrCheckerPaging(userNo, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByApprovalNoPaging(Long approvalNo, Paging paging) {
-		return repository.findAllByApprovalNoPaging(approvalNo, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByUserNoPaging(Long userNo, Paging paging) {
-		return repository.findAllByUserNoPaging(userNo, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByCheckerPaging(Long userNo, Paging paging) {
-		return repository.findAllByCheckerPaging(userNo, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByUserNamePaging(String userName, Paging paging) {
-		return repository.findAllByUserNamePaging(userName, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByTitlePaging(String title, Paging paging) {
-		return repository.findAllByTitlePaging(title, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByDeptNamePaging(String deptName, Paging paging) {
-		return repository.findAllByDeptNamePaging(deptName, paging);
-	}
-	
-	public List<ApprovalDTO> findAllBydatePaging(String date, Paging paging) {
-		return repository.findAllBydatePaging(date, paging);
-	}
-	
-	public List<ApprovalDTO> findAllByCheckDatePaging(String checkDate, Paging paging) {
-		return repository.findAllByCheckDatePaging(checkDate, paging);
 	}
 }

@@ -59,8 +59,8 @@ public class ApprovalController {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
-		int total = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo()).size();
-		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrCheckerPaging(loginUser.getUserNo(), paging);
+		int total = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo(), null).size();
+		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo(), paging);
 		
 		model.addAttribute("approvals", approvals);
 		model.addAttribute("pageMaker", new PagingDTO(paging, total));
@@ -78,11 +78,11 @@ public class ApprovalController {
 		List<ApprovalDTO> approvals;
 		
 		if(search.equals("my")) {
-			total = approvalService.findAllByUserNo(loginUser.getUserNo()).size();
-			approvals = approvalService.findAllByUserNoPaging(loginUser.getUserNo(), paging);
+			total = approvalService.findAllByUserNo(loginUser.getUserNo(), null).size();
+			approvals = approvalService.findAllByUserNo(loginUser.getUserNo(), paging);
 		} else if(search.equals("other")){ 
-			total = approvalService.findAllByChecker(loginUser.getUserNo()).size();
-			approvals = approvalService.findAllByCheckerPaging(loginUser.getUserNo(), paging);
+			total = approvalService.findAllByChecker(loginUser.getUserNo(), null).size();
+			approvals = approvalService.findAllByChecker(loginUser.getUserNo(), paging);
 		} else {
 			return "redirect:/approvals";
 		}
