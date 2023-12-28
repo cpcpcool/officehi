@@ -7,7 +7,7 @@ import lombok.Setter;
 
 /**
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
+ * @editDate 23.12.18 ~ 23.12.26
  */
 
 @Getter @Setter

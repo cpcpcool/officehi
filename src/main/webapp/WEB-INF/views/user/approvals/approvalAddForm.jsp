@@ -6,7 +6,7 @@
 <c:url var="context" value="/" />
 <!-- 
  * @author 엄다빈
- * @editDate 23.12.15 ~23.12.18
+ * @editDate 23.12.15 ~ 23.12.18
  -->
 <!DOCTYPE html>
 <html lang="ko">

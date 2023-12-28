@@ -1,8 +1,10 @@
 /**
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.19
+ * @editDate 23.12.18 ~ 23.12.19
+ * @editDate 23.12.28 검색 기능 보조 searchType, searchValueIsNaN 함수 추가
  */
- 
+
+// 승인, 반려 묻는 코드
 function updateApproval(context, approvalNo, status) {
 	let isFormUpdate;
 	
@@ -26,6 +28,7 @@ function updateApproval(context, approvalNo, status) {
 	}
 }
 
+// 삭제 묻는 코드
 function deleteApproval(context, approvalNo) {
 	let isFormDelete = confirm("정말 삭제하시겠습니까?");
 	
@@ -38,6 +41,7 @@ function deleteApproval(context, approvalNo) {
 	}
 }
 
+// 관리자 검색 창 type변경
 function searchApproval() {
 	let searchValue = document.getElementById('searchValue');
 	let search = document.getElementById('search');
@@ -53,6 +57,7 @@ function searchApproval() {
 	}
 }
 
+// 검색 시에 숫자 및 공백 검증
 function searchValueIsNaN() {
 	let searchValue = document.getElementById('searchValue');
 	let searchOption = search.options[search.selectedIndex].value;
@@ -70,6 +75,7 @@ function searchValueIsNaN() {
 	}
 }
 
+// 검색 후 검색 타입 및 검색어 값 가져오기
 function searchType(paramSearch, paramSearchValue) {
 	let selectedSearch = document.querySelector("option[value=" + paramSearch + "]");
 	let searchValue = document.getElementById('searchValue');

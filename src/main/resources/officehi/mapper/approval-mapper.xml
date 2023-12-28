@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <!-- 
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
+ * @editDate 23.12.18 ~ 23.12.26
   -->
 <mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
 

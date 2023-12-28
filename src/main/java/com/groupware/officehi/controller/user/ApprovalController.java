@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
+ * @editDate 23.12.18 ~ 23.12.26
  */
 
 @Controller
@@ -102,6 +102,7 @@ public class ApprovalController {
 		List<ApprovalDTO> userList = approvalService.findAllUserNameAndDeptName(loginUser.getUserNo());
 		model.addAttribute("userList", userList);
 		model.addAttribute("approval", new ApprovalDTO());
+		
 		return "user/approvals/approvalAddForm";
 	}
 
@@ -113,6 +114,7 @@ public class ApprovalController {
 
 		approval.setUserNo(loginUser.getUserNo());
 		approvalService.insertApproval(approval);
+		
 		return "redirect:/approvals";
 	}
 
@@ -151,6 +153,7 @@ public class ApprovalController {
 			return "redirect:/login";
 		
 		approvalService.delete(approvalNo);
+		
 		return "redirect:/approvals";
 	}
 
@@ -162,7 +165,7 @@ public class ApprovalController {
 			return "redirect:/login";
 
 		approvalService.updateStatus(approval);
+		
 		return "redirect:/approvals";
 	}
-
 }

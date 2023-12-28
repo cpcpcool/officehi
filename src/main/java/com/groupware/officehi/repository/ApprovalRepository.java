@@ -11,11 +11,12 @@ import com.groupware.officehi.dto.ApprovalDTO;
 
 /**
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
+ * @editDate 23.12.18 ~ 23.12.26
  */
 
 @Repository
 public interface ApprovalRepository {
+	
 	void insert(ApprovalDTO insert);
 	String findUserByUserNo(Long userNo);
 

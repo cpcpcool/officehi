@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
+ * @editDate 23.12.18 ~ 23.12.26
  */
 
 @Controller
@@ -126,6 +126,7 @@ public class AdminApprovalController {
 		
 		model.addAttribute("approvals", approvals);
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
+		
 		return "admin/approvals/approvalTotal";
 	}
 }

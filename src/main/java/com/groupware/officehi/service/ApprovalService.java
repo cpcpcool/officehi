@@ -13,12 +13,13 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @author 엄다빈
- * @editDate 23.12.18 ~23.12.26
+ * @editDate 23.12.18 ~ 23.12.26
  */
 
 @Service
 @RequiredArgsConstructor
 public class ApprovalService {
+	
 	private final ApprovalRepository repository;
 	
 	public void insertApproval(ApprovalDTO approval) {

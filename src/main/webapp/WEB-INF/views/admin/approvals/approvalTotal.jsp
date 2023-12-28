@@ -5,7 +5,8 @@
 <c:url var="context" value="/" />
 <!-- 
  * @author 엄다빈
- * @editDate 23.12.19 ~23.12.19
+ * @editDate 23.12.19 ~ 23.12.19
+ * @editDate 23.12.27 페이지네이션 구현
  -->
 <!DOCTYPE html>
 <html lang="ko">
