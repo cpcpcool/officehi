@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!--  
@@ -71,12 +72,12 @@ td {
 	<%@ include file="../header/header.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="../aside/userAside.jsp" %>
+			<%@ include file="../aside/userAside.jsp"%>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>마이 페이지</h2>
 					<hr>
-					<table>
+						<table>
 						<tr>
 							<th class="text-left">사번</th>
 							<td><input type="text" name="user_no" id="user_no" value="${loginUser.userNo}" readonly></td>
@@ -108,7 +109,7 @@ td {
 							<td><input type=text name=position id="position" value="${mypageuser.position}" readonly></td>
 					</table>
 					<div class="btn_area">
-						<button type="button" class="btn btn-outline-Secondary mt-5 ps-3 pe-3 py-1" onclick="history.go(-1); return false;">뒤로 가기</button>
+						<button type="button" class="btn btn-white btn-outline-dark btn-small mt-3" onclick="history.go(-1); return false;">뒤로 가기</button>
 					</div>
 				</div>
 			</div>

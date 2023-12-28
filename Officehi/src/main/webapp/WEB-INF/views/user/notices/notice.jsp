@@ -25,6 +25,7 @@ h2 {
 	font-weight: 800;
 	color: #345de3;
 }
+
 .notice-content {
 	margin: 40px 0 10px 0;
 }

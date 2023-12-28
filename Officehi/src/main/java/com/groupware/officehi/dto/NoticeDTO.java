@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author 정유진
@@ -12,11 +13,10 @@ import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
+@ToString
 public class NoticeDTO {
-	
 	private Long noticeNo;
     private String date;
 	private String content;
 	private String title;
-
 }
