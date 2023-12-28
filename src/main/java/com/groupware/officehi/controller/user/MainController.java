@@ -44,7 +44,7 @@ public class MainController {
 	private final WorkService workService;
 	private final EmployeeService employeeService;
 
-	@GetMapping("")
+	@GetMapping
 	public String main(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if (session == null) {

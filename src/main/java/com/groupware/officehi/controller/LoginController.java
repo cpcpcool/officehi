@@ -31,7 +31,7 @@ public class LoginController {
 		public static final String LOGIN_MEMBER = "loginMember";
 	}
 
-	@GetMapping("/")
+	@GetMapping
 	public String loginIndex(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		// 로그인 세션이 없을 때 로그인 페이지로 이동

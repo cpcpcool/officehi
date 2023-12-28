@@ -45,20 +45,21 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2 class="lgmg">공지사항 관리</h2>
-					<form action="${context}admin/notices/search" role="search" method="post">
+					<form action="${context}admin/notices/search" method="get">
 						<div class="row g-2 align-items-center mb-3" id="noticeSearch" >
 							<div class="col-3">
-								<select class="form-select" name="searchType" aria-label="search Default select example">
+								<select class="form-select" name="search">
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 									<option value="noticeNo">공지 번호</option>
 								</select>
 							</div>
 							<div class="col-5">
-								<input name="title" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 공지 검색">
+								<input name="searchValue" class="searchValue form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 공지 검색">
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
+								<a href="${context}admin/notices" class="btn btn-dark">초기화</a>
 							</div>
 						</div>
 					</form>
@@ -102,24 +103,30 @@
 					</form:form>
 
 					<!-- 페이지네이션 -->
-					<div class="pagination d-flex justify-content-center mt-2">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-								</a></li>
+					<form:form id="pagingForm" modelAttribute="pageMaker" action="${action}" method="get">
+						<input type="hidden" name="search" value="${param.search}">
+						<input type="hidden" name="searchValue" value="${param.searchValue}">
+						<form:hidden path="pageNum"/>
+						<form:hidden path="amount"/>
+						<nav aria-label="Page navigation">
+							<ul class="pagination mt-5 justify-content-center">
+								<c:if test="${pageMaker.prev}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+								</c:if>
+								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+									<li class="page-item ${pageMaker.paging.pageNum == num ? 'active' : ''}"><a class="page-link" href="${num}">${num}</a></li>
+								</c:forEach>
+								<c:if test="${pageMaker.next}">
+									<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+								</c:if>
 							</ul>
 						</nav>
-					</div>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
-	<script type="text/javascript" src="<c:url value='/resources/js/adminNotices.js' />"></script>
+	<script src="${resPath}/js/pagination.js" type="text/javascript"></script>
 </body>
 </html>
