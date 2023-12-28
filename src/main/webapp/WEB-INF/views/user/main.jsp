@@ -27,7 +27,14 @@
 				<div class="aside floating">
 					<div class="profile-box">
 						<div class="profile-image-box">
-							<img src="${resPath}/storage/profile/${profile.fileName}" alt="프로필 이미지">
+							<c:choose>
+								<c:when test="${empty profile.fileName}">
+									<img src="${resPath}/img/profile-default.svg" alt="프로필 기본 이미지">
+								</c:when>
+								<c:otherwise>
+									<img src="${resPath}/storage/profile/${profile.fileName}" alt="프로필 이미지">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<span>${user.deptName}</span>
 						<p><span>${user.name}</span> <span>${user.position}</span></p>

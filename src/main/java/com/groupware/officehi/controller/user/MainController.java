@@ -7,12 +7,12 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
@@ -51,12 +51,17 @@ public class MainController {
 			return "redirect:/login";
 		}
 		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		// null 검사 필요
+		if (loginUser == null)
+			return "redirect:/login";
+		
 		Optional<EmployeeDTO> user = employeeService.findUserInfoByUserNo(loginUser.getUserNo());
 		model.addAttribute("user", user.get());
 		
-	    FileDTO profile = employeeService.findProfileFileByUserNo(loginUser.getUserNo()).get();
-		model.addAttribute("profile", profile);
+	    Optional<FileDTO> profile = employeeService.findProfileFileByUserNo(loginUser.getUserNo());
+		if(profile.isPresent())
+			model.addAttribute("profile", profile.get());
+		else
+			model.addAttribute("profile", new FileDTO());
 
 		Optional<NoticeDTO> notice = noticeService.findAll().stream().findFirst();
 		if (notice.isPresent())

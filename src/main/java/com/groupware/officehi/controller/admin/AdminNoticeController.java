@@ -1,6 +1,5 @@
 package com.groupware.officehi.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,40 +37,28 @@ public class AdminNoticeController {
 	private final NoticeService noticeService;
 	public LoginUserDTO loginUser = null;
 	
-	// 세션 + 관리자 여부 체크
-	public List<Boolean> sessionAndAdminCheck(HttpServletRequest request, Model model) {
-		List<Boolean> loginCheckList = new ArrayList<>();
-		Boolean isUser = true;
+	// 로그인 검증
+	public boolean loginCheck(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
-		if (session == null) {
-			loginCheckList.add(true);
-			return loginCheckList;
-		}
+		if (session == null)
+			return true;
 
 		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null) {
-			loginCheckList.add(true);
-			return loginCheckList;
-		}
-		
-		loginCheckList.add(false);
-		if(loginUser.getAdmin() != 1)
-			loginCheckList.add(isUser);
-		else
-			loginCheckList.add(!isUser);
+		if (loginUser == null)
+			return true;
 		
 		model.addAttribute("loginUser", loginUser);
 		
-		return loginCheckList;
+		return false;
 	}
 
 	@GetMapping("")
 	public String adminNotices(HttpServletRequest request,Model model) {
-		// 체크 메서드 호출
-		if(sessionAndAdminCheck(request, model).get(0))
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		if(sessionAndAdminCheck(request, model).get(1))
-			return "redirect:/main";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
 		
 		List<NoticeDTO> notices = noticeService.findAll();
 		model.addAttribute("notices", notices);
@@ -80,11 +67,11 @@ public class AdminNoticeController {
 
 	@GetMapping("/add")
 	public String add(HttpServletRequest request, Model model) {
-		// 체크 메서드 호출
-		if(sessionAndAdminCheck(request, model).get(0))
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		if(sessionAndAdminCheck(request, model).get(1))
-			return "redirect:/main";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
 		
 		model.addAttribute("notice", new NoticeDTO());
 		return "/admin/notices/noticeAddForm";
@@ -98,11 +85,11 @@ public class AdminNoticeController {
 
 	@GetMapping("/{noticeNo}")
 	public String detail(@PathVariable("noticeNo") Long noticeNo, HttpServletRequest request, Model model) {
-		// 체크 메서드 호출
-		if(sessionAndAdminCheck(request, model).get(0))
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		if(sessionAndAdminCheck(request, model).get(1))
-			return "redirect:/main";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
 		
 		NoticeDTO notice = noticeService.findByNoticeNo(noticeNo).get();
 		model.addAttribute("notice", notice);

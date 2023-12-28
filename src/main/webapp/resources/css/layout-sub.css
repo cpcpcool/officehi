@@ -12,12 +12,14 @@
 	border-radius: 50%;
 }
 #main .profile-image-box img {
-	width: 4em;
-	height: 4em;
+	max-width: 5em;
+	min-height: 5em;
+	width: 5em;
+	height: 5em;
 	object-fit: contain;
 }
 #main .profile-image-box + span {
-	margin: 24px 0 12px;
+	margin: 18px 0 6px;
 	font-size: 16px;
 	font-weight: 600;
 }
