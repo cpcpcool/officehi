@@ -22,4 +22,8 @@ public class FileDTO {
 	private String filePath;
 	private String fileTypeNo;
 	private MultipartFile multipartFile;
+	
+	public FileDTO(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
 }

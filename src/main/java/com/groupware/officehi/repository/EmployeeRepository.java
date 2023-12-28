@@ -35,11 +35,14 @@ public interface EmployeeRepository {
 	void updateFromDate(@Param("userNo") Long userNo);
 
 	List<EmployeeDTO> findAll();
+	List<EmployeeDTO> findAllByName(@Param("name") String name);
+	List<EmployeeDTO> findAllByUserNo(@Param("userNo") Long userNo);
+	List<EmployeeDTO> findAllByDeptName(@Param("deptName") String deptName);
 
+	// paging search
 	List<EmployeeDTO> findAllPaging(Paging paging);
-	
-	List<EmployeeDTO> searchUserName(@Param("name") String name, Paging paging);
-	List<EmployeeDTO> searchUserNo(@Param("userNo") Long userNo);
-	List<EmployeeDTO> searchDeptName(@Param("deptName") String deptName);
+	List<EmployeeDTO> findAllByNamePaging(@Param("name") String name, @Param("paging") Paging paging);
+	List<EmployeeDTO> findAllByUserNoPaging(@Param("userNo") Long userNo, @Param("paging") Paging paging);
+	List<EmployeeDTO> findAllByDeptNamePaging(@Param("deptName") String deptName, @Param("paging") Paging paging);
 	
 }

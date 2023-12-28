@@ -32,8 +32,8 @@ function deleteApproval(context, approvalNo) {
 	if(isFormDelete) {
 		let form = document.getElementById('approval');
 		
-		form.setAttribute('action', context + 'approvals/' + approvalNo);
-		
+		form.setAttribute('action', context + '/' + approvalNo);
+		approvals
 		form.submit();
 	}
 }
@@ -48,4 +48,5 @@ function searchApproval() {
 	} else {
 		searchValue.setAttribute('type', 'type');
 	}
+	
 }

@@ -56,8 +56,7 @@
 		to_date = #{toDate},
 		dept_name = #{deptName},
 		position = #{position}
-		WHERE user_no =
-		#{userNo}
+		WHERE user_no =	#{userNo}
 	</update>
 
 	<update id="updateFromDate" parameterType="EmployeeDTO">
@@ -73,7 +72,25 @@
 		FROM user
 	</select>
 
-	<!-- 페이지네이션 -->
+	<select id="findAllByName" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		WHERE name LIKE concat('%', #{name}, '%')
+	</select>
+
+	<select id="findAllByUserNo" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		WHERE user_no LIKE concat('%', #{userNo}, '%')
+	</select>
+
+	<select id="findAllByDeptName" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
+		FROM user
+		WHERE dept_name LIKE concat('%', #{deptName}, '%')
+	</select>
+
+	<!-- paging -->
 	<select id="findAllPaging" resultType="EmployeeDTO">
 		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
@@ -81,29 +98,25 @@
 		LIMIT #{amount} OFFSET #{offset}
 	</select>	
 	
-	<!-- 이름검색 -->
-	<select id="searchUserName" resultType="EmployeeDTO" parameterType="java.lang.String">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+	<select id="findAllByNamePaging" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		WHERE name LIKE concat('%', #{name}, '%')
+		LIMIT #{paging.amount} OFFSET #{paging.offset}
 	</select>
 
-	<!-- 사번검색 -->
-	<select id="searchUserNo" resultType="EmployeeDTO" parameterType="java.lang.Long">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+	<select id="findAllByUserNoPaging" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		WHERE user_no LIKE concat('%', #{userNo}, '%')
+		LIMIT #{paging.amount} OFFSET #{paging.offset}
 	</select>
 
-	<!-- 부서검색 -->
-	<select id="searchDeptName" resultType="EmployeeDTO" parameterType="java.lang.String">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+	<select id="findAllByDeptNamePaging" resultType="EmployeeDTO">
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
-		WHERE dept_name LIKE concat('%',
-		#{deptName}, '%')
+		WHERE dept_name LIKE concat('%', #{deptName}, '%')
+		LIMIT #{paging.amount} OFFSET #{paging.offset}
 	</select>
 
 </mapper>

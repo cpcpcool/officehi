@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <c:url var="context" value="/" />
@@ -38,7 +38,7 @@
 	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
-			<%@ include file="/WEB-INF/views/aside/adminAside.jsp" %>
+			<%@ include file="/WEB-INF/views/aside/adminAside.jsp"%>
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>사원 정보 상세</h2>
@@ -98,12 +98,11 @@
 						<div class="row mb-3">
 							<label for="profile" class="col-sm-2 col-form-label">프로필이미지 등록</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" value="${profileFile.originalFileName}" >
-								<input type="file" hidden="true">
+								<input type="text" class="form-control" id="profile" name="profile" value="${profileFile.originalFileName}">
 							</div>
 							<label for="stamp" class="col-sm-2 col-form-label">인감이미지 등록</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="stamp" name="stamp" value="${stampFile.originalFileName}" >
+								<input type="text" class="form-control" id="stamp" name="stamp" value="${stampFile.originalFileName}">
 							</div>
 						</div>
 						<!-- BUTTON -->

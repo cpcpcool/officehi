@@ -93,20 +93,33 @@ public class EmployeeService {
 		return employeeRepository.findAll();
 	}
 
-	public List<EmployeeDTO> findAllPagingEmployee(Paging paging) {
+	public List<EmployeeDTO> findAllByName(String name) {
+		return employeeRepository.findAllByName(name);
+	}
+	
+	public List<EmployeeDTO> findAllByUserNo(Long userNo) {
+		return employeeRepository.findAllByUserNo(userNo);
+	}
+	
+	public List<EmployeeDTO> findAllByDeptName(String deptName) {
+		return employeeRepository.findAllByDeptName(deptName);
+	}
+	
+	// paging
+	public List<EmployeeDTO> findAllEmployeePaging(Paging paging) {
 		return employeeRepository.findAllPaging(paging);
 	}
 
-	public List<EmployeeDTO> searchUserName(String name, Paging paging) {
-		return employeeRepository.searchUserName(name, paging);
+	public List<EmployeeDTO> findAllByNamePaging(String name, Paging paging) {
+		return employeeRepository.findAllByNamePaging(name, paging);
 	}
 
-	public List<EmployeeDTO> searchUserNo(Long userNo) {
-		return employeeRepository.searchUserNo(userNo);
+	public List<EmployeeDTO> findAllByUserNoPaging(Long userNo, Paging paging) {
+		return employeeRepository.findAllByUserNoPaging(userNo, paging);
 	}
 
-	public List<EmployeeDTO> searchDeptName(String deptName) {
-		return employeeRepository.searchDeptName(deptName);
+	public List<EmployeeDTO> findAllByDeptNamePaging(String deptName, Paging paging) {
+		return employeeRepository.findAllByDeptNamePaging(deptName, paging);
 	}
 
 }
