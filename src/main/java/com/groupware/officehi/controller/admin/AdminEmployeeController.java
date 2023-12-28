@@ -3,14 +3,10 @@ package com.groupware.officehi.controller.admin;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -96,11 +92,6 @@ public class AdminEmployeeController {
 		model.addAttribute("employees", employees);
 		model.addAttribute("pageMarker", new PagingDTO(paging, employeesTotal));
 		return "admin/employees/employeeTotal";
-	}
-
-	@PostMapping
-	public String employeeModify() {
-		return "redirect:/admin/employees";
 	}
 
 	@GetMapping("/add")

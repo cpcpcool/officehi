@@ -42,10 +42,38 @@ function searchApproval() {
 	let searchValue = document.getElementById('searchValue');
 	let search = document.getElementById('search');
 	let searchOption = search.options[search.selectedIndex].value;
+	let searchError = document.getElementById('searchError');
+	
+	searchError.style.visibility = 'hidden';
 	
 	if(searchOption == 'date' || searchOption == 'checkDate') {
 		searchValue.setAttribute('type', 'date');
 	} else {
 		searchValue.setAttribute('type', 'type');
 	}
+}
+
+function searchValueIsNaN() {
+	let searchValue = document.getElementById('searchValue');
+	let searchOption = search.options[search.selectedIndex].value;
+	let form = document.getElementById('searchForm');
+	let searchError = document.getElementById('searchError');
+	
+	if(searchOption == 'approvalNo' && isNaN(searchValue.value)) {
+		searchError.style.visibility = 'visible';
+		searchError.innerText = '숫자만 입력하세요.';
+	} else if(searchValue.value == '') {
+		searchError.style.visibility = 'visible';
+		searchError.innerText = '검색어를 입력하세요.';
+	} else {
+		form.submit();
+	}
+}
+
+function searchType(paramSearch, paramSearchValue) {
+	let selectedSearch = document.querySelector("option[value=" + paramSearch + "]");
+	let searchValue = document.getElementById('searchValue');
+
+	selectedSearch.setAttribute('selected','selected');
+	searchValue.value = paramSearchValue;
 }

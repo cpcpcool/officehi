@@ -73,6 +73,9 @@ public class AdminApprovalController {
 	public String getApproval(@PathVariable Long approval_no, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
+		
+		if(loginUser.getAdmin() != 1)
+			return "alert/alert";
 
 		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
 		model.addAttribute("approval", approval);
@@ -81,11 +84,12 @@ public class AdminApprovalController {
 	}
 	
 	@GetMapping("/search")
-	public String getAdminApprovalListSearch(@RequestParam String search, @RequestParam String searchValue, @ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+	public String getAdminApprovalListSearch(@RequestParam("search") String search, @RequestParam("searchValue") String searchValue,
+			@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
-		if (loginUser.getAdmin() != 1)
+		if(loginUser.getAdmin() != 1)
 			return "alert/alert";
 		
 		List<ApprovalDTO> approvals;

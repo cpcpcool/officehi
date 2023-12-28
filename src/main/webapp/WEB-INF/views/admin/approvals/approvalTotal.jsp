@@ -22,22 +22,23 @@
 .aside ul span {
 	color: #222;
 }
-
 .aside ul span.selected {
 	font-weight: 800;
 	color: #345de3;
 }
-
 .table-group-divider tr td a {
 	color: #222;
 }
-
 .pagination a {
 	color: #222;
 }
+.error {
+	color: #f00;
+	font-size: 0.8em;
+}
 </style>
 </head>
-<body>
+<body onLoad="javaScript:searchType('${param.search}', '${param.searchValue}')">
 	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -46,7 +47,7 @@
 				<div class="content-box floating">
 					<h2 class="lgmg">결재 문서 관리</h2>
 					<div>
-						<form class="row" action="${context}admin/approvals/search" method="get">
+						<form id="searchForm" class="row" action="${context}admin/approvals/search" method="get">
 							<div class="col-2">
 								<select id="search" class="form-select" name="search" onChange="javaScript:searchApproval()">
 										<option value="approvalNo">문서번호</option>
@@ -58,10 +59,11 @@
 								</select>
 							</div>
 							<div class="col-4">
-								<input type="text" id="searchValue" name="searchValue" class="searchValue form-control" placeholder="검색 키워드를 입력하세요" required="required">
+								<input type="text" id="searchValue" name="searchValue" class="searchValue form-control" placeholder="검색 키워드를 입력하세요" required>
+								<span id="searchError" class="error" style="visibility: hidden;">숫자를 입력해주세요.</span>
 							</div>
 							<div class="col-4">
-								<button class="btn btn-dark" type="submit">검색</button>
+								<button type="button" class="btn btn-dark" onClick="javaScript:searchValueIsNaN()">검색</button>
 								<a href="${context}admin/approvals" class="btn btn-dark">초기화</a>
 							</div>
 						</form>
