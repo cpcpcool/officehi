@@ -33,7 +33,8 @@
 									<img src="${resPath}/img/profile-default.svg" alt="프로필 기본 이미지">
 								</c:when>
 								<c:otherwise>
-									<img src="${realFilePath}${profileStoragePath}${profile.fileName}" alt="프로필 이미지">
+									<img src="<c:url value='${realFilePath}${profileStoragePath}${profile.fileName}'/>" alt="프로필 이미지">
+									<%-- <img src="${resPath}/storage/profile/${profile.fileName}" alt="프로필 이미지"> --%>
 								</c:otherwise>
 							</c:choose>
 						</div>

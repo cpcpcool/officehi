@@ -19,9 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 박재용
- * @editDate 23.12.20 ~ 23.12.22 
- * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25 
- * 파일 업로드 및 수정 비즈니스로직 추가 23.12.26 ~ 23.12.29
+ * @editDate 23.12.20 ~ 23.12.22 페이지네이션 기능 추가 23.12.23 ~ 23.12.25 파일 업로드 및 수정
+ *           비즈니스로직 추가 23.12.26 ~ 23.12.29
  */
 
 @Slf4j
@@ -31,34 +30,36 @@ public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
 	private final ServletContext servletContext;
-	
+
 	public void insertUserInfo(EmployeeDTO employeeDTO) {
 		employeeRepository.insert(employeeDTO);
 	}
 
 	public void insertFileInfo(FileDTO fileDTO) {
 		MultipartFile multipartFile = fileDTO.getMultipartFile();
-
+		String externalDir = "./storage";
 		String currentTime = Long.toString(System.currentTimeMillis());
-		String realFilePath = servletContext.getRealPath("/") + employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
-		log.info("realFilePath: {}", realFilePath);
 		
-		String filePath = System.getProperty("user.dir") + "/"
+		String externalFilePath = externalDir
 				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
+		log.info("fileForLoad : {}", externalDir);
+		
+//		String realFilePath = servletContext.getRealPath("/")
+//				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
+
+//		String filePath = System.getProperty("user.dir") + "/"
+//				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
 		String originalFileName = multipartFile.getOriginalFilename();
 		String convertFileName = originalFileName.substring(0, originalFileName.lastIndexOf(".")) + "_" + currentTime
 				+ originalFileName.substring(originalFileName.lastIndexOf("."));
-		
-		// OS 별 구분자 교체
 
-//		realFilePath = realFilePath.replace("\\", "/");
-//		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
-		realFilePath = realFilePath.replace("/", File.separator).replace("\\", File.separator);
- 
-		File fileForLoad = new File(realFilePath, convertFileName);
+		// OS 별 구분자 교체
+		externalFilePath = externalFilePath.replace("/", File.separator).replace("\\", File.separator);
+
+		File fileForLoad = new File(externalFilePath, convertFileName);
 		log.info("fileForLoad : {}", fileForLoad);
-		File file = new File(filePath, convertFileName);
-		log.info("file : {}", file);
+//		File file = new File(filePath, convertFileName);
+//		log.info("file : {}", file);
 
 		// try catch로 예외 처리 안해줄 시 컴퓨터가 어떻게 할지 몰라서 필수로 해주기
 		try {
@@ -69,11 +70,11 @@ public class EmployeeService {
 			// filePath DB 저장
 			fileDTO.setFileName(convertFileName);
 			fileDTO.setOriginalFileName(originalFileName);
-			fileDTO.setFilePath(realFilePath);
-//			fileDTO.setFilePath(filePath);
+			fileDTO.setFilePath(externalFilePath);
 
 			employeeRepository.insertFileInfo(fileDTO);
 		} catch (Exception e) {
+			log.error("File upload failed: {}", e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -81,7 +82,7 @@ public class EmployeeService {
 	public Optional<EmployeeDTO> findUserInfoByUserNo(Long userNo) {
 		return employeeRepository.findUserInfoByUserNo(userNo);
 	}
-	
+
 	public Optional<FileDTO> findProfileFileByUserNo(Long userNo) {
 		return employeeRepository.findProfileFileByUserNo(userNo);
 	}
@@ -94,7 +95,7 @@ public class EmployeeService {
 		employeeRepository.update(employeeDTO);
 
 	}
-	
+
 	public void updateFileInfo(FileDTO fileDTO) {
 		MultipartFile multipartFile = fileDTO.getMultipartFile();
 
@@ -109,9 +110,9 @@ public class EmployeeService {
 
 		filePath = filePath.replace("\\", "/");
 //		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
-		
+
 		File file = new File(filePath, convertFileName);
- 
+
 		// try catch로 예외 처리 안해줄 시 컴퓨터가 어떻게 할지 몰라서 필수로 해주기
 		try {
 			// file 물리저장
@@ -139,15 +140,15 @@ public class EmployeeService {
 	public List<EmployeeDTO> findAllByName(String name) {
 		return employeeRepository.findAllByName(name);
 	}
-	
+
 	public List<EmployeeDTO> findAllByUserNo(Long userNo) {
 		return employeeRepository.findAllByUserNo(userNo);
 	}
-	
+
 	public List<EmployeeDTO> findAllByDeptName(String deptName) {
 		return employeeRepository.findAllByDeptName(deptName);
 	}
-	
+
 	// paging
 	public List<EmployeeDTO> findAllEmployeePaging(Paging paging) {
 		return employeeRepository.findAllPaging(paging);

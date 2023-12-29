@@ -88,14 +88,7 @@ public class MainController {
 		
 		String realFilePath = servletContext.getRealPath("/");
 		log.info("rfp: {}", realFilePath);
-		String profileStoragePath = "src\\main\\webapp\\resources\\storage\\profile\\";
-		log.info("rfp: {}", profileStoragePath);
 		
-		model.addAttribute("realFilePath", realFilePath);
-		model.addAttribute("profileStoragePath", profileStoragePath);
-		
-				
-				
 		return "/user/main";
 	}
 
