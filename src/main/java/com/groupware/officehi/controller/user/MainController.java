@@ -86,12 +86,13 @@ public class MainController {
 
 		Integer duplicateCheck = workService.checkDateDuplicte(loginUser.getUserNo());
 		if (duplicateCheck != null) {
-			redirectAttributes.addFlashAttribute("duplicateMessage", "이미 출근한 날짜입니다.");
+			redirectAttributes.addFlashAttribute("resultMessage", "이미 출근한 날짜입니다.");
 			return "redirect:/main";
 		} else {
 			WorkDTO work = new WorkDTO();
 			work.setUserNo(loginUser.getUserNo());
 			workService.arrivalTimeCheck(work);
+			redirectAttributes.addFlashAttribute("resultMessage", "출근 처리 되었습니다.");
 			return "redirect:/main";
 		}
 

@@ -14,6 +14,7 @@
 <title>오피스하이 - 메인</title>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <script type="text/javascript" src="${resPath}/js/time.js"></script>
+<script type="text/javascript" src="${resPath}/js/workMessage.js"></script>
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="${resPath}/css/layout-sub.css" rel="stylesheet">
@@ -77,6 +78,11 @@
 						<h3>결재 현황</h3>
 						<table>
 							<tbody>
+								<c:if test="${empty approvals}">
+									<tr style="text-align: center; font-size:18px;">
+										<td>결재 문서가 없습니다.</td>
+									</tr>
+								</c:if>
 								<c:forEach var="approval" items="${approvals}">
 									<tr>
 										<td>${approval.name}</td>
@@ -97,20 +103,17 @@
 						<div class="time-box">
 							<span id="currentTime"></span>
 						</div>
-						<!-- <form action="" method="post"> -->
 						<div class="work-btn-box">
-							<form class="arrival btn-form" action="${context}main/arrival" method="post">
+							<form id="arrivalForm" class="arrival btn-form" action="${context}main/arrival" method="post">
 								<input type="hidden" name="userNo" value="${loginUser}" />
-								<button class="start-btn" type="submit">출근</button>
+								<button id="arrivalBtn" class="start-btn" type="submit">출근</button>
 							</form>
 							<form class="leave btn-form" action="${context}main/leave" method="post">
 								<input type="hidden" name="userNo" value="${loginUser}" />
-								<button class="end-btn" type="submit">퇴근</button>
+								<button id="leaveBtn" class="end-btn" type="submit">퇴근</button>
 							</form>
-							<!-- <button type="submit" class="start-btn">출근</button>
-							<button type="submit" class="end-btn">퇴근</button> -->
+							<input type="hidden" id="resultMessage" value="${resultMessage}" />
 						</div>
-						<!-- </form> -->
 						<div class="link-box works">
 							<a href="${context}works/list">
 								<span>근무시간 확인</span>
