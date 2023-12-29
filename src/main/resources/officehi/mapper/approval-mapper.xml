@@ -140,7 +140,10 @@
 	<select id="findByApprovalNo">
 		SELECT *, (SELECT name
 					FROM user u JOIN approval a
-					WHERE a.approval_no = #{approvalNo} AND u.user_no = a.checker1) as checkerName1
+					WHERE a.approval_no = #{approvalNo} AND u.user_no = a.checker1) as checkerName1,
+					(SELECT position
+					FROM user u JOIN approval a
+					WHERE a.approval_no = #{approvalNo} AND u.user_no = a.checker1) as checkerPosition1
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
 		WHERE approval_no = #{approvalNo}
