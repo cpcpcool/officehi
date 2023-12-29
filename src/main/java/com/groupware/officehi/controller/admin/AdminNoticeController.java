@@ -1,6 +1,5 @@
 package com.groupware.officehi.controller.admin;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,20 +13,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
+import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.NoticeDTO;
+import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.NoticeService;
 
 import lombok.RequiredArgsConstructor;
 
 /**
 * @author 이승준
-* @editDate 23.12.21 ~ 23.12.22
-* 검색 기능 추가 23.12.24 ~ 23.12.26
-* 수정/삭제 기능 추가 23.12.26 ~ 23.12.27
+* @editDate 23.12.21 ~ 23.12.28
 */
 
 @Controller
@@ -38,53 +36,44 @@ public class AdminNoticeController {
 	private final NoticeService noticeService;
 	public LoginUserDTO loginUser = null;
 	
-	// 세션 + 관리자 여부 체크
-	public List<Boolean> sessionAndAdminCheck(HttpServletRequest request, Model model) {
-		List<Boolean> loginCheckList = new ArrayList<>();
-		Boolean isUser = true;
+	// 로그인 검증
+	public boolean loginCheck(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
-		if (session == null) {
-			loginCheckList.add(true);
-			return loginCheckList;
-		}
+		if (session == null)
+			return true;
 
 		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null) {
-			loginCheckList.add(true);
-			return loginCheckList;
-		}
-		
-		loginCheckList.add(false);
-		if(loginUser.getAdmin() != 1)
-			loginCheckList.add(isUser);
-		else
-			loginCheckList.add(!isUser);
+		if (loginUser == null)
+			return true;
 		
 		model.addAttribute("loginUser", loginUser);
 		
-		return loginCheckList;
+		return false;
 	}
 
-	@GetMapping("")
-	public String adminNotices(HttpServletRequest request,Model model) {
-		// 체크 메서드 호출
-		if(sessionAndAdminCheck(request, model).get(0))
+	@GetMapping
+	public String adminNotices(@ModelAttribute Paging paging, HttpServletRequest request,Model model) {
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		if(sessionAndAdminCheck(request, model).get(1))
-			return "redirect:/main";
 		
-		List<NoticeDTO> notices = noticeService.findAll();
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
+		int totalRow = noticeService.findAll().size();
+		List<NoticeDTO> notices = noticeService.findAllPaging(paging);
+		
 		model.addAttribute("notices", notices);
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "/admin/notices/noticeTotal";
 	}
 
 	@GetMapping("/add")
 	public String add(HttpServletRequest request, Model model) {
-		// 체크 메서드 호출
-		if(sessionAndAdminCheck(request, model).get(0))
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		if(sessionAndAdminCheck(request, model).get(1))
-			return "redirect:/main";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
 		
 		model.addAttribute("notice", new NoticeDTO());
 		return "/admin/notices/noticeAddForm";
@@ -98,11 +87,11 @@ public class AdminNoticeController {
 
 	@GetMapping("/{noticeNo}")
 	public String detail(@PathVariable("noticeNo") Long noticeNo, HttpServletRequest request, Model model) {
-		// 체크 메서드 호출
-		if(sessionAndAdminCheck(request, model).get(0))
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		if(sessionAndAdminCheck(request, model).get(1))
-			return "redirect:/main";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
 		
 		NoticeDTO notice = noticeService.findByNoticeNo(noticeNo).get();
 		model.addAttribute("notice", notice);
@@ -115,21 +104,37 @@ public class AdminNoticeController {
 		return "redirect:/admin/notices";
 	}
 	
-	@PostMapping("/search")
-	public String search(@RequestParam("searchType") String searchType,
-			@RequestParam(name = "title", required = false) String title,
-			@RequestParam(name = "content", required = false) String content,
-			@RequestParam(name = "noticeNo", required = false) Long noticeNo, Model model) {
-		List<NoticeDTO> notices = null;
-
-		if ("title".equals(searchType)) {
-			notices = noticeService.searchTitle(title);
-		} else if ("content".equals(searchType)) {
-			notices = noticeService.searchContent(content);
-		} else if ("noticeNo".equals(searchType)) {
-			notices = noticeService.searchNoticeNo(noticeNo);
+	@GetMapping("/search")
+	public String search(String search, String searchValue, 
+			@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
+		List<NoticeDTO> notices;
+		int totalRow = 0;
+		
+		switch(search) {
+		case "title":
+			totalRow = noticeService.findAllByTitle(searchValue).size();
+			notices = noticeService.findAllByTitlePaging(searchValue, paging);
+			break;
+		case "content":
+			totalRow = noticeService.findAllByContent(searchValue).size();
+			notices = noticeService.findAllByContentPaging(searchValue, paging);
+			break;
+		case "noticeNo":
+			totalRow = noticeService.findAllByNoticeNo(Long.valueOf(searchValue)).size();
+			notices = noticeService.findAllByNoticeNoPaging(Long.valueOf(searchValue), paging);
+			break;
+		default:
+			return "admin/notices/noticeTotal";
 		}
+		
 		model.addAttribute("notices", notices);
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "admin/notices/noticeTotal";
 	}
 	

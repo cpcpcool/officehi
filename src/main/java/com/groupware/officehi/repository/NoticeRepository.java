@@ -15,9 +15,8 @@ import com.groupware.officehi.dto.NoticeDTO;
  * 페이지네이션
  * @editDate 23.12.26 ~ 23.12.28
  * 
- * @author 이승준
- * 검색 기능 추가 23.12.24 ~ 23.12.26
- * 삭제 기능 추가 23.12.26 ~ 23.12.26
+ * @author 이승준	+검색 기능 23.12.24 ~ 23.12.26	+삭제 기능 23.12.26 ~ 23.12.26
+ * +페이지네이션 23.12.28 ~ 23.12.28
  */
 
 @Repository
@@ -32,13 +31,24 @@ public interface NoticeRepository {
 	List<NoticeDTO> findNoticePaging(Paging paging);
 	
 	/* 검색 기능 */
-	List<NoticeDTO> searchTitle(@Param("title") String title);
+	List<NoticeDTO> findAllByTitle(@Param("title") String title);
 
-	List<NoticeDTO> searchContent(@Param("content") String content);
+	List<NoticeDTO> findAllByContent(@Param("content") String content);
 
-	List<NoticeDTO> searchNoticeNo(@Param("noticeNo") Long noticeNo);
+	List<NoticeDTO> findAllByNoticeNo(@Param("noticeNo") Long noticeNo);
 
 	/* 수정/삭제 기능 */
 	void update(NoticeDTO notice);
+	
 	int delete(@Param("noticeNo") Long noticeNo);
+
+	/* 페이지네이션 */
+	List<NoticeDTO> findAllPaging(Paging paging);
+	
+	List<NoticeDTO> findAllByTitlePaging(@Param("title") String title, @Param(value = "paging") Paging paging);
+
+	List<NoticeDTO> findAllByContentPaging(@Param("content") String content, @Param(value = "paging") Paging paging);
+
+	List<NoticeDTO> findAllByNoticeNoPaging(@Param("noticeNo") Long noticeNo, @Param(value = "paging") Paging paging);
+
 }

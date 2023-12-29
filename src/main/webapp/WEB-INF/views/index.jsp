@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:url var="resPath" value="/resources" />
 <c:url var="context" value="/" />
+<c:url var="login" value="/login" />
 <!--  
 * @author 이승준
 * @editDate 23.12.18 ~ 23.12.20
@@ -24,7 +25,8 @@
 		<div class="content-box floating">
 			<h1><img src="${resPath}/img/OfficeHi-logo.svg" alt="오피스하이 로고"></h1>
 			<h2>로그인</h2>
-			<form:form action="${context}login" modelAttribute="loginUserDTO" method="post">
+			<form:form action="${login}" modelAttribute="loginUserDTO" method="post">
+			<%-- <form:form action="${context}login" modelAttribute="loginUserDTO" method="post"> --%>
 				<form:input path="userNo" cssClass="form-control" type="text" id="userNo" placeholder="아이디를 입력해주세요"/>
 				<form:input path="pw" cssClass="form-control" type="password" id="pw" placeholder="비밀번호를 입력해주세요"/>
 				<c:if test="${not empty duplicateMessage}">
