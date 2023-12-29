@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
-import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.dto.FileDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.MyPageDTO;
@@ -29,18 +28,26 @@ public class MyPageController {
 
 	private final MyPageService myPageService;
 	private final EmployeeService employeeService;
-
-	@GetMapping("/mypage")
-	public String myPageDetail(HttpServletRequest request, FileDTO fielDTO, Model model) {
+	public LoginUserDTO loginUser = null;
+	
+	public boolean loginCheck(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
 		if (session == null)
-			return "redirect:/login";
+			return true;
 
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 		if (loginUser == null)
-			return "redirect:/login";
-
+			return true;
+		
 		model.addAttribute("loginUser", loginUser);
+		
+		return false;
+	}
+	
+	@GetMapping("/mypage")
+	public String myPageDetail(HttpServletRequest request, FileDTO fielDTO, Model model) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
 
 		Optional<MyPageDTO> mypageuser = myPageService.findByUserNo(loginUser.getUserNo());
 		if (mypageuser.get().getFromDate().equals("9999-01-01")) {
