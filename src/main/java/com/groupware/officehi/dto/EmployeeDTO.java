@@ -3,7 +3,6 @@ package com.groupware.officehi.dto;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

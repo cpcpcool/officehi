@@ -131,11 +131,11 @@ public class ApprovalController {
 		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
 		List<ApprovalDTO> userList = approvalService.findUserNameAndDeptNameByApprovalNo(approval.getApprovalNo(), loginUser.getUserNo());
 		
-		EmployeeDTO Checker1 = employeeService.findUserInfoByUserNo(approval.getChecker1()).get();
+		EmployeeDTO checker1 = employeeService.findUserInfoByUserNo(approval.getChecker1()).get();
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
-		model.addAttribute("Checker1", Checker1);
+		model.addAttribute("checker1", checker1);
 
 		return "user/approvals/approval";
 	}
