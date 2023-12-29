@@ -120,7 +120,11 @@
 						<nav aria-label="Page navigation">
 							<ul class="pagination mt-5 justify-content-center">
 								<c:if test="${pageMaker.prev}">
-									<li class="page-item"><a class="page-link" href="${pageMaker.startPage - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+									<li class="page-item">
+										<a class="page-link" href="${pageMaker.startPage - 1}" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+										</a>
+									</li>
 								</c:if>
 								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 									<li class="page-item ${pageMaker.paging.pageNum == num ? 'active' : ''}"><a class="page-link" href="${num}">${num}</a></li>

@@ -14,13 +14,13 @@ import com.groupware.officehi.dto.FileDTO;
  * @author 박재용
  * @editDate 23.12.20 ~ 23.12.22
  * 페이지네이션 기능 추가 23.12.24 ~ 23.12.25
+ * 파일 업로드 및 수정 기능 추가 23.12.26 ~ 23.12.29 
  */
 
 @Repository
 public interface EmployeeRepository {
 
 	void insert(EmployeeDTO employeeDTO);
-	
 	void insertFileInfo(FileDTO fileDTO);
 
 	String getFilePathByFileTypeNo(@Param("fileTypeNo") String fileTypeNo);
@@ -31,15 +31,19 @@ public interface EmployeeRepository {
 	Optional<FileDTO> findStampFileByUserNo(@Param("userNo") Long userNo);
 
 	void update(EmployeeDTO employeeDTO);
+	void updateFileInfo(FileDTO fileDTO);
 
 	void updateFromDate(@Param("userNo") Long userNo);
 
 	List<EmployeeDTO> findAll();
+	List<EmployeeDTO> findAllByName(@Param("name") String name);
+	List<EmployeeDTO> findAllByUserNo(@Param("userNo") Long userNo);
+	List<EmployeeDTO> findAllByDeptName(@Param("deptName") String deptName);
 
+	// paging search
 	List<EmployeeDTO> findAllPaging(Paging paging);
-	
-	List<EmployeeDTO> searchUserName(@Param("name") String name, Paging paging);
-	List<EmployeeDTO> searchUserNo(@Param("userNo") Long userNo);
-	List<EmployeeDTO> searchDeptName(@Param("deptName") String deptName);
+	List<EmployeeDTO> findAllByNamePaging(@Param("name") String name, @Param("paging") Paging paging);
+	List<EmployeeDTO> findAllByUserNoPaging(@Param("userNo") Long userNo, @Param("paging") Paging paging);
+	List<EmployeeDTO> findAllByDeptNamePaging(@Param("deptName") String deptName, @Param("paging") Paging paging);
 	
 }

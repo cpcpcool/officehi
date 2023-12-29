@@ -72,18 +72,17 @@ button {
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2 class="lgmg">사원 정보 관리</h2>
-					<form action="${context}admin/employees/search" role="search" method="post">
-						<div class="row g-2 align-items-center mb-3" id="employeesearch">
+					<form action="${context}admin/employees/search" role="search" method="get">
+						<div class="row g-2 align-items-center mb-3" id="employeeSearch">
 							<div class="col-3">
-								<select class="form-select" name="searchType" aria-label="search">
+								<select id="searchType" class="form-select" name="searchType" aria-label="search">
 									<option value="name">사원명</option>
 									<option value="userNo">사번</option>
 									<option value="deptName">부서명</option>	
 								</select>
 							</div>
-							<!-- 인풋이 꼭 여러개 있어야하는지.. -->
 							<div class="col-5">
-								<input name="name" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원 검색">
+								<input name="name" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원정보 검색">
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
@@ -137,8 +136,17 @@ button {
 						</table>
 					</form:form>
 					<!-- 페이지네이션 -->
-					<form:form id="pagingForm" action="${context}admin/employees"
-						method="get" modelAttribute="pageMarker">
+					<c:set var="action" value="${context}admin/employees" />
+					<c:choose>
+						<c:when test="${param.searchType != '' and param.searchType != null}">
+							<c:set var="action" value="${context}admin/employees/search" />
+						</c:when>
+					</c:choose>
+					<form:form id="pagingForm" action="${action}" method="get" modelAttribute="pageMarker">
+						<input type="hidden" name="searchType" value="${param.searchType}" />
+						<input type="hidden" name="name" value="${param.name}" />
+						<input type="hidden" name="userNo" value="${param.userNo}" />
+						<input type="hidden" name="deptName" value="${param.deptName}" />
 						<form:hidden path="pageNum" />
 						<form:hidden path="amount" />
 						<div class="pagination d-flex justify-content-center mt-2">
@@ -146,7 +154,9 @@ button {
 								<ul class="pagination">
 									<c:if test="${pageMarker.prev}">
 										<li class="page-item">
-											<a class="page-link" href="${pageMarker.startPage - 1}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+											<a class="page-link" href="${pageMarker.startPage - 1}" aria-label="Previous">
+												<span aria-hidden="true">&laquo;</span>
+											</a>
 										</li>
 									</c:if>
 									<c:forEach var="num" begin="${pageMarker.startPage}" end="${pageMarker.endPage}">

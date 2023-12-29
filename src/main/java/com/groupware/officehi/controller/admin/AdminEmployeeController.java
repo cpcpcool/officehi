@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +32,10 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @author 박재용
- * @editDate 23.12.20 ~ 23.12.22 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ * @editDate 23.12.20 ~ 23.12.22 
+ * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ * 파일 업로드 및 수정 기능 추가 23.12.26 ~ 23.12.29
  */
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/employees")
@@ -41,9 +43,7 @@ public class AdminEmployeeController {
 
 	private final EmployeeService employeeService;
 	private final LoginService loginService;
-	
-	private int employeesTotal = -1; // 전체 직원데이터 수 조회용 캐싱데이터
-	
+
 	public LoginUserDTO loginUser = null;
 
 	// 로그인 검증
@@ -51,11 +51,11 @@ public class AdminEmployeeController {
 		HttpSession session = request.getSession(false);
 		if (session == null)
 			return true;
-		
+
 		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 		if (loginUser == null)
 			return true;
-		
+
 		model.addAttribute("loginUser", loginUser);
 		return false;
 	}
@@ -64,33 +64,52 @@ public class AdminEmployeeController {
 	public String employeeList(Paging paging, HttpServletRequest request, Model model) {
 		if (loginCheck(request, model))
 			return "redirect:/login";
-		
+
 		if (loginUser.getAdmin() != 1)
-			return "alert/alert";	
-		
-		List<EmployeeDTO> employees = employeeService.findAllPagingEmployee(paging);
+			return "alert/alert";
+
+		int totalRow = employeeService.findAllEmployee().size();
+
+		List<EmployeeDTO> employees = employeeService.findAllEmployeePaging(paging);
 		model.addAttribute("employees", employees);
-		model.addAttribute("pageMarker", new PagingDTO(paging, employeeService.findAllEmployee().size()));
+
+		model.addAttribute("pageMarker", new PagingDTO(paging, totalRow));
 
 		return "admin/employees/employeeTotal";
 	}
 
-	@PostMapping("/search")
-	public String findByUserName(@RequestParam("searchType") String searchType,
+	@GetMapping("/search")
+	public String searchEmployeeList(@RequestParam("searchType") String searchType,
 			@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "userNo", required = false) Long uesrNo,
-			@RequestParam(name = "deptName", required = false) String deptName, Paging paging, Model model) {
-		List<EmployeeDTO> employees = null;
+			@RequestParam(name = "userNo", required = false) Long userNo,
+			@RequestParam(name = "deptName", required = false) String deptName, Paging paging,
+			HttpServletRequest request, Model model) {
 
-		if ("name".equals(searchType)) {
-			employees = employeeService.searchUserName(name, paging);
-		} else if ("userNo".equals(searchType)) {
-			employees = employeeService.searchUserNo(uesrNo);
-		} else if ("deptName".equals(searchType)) {
-			employees = employeeService.searchDeptName(deptName);
+		if (loginCheck(request, model))
+			return "redirect:/login";
+
+		List<EmployeeDTO> employees = null;
+		int totalRow = 0;
+
+		switch (searchType) {
+		case "name":
+			totalRow = employeeService.findAllByName(name).size();
+			employees = employeeService.findAllByNamePaging(name, paging);
+			break;
+		case "userNo":
+			totalRow = employeeService.findAllByUserNo(userNo).size();
+			employees = employeeService.findAllByUserNoPaging(userNo, paging);
+			break;
+		case "deptName":
+			totalRow = employeeService.findAllByDeptName(deptName).size();
+			employees = employeeService.findAllByDeptNamePaging(deptName, paging);
+			break;
+		default:
+			return "admin/employees/employeeTotal";
 		}
+
 		model.addAttribute("employees", employees);
-		model.addAttribute("pageMarker", new PagingDTO(paging, employeesTotal));
+		model.addAttribute("pageMarker", new PagingDTO(paging, totalRow));
 		return "admin/employees/employeeTotal";
 	}
 
@@ -108,23 +127,21 @@ public class AdminEmployeeController {
 	}
 
 	@PostMapping("/add")
-	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult, 
-							@RequestParam("profile") MultipartFile profileMultipartFile, 
-							@RequestParam("stamp") MultipartFile stampMultipartFile,
-							Model model,
-							HttpServletRequest req) {
-		if(bindingResult.hasErrors())
+	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult,
+			@RequestParam("profile") MultipartFile profileMultipartFile,
+			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request) {
+		if (bindingResult.hasErrors())
 			return "admin/employees/employeeAddForm";
-		
+
 		// file외 user 정보 저장
 		employeeService.insertUserInfo(employeeDTO);
 		// login 권한 부여
 		loginService.saveUserInfo(employeeDTO.getUserNo());
-		
+
 		// file 저장
 		FileDTO fileDTO = new FileDTO();
 		fileDTO.setUserNo(employeeDTO.getUserNo());
-		
+
 		// profile 증명사진 저장
 		fileDTO.setMultipartFile(profileMultipartFile);
 		fileDTO.setFileTypeNo("1");
@@ -134,8 +151,7 @@ public class AdminEmployeeController {
 		fileDTO.setMultipartFile(stampMultipartFile);
 		fileDTO.setFileTypeNo("2");
 		employeeService.insertFileInfo(fileDTO);
-		
-		
+
 		model.addAttribute("employeeDTO", employeeDTO);
 
 		return "redirect:/admin/employees";
@@ -149,18 +165,41 @@ public class AdminEmployeeController {
 			employee.get().setFromDate("-");
 		}
 		model.addAttribute("employee", employee.get());
-		
+
 		// 파일 정보
 		Optional<FileDTO> profileFile = employeeService.findProfileFileByUserNo(userNo);
-		model.addAttribute("profileFile", profileFile.get());
+		if (profileFile.isPresent())
+			model.addAttribute("profileFile", profileFile.get());
+		else
+			model.addAttribute("profileFile", profileFile.orElse(new FileDTO("-")));
+
 		Optional<FileDTO> stampFile = employeeService.findStampFileByUserNo(userNo);
-		model.addAttribute("stampFile", stampFile.get());
-		
+		if (stampFile.isPresent())
+			model.addAttribute("stampFile", stampFile.get());
+		else
+			model.addAttribute("stampFile", stampFile.orElse(new FileDTO("-")));
+
 		return "admin/employees/employeeDetail";
 	}
 
 	@PostMapping("/{userNo}")
-	public String employeeInfoEdit(@PathVariable Long userNo, @ModelAttribute EmployeeDTO employeeDTO) {
+	public String employeeInfoEdit(@PathVariable Long userNo, @ModelAttribute EmployeeDTO employeeDTO,
+								@RequestParam("profile") MultipartFile profileMultipartFile,
+								@RequestParam("stamp") MultipartFile stampMultipartFile, Model model) {
+
+		FileDTO fileDTO = new FileDTO();
+		fileDTO.setUserNo(employeeDTO.getUserNo());
+
+		// profile 증명사진 변경저장
+		fileDTO.setMultipartFile(profileMultipartFile);
+		fileDTO.setFileTypeNo("1");
+		employeeService.updateFileInfo(fileDTO);
+
+		// stamp 인감 변경저장
+		fileDTO.setMultipartFile(stampMultipartFile);
+		fileDTO.setFileTypeNo("2");
+		employeeService.updateFileInfo(fileDTO);
+
 		employeeService.updateUserInfo(employeeDTO);
 		return "redirect:/admin/employees";
 	}
