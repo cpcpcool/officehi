@@ -83,14 +83,14 @@ color: #222;
 								<c:choose>
 									<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
 										<form:select path="checker1" class="form-select">
-											<form:option value="${approval.checker1}" label="${approval.checkerPosition1}: ${approval.checkerName1}" selected="true" />
+											<form:option value="${Checker1.userNo}" label="${Checker1.position}: ${Checker1.name}" selected="true" />
 											<c:forEach items="${userList}" var="user">
 												<option value="${user.userNo}">${user.position}: ${user.name}</option>
 											</c:forEach>
 										</form:select>
 									</c:when>
 									<c:otherwise>
-										<span class="form-control">${approval.checkerPosition1}: ${approval.checkerName1}</span>
+										<span class="form-control">${Checker1.position}: ${Checker1.name}</span>
 									</c:otherwise>
 								</c:choose>
 							</div>

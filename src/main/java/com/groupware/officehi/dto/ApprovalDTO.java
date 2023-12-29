@@ -26,7 +26,5 @@ public class ApprovalDTO {
 	private String checkDate;
 	private String position;
 	private Long checker1;
-	private String checkerName1;
-	private String checkerPosition1;
 	
 }

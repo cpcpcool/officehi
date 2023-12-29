@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.groupware.officehi.controller.LoginController.SessionConst;
 import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
+import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.PagingDTO;
 import com.groupware.officehi.service.ApprovalService;
+import com.groupware.officehi.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 public class ApprovalController {
 
 	private final ApprovalService approvalService;
+	private final EmployeeService employeeService;
 	public LoginUserDTO loginUser = null;
 	
 	// 로그인 검증
@@ -128,8 +131,11 @@ public class ApprovalController {
 		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
 		List<ApprovalDTO> userList = approvalService.findUserNameAndDeptNameByApprovalNo(approval.getApprovalNo(), loginUser.getUserNo());
 		
+		EmployeeDTO Checker1 = employeeService.findUserInfoByUserNo(approval.getChecker1()).get();
+		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
+		model.addAttribute("Checker1", Checker1);
 
 		return "user/approvals/approval";
 	}
