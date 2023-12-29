@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author 정유진
  * @editDate 23.12.18 ~ 23.12.19
+ * 페이지네이션
+ * @editDate 23.12.26 ~ 23.12.28
  * 
  * @author 이승준 검색 기능 추가 23.12.24 ~ 23.12.26 수정/삭제 기능 추가 23.12.26 ~ 23.12.27
  */

@@ -8,8 +8,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
 import com.groupware.officehi.domain.Paging;
@@ -22,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 /**
  * @author 정유진
  * @editDate 23.12.19 ~ 23.12.20
+ *  페이지네이션
+ * @editDate 23.12.26 ~ 23.12.28
 */
 
 @Controller
@@ -30,18 +35,26 @@ import lombok.RequiredArgsConstructor;
 public class NoticeController {
 
 	private final NoticeService noticeService;
+	public LoginUserDTO loginUser = null;
+	
+	public boolean loginCheck(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+		if (session == null)
+			return true;
+
+		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		if (loginUser == null)
+			return true;
+		
+		model.addAttribute("loginUser", loginUser);
+		
+		return false;
+	}
 	
 	@GetMapping("")
 	public String notices(HttpServletRequest request, Paging paging, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
+		if(loginCheck(request, model))
 			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
-		model.addAttribute("loginUser", loginUser);
 		
 		int totalRow = noticeService.findAll().size();
 		List<NoticeDTO> notices = noticeService.findNoticePaging(paging);
@@ -52,18 +65,29 @@ public class NoticeController {
 
 	@GetMapping("/{noticeNo}")
 	public String noticeDetail(@PathVariable("noticeNo") Long noticeNo, Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
+		if(loginCheck(request, model))
 			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
-		model.addAttribute("loginUser", loginUser);
 		
 		NoticeDTO notice = noticeService.findByNoticeNo(noticeNo).get();
 		model.addAttribute("notice", notice);
 		return "/user/notices/notice";
+	}
+	
+	@PostMapping("/search")
+	public String search(@RequestParam("searchType") String searchType, 
+			@RequestParam(name="title", required=false) String title,
+			@RequestParam(name="content", required=false) String content,
+			@ModelAttribute Paging paging, Model model) {
+		List<NoticeDTO> notices = null;
+		int totalRow = 0;
+		
+		if ("title".equals(searchType)) {
+			notices = noticeService.searchTitle(title);
+		} else if ("content".equals(searchType)) {
+			notices = noticeService.searchContent(content);
+		}
+		model.addAttribute("notices", notices);
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
+		return "/user/notices/noticeList";
 	}
 }
