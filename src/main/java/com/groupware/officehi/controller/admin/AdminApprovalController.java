@@ -52,7 +52,7 @@ public class AdminApprovalController {
 	
 	// 관리자 결재 문서 리스트
 	@GetMapping
-	public String getAdminApprovalList(@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+	public String getAdminApprovalList(@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -70,7 +70,7 @@ public class AdminApprovalController {
 	
 	// 결재 문서 상세 보기
 	@GetMapping("/{approval_no}")
-	public String getApproval(@PathVariable Long approval_no, HttpServletRequest request, Model model) {
+	public String getApproval(@PathVariable Long approval_no, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -85,7 +85,7 @@ public class AdminApprovalController {
 	
 	@GetMapping("/search")
 	public String getAdminApprovalListSearch(@RequestParam("search") String search, @RequestParam("searchValue") String searchValue,
-			@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+			@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 

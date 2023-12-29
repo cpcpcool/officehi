@@ -27,12 +27,7 @@
 	font-weight: 800;
 	color: #345de3;
 }
-
 .table-group-divider tr td a {
-	color: #222;
-}
-
-.pagination nav ul li a {
 	color: #222;
 }
 </style>

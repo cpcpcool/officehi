@@ -52,7 +52,7 @@ public class AdminNoticeController {
 	}
 
 	@GetMapping
-	public String adminNotices(@ModelAttribute Paging paging, HttpServletRequest request,Model model) {
+	public String adminNotices(@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -68,7 +68,7 @@ public class AdminNoticeController {
 	}
 
 	@GetMapping("/add")
-	public String add(HttpServletRequest request, Model model) {
+	public String add(Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -80,13 +80,19 @@ public class AdminNoticeController {
 	}
 
 	@PostMapping("/add")
-	public String postAdd(@ModelAttribute NoticeDTO notice) {
+	public String postAdd(@ModelAttribute NoticeDTO notice, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		noticeService.insertNotice(notice);
 		return "redirect:/admin/notices";
 	}
 
 	@GetMapping("/{noticeNo}")
-	public String detail(@PathVariable("noticeNo") Long noticeNo, HttpServletRequest request, Model model) {
+	public String detail(@PathVariable("noticeNo") Long noticeNo, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -99,14 +105,20 @@ public class AdminNoticeController {
 	}
 
 	@PostMapping("/{noticeNo}")
-	public String adminUpdate(@ModelAttribute NoticeDTO notice) {
+	public String adminUpdate(@ModelAttribute NoticeDTO notice, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		noticeService.updateNoticeInfo(notice);
 		return "redirect:/admin/notices";
 	}
 	
 	@GetMapping("/search")
 	public String search(String search, String searchValue, 
-			@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+			@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -139,7 +151,13 @@ public class AdminNoticeController {
 	}
 	
 	@DeleteMapping("/{noticeNo}")
-	public String delete(@PathVariable Long noticeNo, Model model) {
+	public String delete(@PathVariable Long noticeNo, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		noticeService.deleteNotice(noticeNo);
 		return "redirect:/admin/notices";
 	}

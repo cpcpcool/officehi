@@ -28,8 +28,6 @@ public interface NoticeRepository {
 
 	Optional<NoticeDTO> findByNoticeNo(Long noticeNo);
 	
-	List<NoticeDTO> findNoticePaging(Paging paging);
-	
 	/* 검색 기능 */
 	List<NoticeDTO> findAllByTitle(@Param("title") String title);
 

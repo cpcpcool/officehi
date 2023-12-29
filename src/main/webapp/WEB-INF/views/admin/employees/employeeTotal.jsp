@@ -100,8 +100,8 @@ button {
 						<table class="table mt-3">
 							<thead>
 								<tr>
-									<th scope="col">사원명</th>
 									<th scope="col">사번</th>
+									<th scope="col">사원명</th>
 									<th scope="col">부서명</th>
 									<th scope="col">직책</th>
 									<th scope="col">입사일</th>
@@ -113,12 +113,12 @@ button {
 									<tr>
 										<c:choose>
 											<c:when test="${employee.fromDate eq '9999-01-01'}">
-												<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
 												<td><a href="${context}admin/employees/${employee.userNo}">${employee.userNo}</a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
 											</c:when>
 											<c:otherwise>
-												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.name}</a></td>
 												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.userNo}</a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.name}</a></td>
 											</c:otherwise>
 										</c:choose>
 										<td><a href="${context}admin/employees/${employee.userNo}">${employee.deptName}</a></td>

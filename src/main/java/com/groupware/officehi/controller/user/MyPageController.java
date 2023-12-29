@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.groupware.officehi.controller.LoginController.SessionConst;
+import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.dto.FileDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.MyPageDTO;
@@ -32,7 +33,7 @@ public class MyPageController {
 	private final MyPageService myPageService;
 	private final EmployeeService employeeService;
 	public LoginUserDTO loginUser = null;
-	
+
 	public boolean loginCheck(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession(false);
 		if (session == null)
@@ -41,15 +42,15 @@ public class MyPageController {
 		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 		if (loginUser == null)
 			return true;
-		
+
 		model.addAttribute("loginUser", loginUser);
-		
+
 		return false;
 	}
-	
+
 	@GetMapping("/mypage")
-	public String myPageDetail(HttpServletRequest request, FileDTO fielDTO, Model model) {
-		if(loginCheck(request, model))
+	public String myPageDetail(FileDTO fielDTO, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
 			return "redirect:/login";
 
 		Optional<MyPageDTO> mypageuser = myPageService.findByUserNo(loginUser.getUserNo());
@@ -77,18 +78,11 @@ public class MyPageController {
 	}
 
 	@PostMapping("/myPage")
-	public String editMyFiles(HttpServletRequest request, EmployeeDTO employeeDTO, FileDTO fielDTO,
+	public String editMyFiles(EmployeeDTO employeeDTO, FileDTO fielDTO,
 			@RequestParam("profile") MultipartFile profileMultipartFile,
-			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
+			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
 			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
-		model.addAttribute("loginUser", loginUser);
 
 		// 이미지파일 변경 로직
 		FileDTO fileDTO = new FileDTO();
@@ -105,7 +99,7 @@ public class MyPageController {
 		employeeService.updateFileInfo(fileDTO);
 
 		employeeService.updateUserInfo(employeeDTO);
-		
+
 		return "redirect:/mypage";
 	}
 }

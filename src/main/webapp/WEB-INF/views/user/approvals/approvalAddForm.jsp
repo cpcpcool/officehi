@@ -67,7 +67,7 @@ color: #222;
 							<div class="col">
 								<form:select path="checker1" class="form-select" id="checker1" name="checker1">
 									<c:forEach items="${userList}" var="user">
-										<option value="${user.userNo}">${user.position}: ${user.name}</option>
+										<option value="${user.userNo}">[${user.position}] ${user.name}</option>
 									</c:forEach>
 								</form:select>
 							</div>

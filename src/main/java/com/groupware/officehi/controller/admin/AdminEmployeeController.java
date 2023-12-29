@@ -61,7 +61,7 @@ public class AdminEmployeeController {
 	}
 
 	@GetMapping
-	public String employeeList(Paging paging, HttpServletRequest request, Model model) {
+	public String employeeList(Paging paging, Model model, HttpServletRequest request) {
 		if (loginCheck(request, model))
 			return "redirect:/login";
 
@@ -83,10 +83,13 @@ public class AdminEmployeeController {
 			@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "userNo", required = false) Long userNo,
 			@RequestParam(name = "deptName", required = false) String deptName, Paging paging,
-			HttpServletRequest request, Model model) {
+			Model model, HttpServletRequest request) {
 
 		if (loginCheck(request, model))
 			return "redirect:/login";
+
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
 
 		List<EmployeeDTO> employees = null;
 		int totalRow = 0;
@@ -114,7 +117,13 @@ public class AdminEmployeeController {
 	}
 
 	@GetMapping("/add")
-	public String employeeAddForm(@ModelAttribute EmployeeDTO employee, Model model) {
+	public String employeeAddForm(@ModelAttribute EmployeeDTO employee, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
+			return "redirect:/login";
+
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		EmployeeDTO lastUser = new EmployeeDTO();
 		List<EmployeeDTO> empList = employeeService.findAllEmployee();
 		if (!empList.isEmpty())
@@ -130,6 +139,12 @@ public class AdminEmployeeController {
 	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult,
 			@RequestParam("profile") MultipartFile profileMultipartFile,
 			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
+			return "redirect:/login";
+
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		if (bindingResult.hasErrors())
 			return "admin/employees/employeeAddForm";
 
@@ -158,7 +173,13 @@ public class AdminEmployeeController {
 	}
 
 	@GetMapping("/{userNo}")
-	public String employeeDetail(@PathVariable Long userNo, Model model) {
+	public String employeeDetail(@PathVariable Long userNo, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
+			return "redirect:/login";
+
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		// 유저 정보
 		Optional<EmployeeDTO> employee = employeeService.findUserInfoByUserNo(userNo);
 		if (employee.get().getFromDate().equals("9999-01-01")) {
@@ -185,8 +206,13 @@ public class AdminEmployeeController {
 	@PostMapping("/{userNo}")
 	public String employeeInfoEdit(@PathVariable Long userNo, @ModelAttribute EmployeeDTO employeeDTO,
 								@RequestParam("profile") MultipartFile profileMultipartFile,
-								@RequestParam("stamp") MultipartFile stampMultipartFile, Model model) {
+								@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
+			return "redirect:/login";
 
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		FileDTO fileDTO = new FileDTO();
 		fileDTO.setUserNo(employeeDTO.getUserNo());
 
@@ -205,7 +231,13 @@ public class AdminEmployeeController {
 	}
 
 	@PostMapping("/{userNo}/retired")
-	public String employeeInforetired(@PathVariable Long userNo, Model model) {
+	public String employeeInforetired(@PathVariable Long userNo, Model model, HttpServletRequest request) {
+		if (loginCheck(request, model))
+			return "redirect:/login";
+
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
 		employeeService.retiredUserInfo(userNo);
 		return "redirect:/admin/employees";
 	}

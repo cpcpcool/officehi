@@ -150,16 +150,17 @@ td {
 								</td>
 							</tr>	
 						</table>
-					</form:form>
 						<div class="btn_area">
 							<button type="submit" class="btn btn-white btn-small mt-3" style="--bs-btn-bg:#000; color:#fff;">정보 변경</button>
 							<button type="button" class="btn btn-white btn-outline-dark btn-small mt-3" onclick="history.go(-1); return false;">뒤로 가기</button>
 						</div>
+					</form:form>
 				</div>
 			</div>
 		</div>
 	</main>
 
 	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
+	<script type="text/javascript" src="${resPath}/js/fileUpload.js"></script>
 </body>
 </html>

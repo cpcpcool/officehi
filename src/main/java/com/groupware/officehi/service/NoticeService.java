@@ -39,10 +39,6 @@ public class NoticeService {
 		return noticeRepository.findByNoticeNo(noticeNo);
 	}
 
-	public List<NoticeDTO> findNoticePaging(Paging paging) {
-		return noticeRepository.findNoticePaging(paging);
-	}
-
 	/* 검색 기능 */
 	public List<NoticeDTO> findAllByTitle(String title) {
 		return noticeRepository.findAllByTitle(title);

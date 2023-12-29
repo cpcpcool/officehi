@@ -58,7 +58,7 @@ public class ApprovalController {
 	
 	// 결재 현황 조회
 	@GetMapping
-	public String getApprovalList(@ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+	public String getApprovalList(@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -73,7 +73,7 @@ public class ApprovalController {
 	
 	// 기안문, 참조문 보기 버튼 선택
 	@GetMapping("/search")
-	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging, HttpServletRequest request, Model model) {
+	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -98,7 +98,7 @@ public class ApprovalController {
 
 	// 결재 문서 작성
 	@GetMapping("/add")
-	public String getApprovalAddForm(HttpServletRequest request, Model model) {
+	public String getApprovalAddForm(Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
@@ -112,7 +112,7 @@ public class ApprovalController {
 
 	// 결재 문서 작성 버튼 선택
 	@PostMapping("/add")
-	public String addApproval(HttpServletRequest request, @ModelAttribute ApprovalDTO approval, Model model) {
+	public String addApproval(@ModelAttribute ApprovalDTO approval, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
@@ -124,7 +124,7 @@ public class ApprovalController {
 
 	// 결재 문서 상세 보기
 	@GetMapping("/{approval_no}")
-	public String getApproval(@PathVariable Long approval_no, HttpServletRequest request, Model model) {
+	public String getApproval(@PathVariable Long approval_no, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
@@ -143,7 +143,7 @@ public class ApprovalController {
 	// 결재 문서 수정 버튼 선택
 	@PutMapping("/{approval_no}")
 	public String editApproval(@PathVariable Long approval_no, @ModelAttribute ApprovalDTO approval,
-			HttpServletRequest request, Model model) {
+			Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
@@ -155,7 +155,7 @@ public class ApprovalController {
 
 	// 결재 문서 삭제 버튼 선택
 	@DeleteMapping("/{approvalNo}")
-	public String deleteApproval(@PathVariable Long approvalNo, HttpServletRequest request, Model model) {
+	public String deleteApproval(@PathVariable Long approvalNo, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -167,7 +167,7 @@ public class ApprovalController {
 	// 승인, 반려버튼 선택시
 	@PutMapping("status/{approvalNo}")
 	public String setApprovalStatus(@PathVariable Long approvalNo, @ModelAttribute ApprovalDTO approval,
-			HttpServletRequest request, Model model) {
+			Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 

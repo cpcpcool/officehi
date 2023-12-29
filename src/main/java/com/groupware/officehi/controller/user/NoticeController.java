@@ -51,13 +51,13 @@ public class NoticeController {
 		return false;
 	}
 	
-	@GetMapping("")
-	public String notices(HttpServletRequest request, Paging paging, Model model) {
+	@GetMapping
+	public String notices(Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
 		int totalRow = noticeService.findAll().size();
-		List<NoticeDTO> notices = noticeService.findNoticePaging(paging);
+		List<NoticeDTO> notices = noticeService.findAllPaging(paging);
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "/user/notices/noticeList";
@@ -77,14 +77,17 @@ public class NoticeController {
 	public String search(@RequestParam("searchType") String searchType, 
 			@RequestParam(name="title", required=false) String title,
 			@RequestParam(name="content", required=false) String content,
-			@ModelAttribute Paging paging, Model model) {
+			@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
 		List<NoticeDTO> notices = null;
 		int totalRow = 0;
 		
 		if ("title".equals(searchType)) {
-			notices = noticeService.searchTitle(title);
+			notices = noticeService.findAllByTitle(title);
 		} else if ("content".equals(searchType)) {
-			notices = noticeService.searchContent(content);
+			notices = noticeService.findAllByContent(content);
 		}
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));

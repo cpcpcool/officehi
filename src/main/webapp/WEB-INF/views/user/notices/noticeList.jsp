@@ -50,7 +50,7 @@ thead {
 }
 
 td {
-	height: 60px;
+	line-height: 1.5;
 }
 </style>
 </head>

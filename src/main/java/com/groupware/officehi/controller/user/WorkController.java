@@ -21,8 +21,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * @author 박재용
- * @editDate 23.12.20 ~ 23.12.22
- * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ * @editDate 23.12.20 ~ 23.12.22 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
  */
 
 @Controller
@@ -32,23 +31,36 @@ public class WorkController {
 
 	private final WorkService workService;
 
-	@GetMapping("")
-	public String workTime() {
+	public LoginUserDTO loginUser = null;
+
+	// 로그인 검증
+	public boolean loginCheck(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+		if (session == null)
+			return true;
+
+		this.loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		if (loginUser == null)
+			return true;
+
+		model.addAttribute("loginUser", loginUser);
+
+		return false;
+	}
+
+	@GetMapping
+	public String workTime(Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
 		return "user/works/workTime";
 	}
 
 	@PostMapping("/arrival")
-	public String arrival(RedirectAttributes redirectAttributes, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
+	public String arrival(RedirectAttributes redirectAttributes, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
 			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
-		loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-
+		
 		Integer duplicateCheck = workService.checkDateDuplicte(loginUser.getUserNo());
 		if (duplicateCheck != null) {
 			// log.info("{}", duplicateCheck);
@@ -65,16 +77,9 @@ public class WorkController {
 	}
 
 	@PostMapping("/leave")
-	public String leave(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		if (session == null)
+	public String leave(Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
 			return "redirect:/login";
-
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
-		loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
 
 		WorkDTO work = new WorkDTO();
 		work.setUserNo(loginUser.getUserNo());
@@ -83,16 +88,10 @@ public class WorkController {
 	}
 
 	@GetMapping("/list")
-	public String workList(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession(false);
-		if (session == null) {
+	public String workList(Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
 			return "redirect:/login";
-		}
-		LoginUserDTO loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
-		if (loginUser == null)
-			return "redirect:/login";
-
-		loginUser = (LoginUserDTO) session.getAttribute(SessionConst.LOGIN_MEMBER);
+		
 		List<WorkDTO> works = workService.findWorkTimesByUserNo(loginUser.getUserNo());
 		model.addAttribute("works", works);
 		return "user/works/workList";
