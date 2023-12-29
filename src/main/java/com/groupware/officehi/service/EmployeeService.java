@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +15,7 @@ import com.groupware.officehi.dto.FileDTO;
 import com.groupware.officehi.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 박재용
@@ -21,11 +24,13 @@ import lombok.RequiredArgsConstructor;
  * 파일 업로드 및 수정 비즈니스로직 추가 23.12.26 ~ 23.12.29
  */
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
+	private final ServletContext servletContext;
 	
 	public void insertUserInfo(EmployeeDTO employeeDTO) {
 		employeeRepository.insert(employeeDTO);
@@ -35,28 +40,37 @@ public class EmployeeService {
 		MultipartFile multipartFile = fileDTO.getMultipartFile();
 
 		String currentTime = Long.toString(System.currentTimeMillis());
-		String filePath = System.getProperty("user.dir")
+		String realFilePath = servletContext.getRealPath("/") + employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
+		log.info("realFilePath: {}", realFilePath);
+		
+		String filePath = System.getProperty("user.dir") + "/"
 				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
 		String originalFileName = multipartFile.getOriginalFilename();
 		String convertFileName = originalFileName.substring(0, originalFileName.lastIndexOf(".")) + "_" + currentTime
 				+ originalFileName.substring(originalFileName.lastIndexOf("."));
-
+		
 		// OS 별 구분자 교체
 
-		filePath = filePath.replace("\\", "/");
+//		realFilePath = realFilePath.replace("\\", "/");
 //		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
+		realFilePath = realFilePath.replace("/", File.separator).replace("\\", File.separator);
  
+		File fileForLoad = new File(realFilePath, convertFileName);
+		log.info("fileForLoad : {}", fileForLoad);
 		File file = new File(filePath, convertFileName);
+		log.info("file : {}", file);
 
 		// try catch로 예외 처리 안해줄 시 컴퓨터가 어떻게 할지 몰라서 필수로 해주기
 		try {
 			// file 물리저장
-			multipartFile.transferTo(file);
+			multipartFile.transferTo(fileForLoad);
+//			multipartFile.transferTo(file);
 
 			// filePath DB 저장
 			fileDTO.setFileName(convertFileName);
 			fileDTO.setOriginalFileName(originalFileName);
-			fileDTO.setFilePath(filePath);
+			fileDTO.setFilePath(realFilePath);
+//			fileDTO.setFilePath(filePath);
 
 			employeeRepository.insertFileInfo(fileDTO);
 		} catch (Exception e) {

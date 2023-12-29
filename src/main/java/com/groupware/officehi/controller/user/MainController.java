@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,18 +22,20 @@ import com.groupware.officehi.dto.FileDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.NoticeDTO;
 import com.groupware.officehi.dto.WorkDTO;
+import com.groupware.officehi.repository.EmployeeRepository;
 import com.groupware.officehi.service.ApprovalService;
 import com.groupware.officehi.service.EmployeeService;
 import com.groupware.officehi.service.NoticeService;
 import com.groupware.officehi.service.WorkService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 이승준
  * @editDate 23.12.20 ~ 23.12.21
  */
-
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/main")
@@ -42,6 +45,8 @@ public class MainController {
 	private final ApprovalService approvalService;
 	private final WorkService workService;
 	private final EmployeeService employeeService;
+	private final EmployeeRepository employeeRepository;
+	private final ServletContext servletContext;
 	
 	public LoginUserDTO loginUser = null;
 	
@@ -80,6 +85,17 @@ public class MainController {
 
 		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo(), null);
 		model.addAttribute("approvals", approvals.stream().limit(7).collect(Collectors.toList()));
+		
+		String realFilePath = servletContext.getRealPath("/");
+		log.info("rfp: {}", realFilePath);
+		String profileStoragePath = "src\\main\\webapp\\resources\\storage\\profile\\";
+		log.info("rfp: {}", profileStoragePath);
+		
+		model.addAttribute("realFilePath", realFilePath);
+		model.addAttribute("profileStoragePath", profileStoragePath);
+		
+				
+				
 		return "/user/main";
 	}
 

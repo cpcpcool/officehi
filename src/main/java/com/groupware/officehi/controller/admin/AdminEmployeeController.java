@@ -137,7 +137,7 @@ public class AdminEmployeeController {
 	@PostMapping("/add")
 	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult,
 			@RequestParam("profile") MultipartFile profileMultipartFile,
-			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request) {
+			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request, HttpSession session) {
 		if (loginCheck(request, model))
 			return "redirect:/login";
 
