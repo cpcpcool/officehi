@@ -20,8 +20,8 @@ public class WorkService {
 
 	private final WorkRepository workRepository;
 
-	public void arrivalTimeCheck(WorkDTO work) {
-		workRepository.insert(work);
+	public int arrivalTimeCheck(WorkDTO work) {
+		return workRepository.insert(work);
 	}
 
 	public int leaveTimeCheck(WorkDTO work) {

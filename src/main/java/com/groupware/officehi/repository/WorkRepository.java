@@ -15,7 +15,7 @@ import com.groupware.officehi.dto.WorkDTO;
 @Repository
 public interface WorkRepository {
 
-	void insert(WorkDTO work);
+	int insert(WorkDTO work);
 
 	int update(WorkDTO work);
 

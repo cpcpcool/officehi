@@ -29,6 +29,5 @@ public class WorkDTO {
 			return String.valueOf(arrival.until(leave, java.time.temporal.ChronoUnit.HOURS)+"H");
 		} else
 			return " - ";
-	}
-
+	}	
 }
