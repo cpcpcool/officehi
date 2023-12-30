@@ -82,7 +82,7 @@ button {
 								</select>
 							</div>
 							<div class="col-5">
-								<input name="name" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원정보 검색">
+								<input name="name" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원정보 검색" required>
 							</div>
 							<div class="col-auto">
 								<button class="btn btn-dark" type="submit">검색</button>
@@ -142,7 +142,7 @@ button {
 							<c:set var="action" value="${context}admin/employees/search" />
 						</c:when>
 					</c:choose>
-					<form:form id="pagingForm" action="${action}" method="get" modelAttribute="pageMarker">
+					<form:form id="pagingForm" action="${action}" method="get" modelAttribute="pageMaker">
 						<input type="hidden" name="searchType" value="${param.searchType}" />
 						<input type="hidden" name="name" value="${param.name}" />
 						<input type="hidden" name="userNo" value="${param.userNo}" />
@@ -152,20 +152,20 @@ button {
 						<div class="pagination d-flex justify-content-center mt-2">
 							<nav aria-label="Page navigation">
 								<ul class="pagination">
-									<c:if test="${pageMarker.prev}">
+									<c:if test="${pageMaker.prev}">
 										<li class="page-item">
-											<a class="page-link" href="${pageMarker.startPage - 1}" aria-label="Previous">
+											<a class="page-link" href="${pageMaker.startPage - 1}" aria-label="Previous">
 												<span aria-hidden="true">&laquo;</span>
 											</a>
 										</li>
 									</c:if>
-									<c:forEach var="num" begin="${pageMarker.startPage}" end="${pageMarker.endPage}">
-										<li class="page-item ${pageMarker.paging.pageNum==num ? 'active' : ''}">
+									<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+										<li class="page-item ${pageMaker.paging.pageNum==num ? 'active' : ''}">
 											<a class="page-link" href="${num}">${num}</a>
 										</li>
 									</c:forEach>
-									<c:if test="${pageMarker.next}">
-										<li class="page-item"><a class="page-link" href="${pageMarker.endPage + 1}" aria-label="Next">
+									<c:if test="${pageMaker.next}">
+										<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}" aria-label="Next">
 											<span aria-hidden="true">&raquo;</span></a>
 										</li>
 									</c:if>

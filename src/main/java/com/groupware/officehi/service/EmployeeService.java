@@ -105,59 +105,44 @@ public class EmployeeService {
 		// OS 별 다른 구분자 교체
 		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
 
-		File file = new File(filePath, convertFileName);
-		log.info("file : {}", file);
+		// 받은 파일이 없으면 업데이트 동작안하게
+		if(multipartFile != null) {	
+			File file = new File(filePath, convertFileName);
+			log.info("file : {}", file);
 		
-		try {
-			// file 물리저장
-			multipartFile.transferTo(file);
-
-			// filePath DB 저장
-			fileDTO.setFileName(convertFileName);
-			fileDTO.setOriginalFileName(originalFileName);
-			fileDTO.setFilePath(filePath);
-			employeeRepository.updateFileInfo(fileDTO);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			try {
+					// file 물리저장
+					multipartFile.transferTo(file);
+		
+					// filePath DB 저장
+					fileDTO.setFileName(convertFileName);
+					fileDTO.setOriginalFileName(originalFileName);
+					fileDTO.setFilePath(filePath);
+					employeeRepository.updateFileInfo(fileDTO);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}			
 	}
 
 	public void retiredUserInfo(Long userNo) {
 		employeeRepository.updateFromDate(userNo);
 	}
 
-	public List<EmployeeDTO> findAllEmployee() {
-		return employeeRepository.findAll();
+	public List<EmployeeDTO> findAllEmployee(Paging paging) {
+		return employeeRepository.findAll(paging);
 	}
 
-	public List<EmployeeDTO> findAllByName(String name) {
-		return employeeRepository.findAllByName(name);
+	public List<EmployeeDTO> findAllByName(String name, Paging paging) {
+		return employeeRepository.findAllByName(name, paging);
 	}
 
-	public List<EmployeeDTO> findAllByUserNo(Long userNo) {
-		return employeeRepository.findAllByUserNo(userNo);
+	public List<EmployeeDTO> findAllByUserNo(Long userNo, Paging paging) {
+		return employeeRepository.findAllByUserNo(userNo, paging);
 	}
 
-	public List<EmployeeDTO> findAllByDeptName(String deptName) {
-		return employeeRepository.findAllByDeptName(deptName);
-	}
-
-	// paging
-	public List<EmployeeDTO> findAllEmployeePaging(Paging paging) {
-		return employeeRepository.findAllPaging(paging);
-	}
-
-	public List<EmployeeDTO> findAllByNamePaging(String name, Paging paging) {
-		return employeeRepository.findAllByNamePaging(name, paging);
-	}
-
-	public List<EmployeeDTO> findAllByUserNoPaging(Long userNo, Paging paging) {
-		return employeeRepository.findAllByUserNoPaging(userNo, paging);
-	}
-
-	public List<EmployeeDTO> findAllByDeptNamePaging(String deptName, Paging paging) {
-		return employeeRepository.findAllByDeptNamePaging(deptName, paging);
+	public List<EmployeeDTO> findAllByDeptName(String deptName, Paging paging) {
+		return employeeRepository.findAllByDeptName(deptName, paging);
 	}
 
 }

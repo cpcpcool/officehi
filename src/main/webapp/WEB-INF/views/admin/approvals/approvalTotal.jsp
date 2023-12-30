@@ -129,7 +129,7 @@
 								<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 									<li class="page-item ${pageMaker.paging.pageNum == num ? 'active' : ''}"><a class="page-link" href="${num}">${num}</a></li>
 								</c:forEach>
-								<c:if test="${pageMaker.next}">
+								<c:if test="${pageMaker.next}">0
 									<li class="page-item"><a class="page-link" href="${pageMaker.endPage + 1}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
 								</c:if>
 							</ul>

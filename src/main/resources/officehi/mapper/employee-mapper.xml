@@ -7,8 +7,7 @@
 * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25 
 * 파일 업로드 및 수정 기능 추가 23.12.26 ~ 23.12.29 
 -->
-<mapper
-	namespace="com.groupware.officehi.repository.EmployeeRepository">
+<mapper namespace="com.groupware.officehi.repository.EmployeeRepository">
 
 	<insert id="insert" keyProperty="userNo" useGeneratedKeys="true"
 		parameterType="EmployeeDTO">
@@ -74,69 +73,40 @@
 
 	<!-- 전체조회 -->
 	<select id="findAll" resultType="EmployeeDTO">
-		SELECT user_no, name, phone,
-		birth_date, position, to_date, from_date, dept_name
+		SELECT user_no, name, phone, birth_date,
+		position, to_date, from_date, dept_name
 		FROM user
+		ORDER BY user_no desc
+		<if test="paging != null and paging.amount != null and paging.offset != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 
 	<select id="findAllByName" resultType="EmployeeDTO">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		WHERE name LIKE concat('%', #{name}, '%')
+		<if test="paging != null and paging.amount != null and paging.offset != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 
 	<select id="findAllByUserNo" resultType="EmployeeDTO">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		WHERE user_no LIKE concat('%', #{userNo}, '%')
+		<if test="paging != null and paging.amount != null and paging.offset != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
 
 	<select id="findAllByDeptName" resultType="EmployeeDTO">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
+		SELECT user_no, name, phone, birth_date, position, to_date, from_date, dept_name
 		FROM user
 		WHERE dept_name LIKE concat('%', #{deptName}, '%')
+		<if test="paging != null and paging.amount != null and paging.offset != null">
+			LIMIT #{paging.amount} OFFSET #{paging.offset}
+		</if>
 	</select>
-
-	<!-- paging -->
-	<select id="findAllPaging" resultType="EmployeeDTO">
-		SELECT user_no, name,
-		phone, birth_date, position, to_date, from_date, dept_name
-		FROM user
-		ORDER BY user_no desc
-		LIMIT #{amount} OFFSET #{offset}
-	</select>
-
-	<select id="findAllByNamePaging" resultType="EmployeeDTO">
-		SELECT user_no,
-		name, phone, birth_date, position, to_date, from_date, dept_name
-		FROM
-		user
-		WHERE name LIKE concat('%', #{name}, '%')
-		LIMIT #{paging.amount}
-		OFFSET #{paging.offset}
-	</select>
-
-	<select id="findAllByUserNoPaging" resultType="EmployeeDTO">
-		SELECT user_no,
-		name, phone, birth_date, position, to_date, from_date, dept_name
-		FROM
-		user
-		WHERE user_no LIKE concat('%', #{userNo}, '%')
-		LIMIT
-		#{paging.amount} OFFSET #{paging.offset}
-	</select>
-
-	<select id="findAllByDeptNamePaging" resultType="EmployeeDTO">
-		SELECT user_no,
-		name, phone, birth_date, position, to_date, from_date, dept_name
-		FROM
-		user
-		WHERE dept_name LIKE concat('%', #{deptName}, '%')
-		LIMIT
-		#{paging.amount} OFFSET #{paging.offset}
-	</select>
-
+	
 </mapper>

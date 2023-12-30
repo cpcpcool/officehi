@@ -43,7 +43,7 @@ function deleteApproval(context, approvalNo) {
 
 // 관리자 검색 창 type변경
 function searchApproval() {
-	let searchValue = document.getElementById('searchValue');
+	let searchValue = document.getElementById('searchValue');	
 	let search = document.getElementById('search');
 	let searchOption = search.options[search.selectedIndex].value;
 	let searchError = document.getElementById('searchError');

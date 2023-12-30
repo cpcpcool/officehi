@@ -11,5 +11,6 @@
 	</settings>
 	<typeAliases>
 		<package name="com.groupware.officehi.dto" />
+		<package name="com.groupware.officehi.domain" />
 	</typeAliases>
 </configuration>

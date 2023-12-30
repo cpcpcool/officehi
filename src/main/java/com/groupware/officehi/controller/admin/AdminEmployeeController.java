@@ -42,7 +42,6 @@ public class AdminEmployeeController {
 
 	private final EmployeeService employeeService;
 	private final LoginService loginService;
-
 	public LoginUserDTO loginUser = null;
 
 	// 로그인 검증
@@ -60,29 +59,28 @@ public class AdminEmployeeController {
 	}
 
 	@GetMapping
-	public String employeeList(Paging paging, Model model, HttpServletRequest request) {
+	public String employeeList(@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 		if (loginCheck(request, model))
 			return "redirect:/login";
 
 		if (loginUser.getAdmin() != 1)
 			return "alert/alert";
 
-		int totalRow = employeeService.findAllEmployee().size();
-
-		List<EmployeeDTO> employees = employeeService.findAllEmployeePaging(paging);
+		int totalRow = employeeService.findAllEmployee(null).size();
+		List<EmployeeDTO> employees = employeeService.findAllEmployee(paging);
+		
 		model.addAttribute("employees", employees);
-
-		model.addAttribute("pageMarker", new PagingDTO(paging, totalRow));
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 
 		return "admin/employees/employeeTotal";
 	}
 
 	@GetMapping("/search")
 	public String searchEmployeeList(@RequestParam("searchType") String searchType,
-			@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name = "userNo", required = false) Long userNo,
-			@RequestParam(name = "deptName", required = false) String deptName, Paging paging,
-			Model model, HttpServletRequest request) {
+									@RequestParam(name = "name", required = false) String name,
+									@RequestParam(name = "userNo", required = false) Long userNo,
+									@RequestParam(name = "deptName", required = false) String deptName, 
+									@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
 
 		if (loginCheck(request, model))
 			return "redirect:/login";
@@ -92,26 +90,20 @@ public class AdminEmployeeController {
 
 		List<EmployeeDTO> employees = null;
 		int totalRow = 0;
-
-		switch (searchType) {
-		case "name":
-			totalRow = employeeService.findAllByName(name).size();
-			employees = employeeService.findAllByNamePaging(name, paging);
-			break;
-		case "userNo":
-			totalRow = employeeService.findAllByUserNo(userNo).size();
-			employees = employeeService.findAllByUserNoPaging(userNo, paging);
-			break;
-		case "deptName":
-			totalRow = employeeService.findAllByDeptName(deptName).size();
-			employees = employeeService.findAllByDeptNamePaging(deptName, paging);
-			break;
-		default:
-			return "admin/employees/employeeTotal";
+		
+		if(searchType.equals("name")) {
+			totalRow = employeeService.findAllByName(name, null).size();
+			employees = employeeService.findAllByName(name, paging);
+		}else if(searchType.equals("userNo")) {
+			totalRow = employeeService.findAllByUserNo(userNo, null).size();
+			employees = employeeService.findAllByUserNo(userNo, paging);
+		}else if(searchType.equals("deptName")) {
+			totalRow = employeeService.findAllByDeptName(deptName, null).size();
+			employees = employeeService.findAllByDeptName(deptName, paging);
 		}
-
+		
 		model.addAttribute("employees", employees);
-		model.addAttribute("pageMarker", new PagingDTO(paging, totalRow));
+		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "admin/employees/employeeTotal";
 	}
 
@@ -124,7 +116,7 @@ public class AdminEmployeeController {
 			return "alert/alert";
 		
 		EmployeeDTO lastUser = new EmployeeDTO();
-		List<EmployeeDTO> empList = employeeService.findAllEmployee();
+		List<EmployeeDTO> empList = employeeService.findAllEmployee(null);
 		if (!empList.isEmpty())
 			lastUser = empList.get(empList.size() - 1);
 		else

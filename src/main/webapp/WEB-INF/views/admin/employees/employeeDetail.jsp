@@ -7,6 +7,7 @@
 <!--
  * @author 박재용
  * @editDate 23.12.20 ~ 23.12.22
+ * @editDate 23.12.24 페이지네이션 구현
 -->
 <!DOCTYPE html>
 <html>
@@ -91,8 +92,15 @@
 						<div class="row mb-3">
 							<label for="deptName" class="col-sm-2 col-form-label">부서명</label>
 							<div class="col-sm">
-								<input type="text" class="form-control" id="deptName"
-									name="deptName" value="${employee.deptName}">
+								<select class="form-select" aria-label="deptName"
+									name="deptName">
+									<option selected>${employee.deptName}</option>
+									<option>인사</option>
+									<option>회계</option>
+									<option>마케팅</option>
+									<option>CS</option>
+									<option>개발</option>
+								</select>
 							</div>
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">
@@ -123,9 +131,10 @@
 							<label for="stamp" class="col-sm-2 col-form-label">인감이미지</label>
 							<div class="col-sm">
 								<div class="input-group flex-wrap">
-									<input type="text" class="form-control" id="stampFileName" name="stampFileName"
-										value="${stampFile.originalFileName}"> <input
-										type="file" id="stamp" name="stamp"										style="display: none;"
+									<input type="text" class="form-control" id="stampFileName"
+										name="stampFileName" value="${stampFile.originalFileName}">
+									<input type="file" id="stamp" name="stamp"
+										style="display: none;"
 										onchange="updateFileName('stamp', 'stampFileName')">
 									<button type="button" class="btn btn-outline-secondary"
 										onclick="document.getElementById('stamp').click()">파일변경</button>
