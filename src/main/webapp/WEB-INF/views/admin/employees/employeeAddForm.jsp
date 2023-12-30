@@ -93,7 +93,7 @@
 									<option>마케팅</option>
 									<option>CS</option>
 									<option>개발</option>
-								</select>
+								</select>	
 							</div>
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">

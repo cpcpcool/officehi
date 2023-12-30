@@ -28,6 +28,7 @@ import com.groupware.officehi.service.EmployeeService;
 import com.groupware.officehi.service.LoginService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 박재용
@@ -35,6 +36,8 @@ import lombok.RequiredArgsConstructor;
  * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
  * 파일 업로드 및 수정 기능 추가 23.12.26 ~ 23.12.29
  */
+
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/employees")
@@ -108,28 +111,32 @@ public class AdminEmployeeController {
 	}
 
 	@GetMapping("/add")
-	public String employeeAddForm(@ModelAttribute EmployeeDTO employee, Model model, HttpServletRequest request) {
+	public String employeeAddForm(@ModelAttribute EmployeeDTO employee, Model model, 
+								   HttpServletRequest request) {
 		if (loginCheck(request, model))
 			return "redirect:/login";
 
 		if (loginUser.getAdmin() != 1)
 			return "alert/alert";
 		
-		EmployeeDTO lastUser = new EmployeeDTO();
+		EmployeeDTO lastUserNo = new EmployeeDTO();
 		List<EmployeeDTO> empList = employeeService.findAllEmployee(null);
 		if (!empList.isEmpty())
-			lastUser = empList.get(empList.size() - 1);
+			lastUserNo = empList.get(0);
 		else
-			lastUser.setUserNo(9999L);
-		model.addAttribute("lastUserNo", lastUser.getUserNo() + 1);
+			lastUserNo.setUserNo(9999L);
+		
+		model.addAttribute("lastUserNo", lastUserNo.getUserNo() + 1);
 		model.addAttribute("employee", employee);
 		return "admin/employees/employeeAddForm";
 	}
 
 	@PostMapping("/add")
-	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO, BindingResult bindingResult,
+	public String employeeAdd(@Valid @ModelAttribute EmployeeDTO employeeDTO,  
+			BindingResult bindingResult,
 			@RequestParam("profile") MultipartFile profileMultipartFile,
-			@RequestParam("stamp") MultipartFile stampMultipartFile, Model model, HttpServletRequest request, HttpSession session) {
+			@RequestParam("stamp") MultipartFile stampMultipartFile, 
+			Model model, HttpServletRequest request, HttpSession session) {
 		if (loginCheck(request, model))
 			return "redirect:/login";
 
