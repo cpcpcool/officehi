@@ -76,45 +76,42 @@
 					<%
 					switch (dayOfWeekValue) {
 						case 1 :
-							koDayofWeek = "월";
+							koDayofWeek = "월요일";
 							break;
 						case 2 :
-							koDayofWeek = "화";
+							koDayofWeek = "화요일";
 							break;
 						case 3 :
-							koDayofWeek = "수";
+							koDayofWeek = "수요일";
 							break;
 						case 4 :
-							koDayofWeek = "목";
+							koDayofWeek = "목요일";
 							break;
 						case 5 :
-							koDayofWeek = "금";
+							koDayofWeek = "금요일";
 							break;
 						case 6 :
-							koDayofWeek = "토";
+							koDayofWeek = "토요일";
 							break;
 						case 7 :
-							koDayofWeek = "일";
+							koDayofWeek = "일요일";
 							break;
 					}
 					%>
-					<p id="date"><%=year%>.
-						<%=monthValue%>.
-						<%=dayOfMonth%>
-						<%=koDayofWeek%></p>
+					<p id="date"><%=year%>. <%=monthValue%>. <%=dayOfMonth%> &nbsp;<%=koDayofWeek%></p>
 					<p id="currentTime"></p>
 					<div class="d-flex">
-						<form class="arrival" action="${context}works/arrival" method="post">
+						<form class="arrival" action="${context}works/arrival" method="post" onsubmit="return arrivalMessage()">
 							<input type="hidden" name="userNo" value="${loginUser}" />
 							<button class="btn btn-primary btn-lg mt-4 me-3" type="submit">출근 하기</button>
 						</form>
-						<form class="leave" action="${context}works/leave" method="post">
+						<form class="leave" action="${context}works/leave" method="post" onsubmit="return leaveMessage()">
 							<input type="hidden" name="userNo" value="${loginUser}" />
-							<button class="btn btn-dark btn-lg mt-4" type="submit">퇴근 하기</button>
+							<button class="btn btn-dark btn-lg mt-4" type="submit" >퇴근 하기</button>
 						</form>
 					</div>
 					<c:if test="${not empty duplicateMessage}">
-						<div class="mt-3" style="color: red;">
+						<div id="arrivalDupl " class="mt-3" style="color: red;">
 							<p>${duplicateMessage}</p>
 						</div>
 					</c:if>
@@ -123,5 +120,6 @@
 		</div>
 	</main>
 	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
+	<script type="text/javascript" src="${resPath}/js/workTimeCheck.js"></script>
 </body>
 </html>

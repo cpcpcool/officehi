@@ -33,16 +33,16 @@
 									<img src="${resPath}/img/profile-default.svg" alt="프로필 기본 이미지">
 								</c:when>
 								<c:otherwise>
-									<img src="<c:url value='${realFilePath}${profileStoragePath}${profile.fileName}'/>" alt="프로필 이미지">
-									<%-- <img src="${resPath}/storage/profile/${profile.fileName}" alt="프로필 이미지"> --%>
+									<%-- <img src="<c:url value='${resPath}/${profile.fileName}'/>" alt="프로필 이미지"> --%>
+									<img src="${resPath}/storage/profile/${profile.fileName}" alt="프로필 이미지">
 								</c:otherwise>
 							</c:choose>
 						</div>
 						<span>${user.deptName}</span>
 						<p><span>${user.name}</span> <span>${user.position}</span></p>
 					</div>
-				</div>
-				<div class="aside floating quick-menu-bar">
+					</div>
+					<div class="aside floating quick-menu-bar">
 					<div class="quick-menu">
 						<a href="${context}mypage">
 							<img class="quick-menu-icon" src="${resPath}/img/mypage.svg" alt="마이페이지">

@@ -86,8 +86,14 @@
 						<div class="row mb-3">
 							<label for="deptName" class="col-sm-2 col-form-label">부서명</label>
 							<div class="col-sm">
-								<form:input path="deptName" cssClass="form-control" id="deptName" placeholder="부서명"/>
-								<form:errors path="deptName" cssClass="error" />
+								<select class="form-select" aria-label="deptName"
+									name="deptName">
+									<option selected>인사</option>
+									<option>회계</option>
+									<option>마케팅</option>
+									<option>CS</option>
+									<option>개발</option>
+								</select>
 							</div>
 							<label for="position" class="col-sm-2 col-form-label">직급</label>
 							<div class="col-sm">
