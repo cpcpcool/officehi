@@ -51,12 +51,12 @@
 						<form id="searchForm" class="row" action="${context}admin/approvals/search" method="get">
 							<div class="col-2">
 								<select id="search" class="form-select" name="search" onChange="javaScript:searchApproval()">
-										<option value="approvalNo">문서번호</option>
-										<option value="userName">기안자</option>
 										<option value="title">문서 제목</option>
+										<option value="userName">기안자</option>
 										<option value="deptName">부서</option>
 										<option value="date">기안일</option>
 										<option value="checkDate">완료일</option>
+										<option value="approvalNo">문서번호</option>
 								</select>
 							</div>
 							<div class="col-4">

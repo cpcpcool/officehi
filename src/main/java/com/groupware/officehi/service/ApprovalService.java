@@ -24,6 +24,30 @@ public class ApprovalService {
 	private final ApprovalRepository repository;
 	private final EmployeeRepository employeeRepository;
 	
+	public String[] getPositionScope(String positionSearch) {
+		String[] positionScope = {};
+
+		switch(positionSearch) {
+		case "대표":
+			positionScope = new String[]{"사원", "주임", "대리", "팀장", "대표"};
+			break;
+		case "팀장":
+			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
+			break;
+		case "대리":
+			positionScope = new String[]{"사원", "주임", "대리"};
+			break;
+		case "주임":
+			positionScope = new String[]{"사원", "주임"};
+			break;
+		case "사원":
+			positionScope = new String[]{"사원"};
+			break;
+		}
+		
+		return positionScope;
+	}
+	
 	public void insertApproval(ApprovalDTO approval) {
 		repository.insert(approval);
 	}
@@ -38,50 +62,16 @@ public class ApprovalService {
 	
 	public List<ApprovalDTO> findUserNameAndDeptName(Long userNo) {
 		String positionSearch = employeeRepository.findUserInfoByUserNo(userNo).get().getPosition();
-		String[] positionScope = {};
 		
-		switch(positionSearch) {
-		case "대표":
-			positionScope = new String[]{"사원", "주임", "대리", "팀장", "대표"};
-			break;
-		case "팀장":
-			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
-			break;
-		case "대리":
-			positionScope = new String[]{"사원", "주임", "대리"};
-			break;
-		case "주임":
-			positionScope = new String[]{"사원", "주임"};
-			break;
-		case "사원":
-			positionScope = new String[]{"사원"};
-			break;
-		}
+		String[] positionScope = getPositionScope(positionSearch);
 		
 		return repository.findUserNameAndDeptName(positionScope);
 	}
 	
 	public List<ApprovalDTO> findUserNameAndDeptNameByApprovalNo(Long approvalNo, Long userNo) {
 		String positionSearch = employeeRepository.findUserInfoByUserNo(userNo).get().getPosition();
-		String[] positionScope = {};
 		
-		switch(positionSearch) {
-		case "대표":
-			positionScope = new String[]{"사원", "주임", "대리", "팀장", "대표"};
-			break;
-		case "팀장":
-			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
-			break;
-		case "대리":
-			positionScope = new String[]{"사원", "주임", "대리"};
-			break;
-		case "주임":
-			positionScope = new String[]{"사원", "주임"};
-			break;
-		case "사원":
-			positionScope = new String[]{"사원"};
-			break;
-		}
+		String[] positionScope = getPositionScope(positionSearch);
 		
 		return repository.findUserNameAndDeptNameByApprovalNo(approvalNo, positionScope);
 	}
