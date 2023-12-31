@@ -31,47 +31,42 @@ public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
 	private final HttpSession session;
-	
+
 	public void insertUserInfo(EmployeeDTO employeeDTO) {
 		employeeRepository.insert(employeeDTO);
 	}
 
 	public void insertFileInfo(FileDTO fileDTO) {
 		MultipartFile multipartFile = fileDTO.getMultipartFile();
-		
-//		String externalDir = "./storage";
-//		String externalFilePath = externalDir
-//				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
-		
-//		String realFilePath = servletContext.getRealPath("/")
-//				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
 
-		String filePath = session.getServletContext().getRealPath("/")
-				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
-		
-		String currentTime = Long.toString(System.currentTimeMillis());
-		String originalFileName = multipartFile.getOriginalFilename();
-		String convertFileName = String.format("%s_%s", currentTime, originalFileName);
+		if (multipartFile.getSize() != 0) {
+			String filePath = session.getServletContext().getRealPath("/")
+					+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
 
-		// OS 별 다른 구분자 교체
-		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
+			String currentTime = Long.toString(System.currentTimeMillis());
+			String originalFileName = multipartFile.getOriginalFilename();
+			String convertFileName = String.format("%s_%s", currentTime, originalFileName);
 
-		File file = new File(filePath, convertFileName);
-		log.info("file : {}", file);
-		
-		try {
-			// file 물리저장
-			multipartFile.transferTo(file);
+			// OS 별 다른 구분자 교체
+			filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
 
-			// filePath DB 저장
-			fileDTO.setFileName(convertFileName);
-			fileDTO.setOriginalFileName(originalFileName);
-			fileDTO.setFilePath(filePath);
-			employeeRepository.insertFileInfo(fileDTO);
-			
-		} catch (Exception e) {
-			log.error("File upload failed: {}", e.getMessage());
-			e.printStackTrace();
+			File file = new File(filePath, convertFileName);
+			log.info("file : {}", file);
+
+			try {
+				// file 물리저장
+				multipartFile.transferTo(file);
+
+				// filePath DB 저장
+				fileDTO.setFileName(convertFileName);
+				fileDTO.setOriginalFileName(originalFileName);
+				fileDTO.setFilePath(filePath);
+				employeeRepository.insertFileInfo(fileDTO);
+
+			} catch (Exception e) {
+				log.error("File upload failed: {}", e.getMessage());
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -95,34 +90,29 @@ public class EmployeeService {
 	public void updateFileInfo(FileDTO fileDTO) {
 		MultipartFile multipartFile = fileDTO.getMultipartFile();
 
-		String filePath = session.getServletContext().getRealPath("/")
-				+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
-		
-		String currentTime = Long.toString(System.currentTimeMillis());
-		String originalFileName = multipartFile.getOriginalFilename();
-		String convertFileName = String.format("%s_%s", currentTime, originalFileName);
+		if (multipartFile.getSize() != 0) {
+			String filePath = session.getServletContext().getRealPath("/")
+					+ employeeRepository.getFilePathByFileTypeNo(fileDTO.getFileTypeNo());
 
-		// OS 별 다른 구분자 교체
-		filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
+			String currentTime = Long.toString(System.currentTimeMillis());
+			String originalFileName = multipartFile.getOriginalFilename();
+			String convertFileName = String.format("%s_%s", currentTime, originalFileName);
+			filePath = filePath.replace("/", File.separator).replace("\\", File.separator);
 
-		// 받은 파일이 없으면 업데이트 동작안하게
-		if(multipartFile != null) {	
 			File file = new File(filePath, convertFileName);
 			log.info("file : {}", file);
-		
+
 			try {
-					// file 물리저장
-					multipartFile.transferTo(file);
-		
-					// filePath DB 저장
-					fileDTO.setFileName(convertFileName);
-					fileDTO.setOriginalFileName(originalFileName);
-					fileDTO.setFilePath(filePath);
-					employeeRepository.updateFileInfo(fileDTO);
+				multipartFile.transferTo(file);
+				
+				fileDTO.setFileName(convertFileName);
+				fileDTO.setOriginalFileName(originalFileName);
+				fileDTO.setFilePath(filePath);
+				employeeRepository.updateFileInfo(fileDTO);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}			
+		}
 	}
 
 	public void retiredUserInfo(Long userNo) {

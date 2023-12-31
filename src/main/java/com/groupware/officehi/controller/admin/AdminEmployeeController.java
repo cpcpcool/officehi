@@ -37,7 +37,6 @@ import lombok.extern.slf4j.Slf4j;
  * 파일 업로드 및 수정 기능 추가 23.12.26 ~ 23.12.29
  */
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin/employees")
@@ -146,12 +145,9 @@ public class AdminEmployeeController {
 		if (bindingResult.hasErrors())
 			return "admin/employees/employeeAddForm";
 
-		// file외 user 정보 저장
 		employeeService.insertUserInfo(employeeDTO);
-		// login 권한 부여
 		loginService.saveUserInfo(employeeDTO.getUserNo());
 
-		// file 저장
 		FileDTO fileDTO = new FileDTO();
 		fileDTO.setUserNo(employeeDTO.getUserNo());
 
@@ -213,16 +209,33 @@ public class AdminEmployeeController {
 		
 		FileDTO fileDTO = new FileDTO();
 		fileDTO.setUserNo(employeeDTO.getUserNo());
-
-		// profile 증명사진 변경저장
-		fileDTO.setMultipartFile(profileMultipartFile);
-		fileDTO.setFileTypeNo("1");
-		employeeService.updateFileInfo(fileDTO);
-
-		// stamp 인감 변경저장
-		fileDTO.setMultipartFile(stampMultipartFile);
-		fileDTO.setFileTypeNo("2");
-		employeeService.updateFileInfo(fileDTO);
+		
+		Optional<FileDTO> profileFile = employeeService.findProfileFileByUserNo(userNo);
+		Optional<FileDTO> stampFile = employeeService.findStampFileByUserNo(userNo);
+		
+		if(profileFile.isEmpty()) {
+			// profile 증명사진 최초등록
+			fileDTO.setMultipartFile(profileMultipartFile);
+			fileDTO.setFileTypeNo("1");
+			employeeService.insertFileInfo(fileDTO);			
+		}else {
+			// profile 증명사진 변경저장
+			fileDTO.setMultipartFile(profileMultipartFile);
+			fileDTO.setFileTypeNo("1");
+			employeeService.updateFileInfo(fileDTO);
+		}
+		
+		if(stampFile.isEmpty()) {
+			// stamp 인감 최초등록
+			fileDTO.setMultipartFile(stampMultipartFile);
+			fileDTO.setFileTypeNo("2");
+			employeeService.insertFileInfo(fileDTO); 
+		}else {
+			// stamp 인감 변경저장
+			fileDTO.setMultipartFile(stampMultipartFile);
+			fileDTO.setFileTypeNo("2");
+			employeeService.updateFileInfo(fileDTO); 
+		}
 
 		employeeService.updateUserInfo(employeeDTO);
 		return "redirect:/admin/employees";

@@ -13,16 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Paging {
 
-	private int pageNum; // 페이지번호
-	private int amount;	// 몇 개 데이터 보여줄지
+	private int pageNum;
+	private int amount;
 	
 	public Paging() {
 		this(1,10);
 	}
 	
-	// mapper에서 사용
 	public int getOffset() {
 		 return (pageNum - 1) * amount;
 	}
 	
 }
+
