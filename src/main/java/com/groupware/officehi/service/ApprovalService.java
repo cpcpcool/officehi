@@ -41,6 +41,9 @@ public class ApprovalService {
 		String[] positionScope = {};
 		
 		switch(positionSearch) {
+		case "대표":
+			positionScope = new String[]{"사원", "주임", "대리", "팀장", "대표"};
+			break;
 		case "팀장":
 			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
 			break;
@@ -63,6 +66,9 @@ public class ApprovalService {
 		String[] positionScope = {};
 		
 		switch(positionSearch) {
+		case "대표":
+			positionScope = new String[]{"사원", "주임", "대리", "팀장", "대표"};
+			break;
 		case "팀장":
 			positionScope = new String[]{"사원", "주임", "대리", "팀장"};
 			break;

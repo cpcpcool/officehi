@@ -71,9 +71,34 @@ public class ApprovalController {
 		return "user/approvals/approvalList";
 	}
 	
+	// 결재 문서 수정 버튼 선택
+	@PutMapping("/{approval_no}")
+	public String editApproval(@PathVariable Long approval_no, @ModelAttribute ApprovalDTO approval,
+			Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+
+		approval.setApprovalNo(approval_no);
+		approvalService.updateApproval(approval);
+
+		return "redirect:/approvals";
+	}
+
+	// 결재 문서 삭제 버튼 선택
+	@DeleteMapping("/{approvalNo}")
+	public String deleteApproval(@PathVariable Long approvalNo, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+
+		approvalService.delete(approvalNo);
+
+		return "redirect:/approvals";
+	}
+
 	// 기안문, 참조문 보기 버튼 선택
 	@GetMapping("/search")
-	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging, Model model, HttpServletRequest request) {
+	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging,
+			Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -109,7 +134,7 @@ public class ApprovalController {
 		
 		return "user/approvals/approvalAddForm";
 	}
-
+	
 	// 결재 문서 작성 버튼 선택
 	@PostMapping("/add")
 	public String addApproval(@ModelAttribute ApprovalDTO approval, Model model, HttpServletRequest request) {
@@ -138,30 +163,6 @@ public class ApprovalController {
 		model.addAttribute("checker1", checker1);
 
 		return "user/approvals/approval";
-	}
-
-	// 결재 문서 수정 버튼 선택
-	@PutMapping("/{approval_no}")
-	public String editApproval(@PathVariable Long approval_no, @ModelAttribute ApprovalDTO approval,
-			Model model, HttpServletRequest request) {
-		if(loginCheck(request, model))
-			return "redirect:/login";
-
-		approval.setApprovalNo(approval_no);
-		approvalService.updateApproval(approval);
-
-		return "redirect:/approvals";
-	}
-
-	// 결재 문서 삭제 버튼 선택
-	@DeleteMapping("/{approvalNo}")
-	public String deleteApproval(@PathVariable Long approvalNo, Model model, HttpServletRequest request) {
-		if(loginCheck(request, model))
-			return "redirect:/login";
-		
-		approvalService.delete(approvalNo);
-		
-		return "redirect:/approvals";
 	}
 
 	// 승인, 반려버튼 선택시
