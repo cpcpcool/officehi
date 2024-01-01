@@ -161,7 +161,7 @@
 .form-row {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 20px;
+	margin-bottom: 16px;
 }
 .form-row .label-input-box {
 	width: calc(50% - 10px);
@@ -252,25 +252,31 @@ tr span {
 }
 
 /* user-approval */
+#user-approval h2 {
+	margin-bottom: 36px;
+}
 #user-approval form span {
 	font-size: 16px;
 	font-weight: 600;
 }
 #user-approval label {
-	width: 90px;
+	width: 72px;
 }
 #user-approval input {
 	width: auto;
 	flex: 1;
 }
 .label-input-box.mb {
-	margin-bottom: 20px;
+	margin-bottom: 16px;
 }
 #user-approval textarea {
 	margin: 10px 0 16px;
 }
 
 /* user-approval-addForm */
+#user-approval-addForm h2 {
+	margin-bottom: 36px;
+}
 #user-approval-addForm label {
 	width: 90px;
 }
@@ -331,7 +337,7 @@ tr span {
 	margin-bottom: 36px;
 }
 #admin-notice label {
-	width: 90px;
+	width: 72px;
 }
 #admin-notice input {
 	width: auto;
@@ -346,7 +352,7 @@ tr span {
 	margin-bottom: 36px;
 }
 #admin-notice-addForm label {
-	width: 60px;
+	width: 48px;
 }
 #admin-notice-addForm input {
 	width: auto;
@@ -357,6 +363,9 @@ tr span {
 }
 
 /* admin-employee-total */
+#admin-employee-total h2 {
+	margin-bottom: 36px;
+}
 #admin-employee-total #pagingForm {
 	margin-top: 20px;
 }
