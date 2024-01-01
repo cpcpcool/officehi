@@ -49,7 +49,7 @@
 					</div>
 
 					<!-- 리스트 -->
-					<form:form action="${context}admin/notices/${item.id}" method="delete" id="noticeTable">
+					<form:form action="${context}admin/notices/" method="delete" id="noticeTable">
 					<table class="fixed">
 						<thead>
 							<tr>
@@ -107,5 +107,6 @@
 	</main>
 	<%@ include file="/WEB-INF/views/footer/adminFooter.jsp"%>
 	<script src="${resPath}/js/pagination.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<c:url value='/resources/js/adminNotices.js' />"></script>
 </body>
 </html>
