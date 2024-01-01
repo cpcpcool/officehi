@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.groupware.officehi.controller.LoginController.SessionConst;
 import com.groupware.officehi.domain.Paging;
 import com.groupware.officehi.dto.ApprovalDTO;
-import com.groupware.officehi.dto.ApprovalDTO.Checker;
 import com.groupware.officehi.dto.EmployeeDTO;
 import com.groupware.officehi.dto.LoginUserDTO;
 import com.groupware.officehi.dto.PagingDTO;
@@ -27,14 +26,12 @@ import com.groupware.officehi.service.ApprovalService;
 import com.groupware.officehi.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 엄다빈
  * @editDate 23.12.18 ~ 23.12.26
  */
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/approvals")

@@ -39,15 +39,17 @@
 		ON a.user_no = u.user_no
 		WHERE a.user_no = #{userNo}
 		OR
-		approval_no IN (SELECT approval_no
-						FROM checker
-						WHERE checker_no = 1 AND user_no = #{userNo})
-		                OR
-		                approval_no IN (SELECT approval_no
-										FROM checker
-										WHERE checker_no = 1 AND confirm = 1 AND approval_no IN (SELECT approval_no
-																								FROM checker
-																								WHERE checker_no = 2 AND user_no = #{userNo}))
+		approval_no IN
+		(SELECT approval_no
+		FROM checker
+		WHERE checker_no = 1 AND user_no = #{userNo}) OR
+       		approval_no IN
+	        (SELECT approval_no
+			FROM checker
+			WHERE approval_no IN
+				(SELECT approval_no
+				FROM checker
+				WHERE checker_no = 2 AND user_no = #{userNo}) AND checker_no = 1 AND confirm = 1)
 		<if test="paging != null">
 			LIMIT #{paging.amount} OFFSET #{paging.offset}
 		</if>
@@ -97,15 +99,17 @@
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
-		WHERE approval_no IN (SELECT approval_no
-								FROM checker
-								WHERE checker_no = 1 AND user_no = #{userNo})
-				                OR
-				                approval_no IN (SELECT approval_no
-											    FROM checker
-											    WHERE checker_no = 1 AND confirm = 1 AND approval_no IN (SELECT approval_no
-												 													    FROM checker
-																									    WHERE checker_no = 2 AND user_no = #{userNo}))
+		WHERE approval_no IN
+		(SELECT approval_no
+		FROM checker
+		WHERE checker_no = 1 AND user_no = #{userNo}) OR
+        	approval_no IN
+	        (SELECT approval_no
+			FROM checker
+			WHERE approval_no IN
+				(SELECT approval_no
+				FROM checker
+				WHERE checker_no = 2 AND user_no = #{userNo}) AND checker_no = 1 AND confirm = 1)
 		<if test="paging != null">
 			LIMIT #{paging.amount} OFFSET #{paging.offset}
 		</if>
