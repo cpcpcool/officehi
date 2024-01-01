@@ -70,7 +70,7 @@
 											<button type="button" class="edit-btn" onclick="location.href='${context}admin/notices/${notice.noticeNo}'">
 												<img alt="수정버튼" src="<c:url value='/resources/img/edit.svg' />">
 											</button>
-											<button type="button" class="delete-btn" id="${notice.noticeNo}">
+											<button type="submit" class="delete-btn" id="${notice.noticeNo}">
 												<img alt="삭제버튼" src="<c:url value='/resources/img/delete.svg'/>">
 											</button>
 										</div>

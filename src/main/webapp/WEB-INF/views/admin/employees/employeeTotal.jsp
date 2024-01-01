@@ -82,7 +82,7 @@
 												<button type="button" class="edit-btn" onclick="location.href='${context}admin/employees/${employee.userNo}'">
 													<img alt="수정버튼" src="<c:url value='/resources/img/edit.svg' />">
 												</button>
-												<button type="button" class="delete-btn" id="${employee.userNo}" name="${employee.name}">
+												<button type="button" class="delete-btn retiredIcon" id="${employee.userNo}" name="${employee.name}">
 													<img alt="삭제버튼" src="<c:url value='/resources/img/retire.svg'/>">
 												</button>
 											</div>
