@@ -88,8 +88,9 @@
 										<c:set var="status" value="${approval.status}" />
 										<c:choose>
 											<c:when test="${status == 1}">신청</c:when>
-											<c:when test="${status == 2}">반려</c:when>
-											<c:when test="${status == 3}">완료</c:when>
+											<c:when test="${status == 2}">진행중</c:when>
+											<c:when test="${status == 3}">반려</c:when>
+											<c:when test="${status == 4}">완료</c:when>
 										</c:choose>
 									</td>
 									<td>${approval.approvalNo}</td>

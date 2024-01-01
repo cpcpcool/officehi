@@ -52,6 +52,10 @@ public class ApprovalService {
 		repository.insert(approval);
 	}
 	
+	public void insertChecker(ApprovalDTO.Checker insert) {
+		repository.insertChecker(insert);
+	};
+	
 	public String findUserByUserNo(Long userNo) {
 		return repository.findUserByUserNo(userNo);
 	}
@@ -112,6 +116,10 @@ public class ApprovalService {
 		return repository.findAllByCheckDate(checkDate, paging);
 	}	
 	
+	public List<ApprovalDTO.Checker> findChekcerByApprovalNo(Long approvalNo) {
+		return repository.findChekcerByApprovalNo(approvalNo);
+	};
+	
 	public Optional<ApprovalDTO> findByApprovalNo(Long approvalNo) {
 		return repository.findByApprovalNo(approvalNo);
 	}
@@ -120,9 +128,17 @@ public class ApprovalService {
 		repository.updateApproval(approval);
 	}
 	
+	public void updateChecker(ApprovalDTO.Checker checker) {
+		repository.updateChecker(checker);
+	};
+	
 	public void delete(Long approvalNo) {
 		repository.delete(approvalNo);
 	}
+	
+	public void deleteChecker(Long approvalNo, Integer checkerNo) {
+		repository.deleteChecker(approvalNo, checkerNo);
+	};
 	
 	public void updateStatus(ApprovalDTO approval) {
 		repository.updateStatus(approval);

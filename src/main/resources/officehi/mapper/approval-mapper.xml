@@ -9,8 +9,13 @@
 <mapper namespace="com.groupware.officehi.repository.ApprovalRepository">
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="approvalNo">
-		INSERT INTO approval(user_no, date, title, content, category, checker1)
-		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category}, #{checker1})
+		INSERT INTO approval(user_no, date, title, content, category)
+		VALUES (#{userNo}, curdate(), #{title}, #{content}, #{category})
+	</insert>
+	
+	<insert id="insertChecker">
+		INSERT INTO checker
+		VALUES (#{approvalNo}, #{checkerNo}, #{confirm}, #{userNo})
 	</insert>
 	
 	<select id="findByUserNo">
@@ -32,7 +37,17 @@
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
-		WHERE a.user_no = #{userNo} OR a.checker1 = #{userNo}
+		WHERE a.user_no = #{userNo}
+		OR
+		approval_no IN (SELECT approval_no
+				FROM checker
+				WHERE checker_no = 1 AND user_no = #{userNo})
+                OR
+                approval_no IN (SELECT approval_no
+								FROM checker
+								WHERE checker_no = 1 AND confirm = 1 AND approval_no IN (SELECT approval_no
+																						FROM checker
+																						WHERE checker_no = 2 AND user_no = #{userNo}))
 		<if test="paging != null">
 			LIMIT #{paging.amount} OFFSET #{paging.offset}
 		</if>
@@ -51,7 +66,7 @@
 		SELECT *
 		FROM user u JOIN approval a
 		WHERE a.approval_no = #{approvalNo} AND
-		u.user_no != a.checker1 AND
+		u.user_no NOT IN (SELECT user_no FROM CHECKER WHERE approval_no = #{approvalNo}) AND
 		position NOT IN
 		<foreach collection="position" item="item" index="index" open="(" close=")" separator=",">
 			#{item}
@@ -82,7 +97,15 @@
 		SELECT *
 		FROM approval a LEFT JOIN user u
 		ON a.user_no = u.user_no
-		WHERE a.checker1 = #{userNo} OR a.checker2 = #{userNo} OR a.checker3 = #{userNo}
+		WHERE approval_no IN (SELECT approval_no
+								FROM checker
+								WHERE checker_no = 1 AND user_no = #{userNo})
+				                OR
+				                approval_no IN (SELECT approval_no
+											    FROM checker
+											    WHERE checker_no = 1 AND confirm = 1 AND approval_no IN (SELECT approval_no
+												 													    FROM checker
+																									    WHERE checker_no = 2 AND user_no = #{userNo}))
 		<if test="paging != null">
 			LIMIT #{paging.amount} OFFSET #{paging.offset}
 		</if>
@@ -137,6 +160,12 @@
 		</if>
 	</select>
 	
+	<select id="findChekcerByApprovalNo">
+		SELECT *
+		FROM checker
+		WHERE approval_no = #{approvalNo}
+	</select>
+	
 	<select id="findByApprovalNo">
 		SELECT *
 		FROM approval a LEFT JOIN user u
@@ -146,13 +175,24 @@
 	
 	<update id="updateApproval">
 		UPDATE approval
-		SET title = #{title}, content = #{content}, checker1 = #{checker1}
+		SET title = #{title}, content = #{content}
 		WHERE approval_no = #{approvalNo}
+	</update>
+	
+	<update id="updateChecker">
+		UPDATE checker
+		SET user_no = #{userNo}, confirm = #{confirm}
+		WHERE approval_no = #{approvalNo} AND checker_no = #{checkerNo}
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM approval
 		WHERE approval_no = #{approvalNo}
+	</delete>
+	
+	<delete id="deleteChecker">
+		DELETE FROM checker
+		WHERE approval_no = #{approvalNo} AND checker_no = #{checkerNo}
 	</delete>
 	
 	<update id="updateStatus">

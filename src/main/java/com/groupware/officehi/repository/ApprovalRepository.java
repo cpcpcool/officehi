@@ -18,6 +18,7 @@ import com.groupware.officehi.dto.ApprovalDTO;
 public interface ApprovalRepository {
 	
 	void insert(ApprovalDTO insert);
+	void insertChecker(ApprovalDTO.Checker insert);
 	String findUserByUserNo(Long userNo);
 
 	List<ApprovalDTO> findAll(@Param(value = "paging")Paging paging);
@@ -35,8 +36,12 @@ public interface ApprovalRepository {
 	List<ApprovalDTO> findAllBydate(@Param(value = "date") String date, @Param(value = "paging") Paging paging);
 	List<ApprovalDTO> findAllByCheckDate(@Param(value = "checkDate") String checkDate, @Param(value = "paging") Paging paging);
 	
+	List<ApprovalDTO.Checker> findChekcerByApprovalNo(Long approvalNo);
+	
 	Optional<ApprovalDTO> findByApprovalNo(Long approvalNo);
 	void updateApproval(ApprovalDTO approval);
+	void updateChecker(ApprovalDTO.Checker checker);
 	void delete(Long ApprovalNo);
+	void deleteChecker(@Param(value = "approvalNo") Long approvalNo, @Param(value = "checkerNo") Integer checkerNo);
 	void updateStatus(ApprovalDTO approval);
 }
