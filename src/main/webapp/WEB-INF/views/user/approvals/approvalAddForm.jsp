@@ -62,7 +62,7 @@ color: #222;
 								</form:select>
 							</div>
 							<div class="col-1 mb-2">	
-								<label class="form-label mt-2" for="checker">참조자 1</label>
+								<label class="form-label mt-2" for="checker">참조자1</label>
 							</div>
 							<div class="col">
 								<select id="checker1" name="checker1" class="form-select">
@@ -71,8 +71,8 @@ color: #222;
 									</c:forEach>
 								</select>
 							</div>
-							<div class="col-1 mb-2">	
-								<label class="form-label mt-2" for="checker">참조자 2</label>
+							<div class="col-1 mb-2" style="padding: 0;">
+								<label class="form-label mt-2" for="checker">참조자2</label>
 							</div>
 							<div class="col">
 								<select id="checker2" name="checker2" class="form-select">

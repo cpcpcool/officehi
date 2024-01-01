@@ -40,14 +40,14 @@
 		WHERE a.user_no = #{userNo}
 		OR
 		approval_no IN (SELECT approval_no
-				FROM checker
-				WHERE checker_no = 1 AND user_no = #{userNo})
-                OR
-                approval_no IN (SELECT approval_no
-								FROM checker
-								WHERE checker_no = 1 AND confirm = 1 AND approval_no IN (SELECT approval_no
-																						FROM checker
-																						WHERE checker_no = 2 AND user_no = #{userNo}))
+						FROM checker
+						WHERE checker_no = 1 AND user_no = #{userNo})
+		                OR
+		                approval_no IN (SELECT approval_no
+										FROM checker
+										WHERE checker_no = 1 AND confirm = 1 AND approval_no IN (SELECT approval_no
+																								FROM checker
+																								WHERE checker_no = 2 AND user_no = #{userNo}))
 		<if test="paging != null">
 			LIMIT #{paging.amount} OFFSET #{paging.offset}
 		</if>
