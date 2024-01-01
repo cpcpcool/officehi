@@ -83,7 +83,7 @@
 													<img alt="수정버튼" src="<c:url value='/resources/img/edit.svg' />">
 												</button>
 												<button type="button" class="delete-btn" id="${employee.userNo}" name="${employee.name}">
-													<img alt="삭제버튼" src="<c:url value='/resources/img/delete.svg'/>">
+													<img alt="삭제버튼" src="<c:url value='/resources/img/retire.svg'/>">
 												</button>
 											</div>
 										</td>
