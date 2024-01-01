@@ -76,8 +76,8 @@ color: #222;
 							<div class="col-3">
 								<form:input path="category" cssClass="form-control" value="${approval.category}" readonly="${login}" />
 							</div>
-							<div class="col-1 mb-2">	
-								<label class="form-label mt-2" for="checker">참조자1</label>
+							<div class="col-1 mb-2" style="padding: 0;">
+								<label class="form-label mt-2" for="checker">1차 승인자</label>
 							</div>
 							<div class="col">
 								<c:choose>
@@ -102,7 +102,7 @@ color: #222;
 								</c:choose>
 							</div>
 							<div class="col-1 mb-2" style="padding: 0;">
-								<label class="form-label mt-2" for="checker">참조자2</label>
+								<label class="form-label mt-2" for="checker">2차 승인자</label>
 							</div>
 							<div class="col">
 								<c:choose>

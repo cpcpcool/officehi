@@ -61,7 +61,7 @@ color: #222;
 									<option>대금 결재</option>
 								</form:select>
 							</div>
-							<div class="col-1 mb-2">	
+							<div class="col-1 mb-2" style="padding: 0;">	
 								<label class="form-label mt-2" for="checker">참조자1</label>
 							</div>
 							<div class="col">
