@@ -7,6 +7,8 @@
 <!-- 
  * @author 엄다빈
  * @editDate 23.12.15 ~ 23.12.18
+ * @author 이승준
+ * 구조, 클래스명, css 통일 23.01.01 ~ 24.01.01 
  -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -14,35 +16,12 @@
 <meta charset="UTF-8">
 <title>결재 문서 작성</title>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
-<style type="text/css">
-form {
-	font-size: 16px;
-	font-weight: bold;
-	line-height: 16px;
-}
-.aside ul span {
-color: #222;
-}
-
-.aside ul span.selected {
-	font-weight: 800;
-	color: #345de3;
-}
-
-.table-group-divider tr td a {
-	color: #222;
-}
-
-.pagination nav ul li a {
-	color: #222;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body>
+<body id="user-approval-addForm">
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -51,46 +30,32 @@ color: #222;
 				<div class="content-box floating">
 					<h2>결재 문서 작성</h2>
 					<form:form modelAttribute="approval" action="${context}approvals/add" method="post">
-						<div class="row mb-3">
-							<div class="col-2">
-								<label class="form-label mt-2" for="category">서식</label>
-							</div>
-							<div class="col-3">
-								<form:select path="category" class="form-select" required="true">
+						<div class="form-row">
+							<div class="label-input-box">
+								<label for="category">서식</label>
+								<form:select path="category" id="category" required="true">
 									<option>휴가신청서</option>
 									<option>대금 결재</option>
 								</form:select>
 							</div>
-							<div class="col-2 mb-2">	
-								<label class="form-label mt-2" for="checker">참조자</label>
-							</div>
-							<div class="col">
-								<form:select path="checker1" class="form-select" id="checker1" name="checker1">
+							<div class="label-input-box">	
+								<label for="checker">참조자</label>
+								<form:select path="checker1" id="checker1" name="checker1">
 									<c:forEach items="${userList}" var="user">
 										<option value="${user.userNo}">[${user.position}] ${user.name}</option>
 									</c:forEach>
 								</form:select>
 							</div>
 						</div>
-						<div class="row mb-3">
-							<div class="col-2 mt-2">
-								<label class="form-label" for="title">문서 제목</label>
-							</div>
-							<div class="col">
-								<form:input path="title" cssClass="form-control" placeholder="년-월-일 서식명 사원명" required="true" />
-							</div>
+						<div class="label-input-box mb">
+							<label for="title">문서 제목</label>
+							<form:input path="title" id="title" placeholder="년-월-일 서식명 사원명" required="true" />
 						</div>
-						<div class="row mb-3">
-							<div class="">
-								<label class="form-label" for="content">내용</label>
-							</div>
-							<div class="">
-								<form:textarea path="content" class="form-control w-100" style="height: 400px; resize: none;" required="true" />
-							</div>
-						</div>
-						<div>
-							<form:button class="btn btn-dark btn-small me-2" type="submit">결재요청</form:button>
-							<form:button class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">취소</form:button>
+						<label class="form-label" for="content">내용</label>
+						<form:textarea path="content" id="content" class="form-control w-100" required="true" />
+						<div class="btn-area">
+							<form:button class="btn btn-primary" type="submit">결재요청</form:button>
+							<form:button class="btn btn-simple" onClick="history.back()">취소</form:button>
 						</div>
 					</form:form>
 				</div>

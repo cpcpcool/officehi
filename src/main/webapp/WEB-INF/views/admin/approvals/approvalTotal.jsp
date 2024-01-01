@@ -6,7 +6,8 @@
 <!-- 
  * @author 엄다빈
  * @editDate 23.12.19 ~ 23.12.19
- * @editDate 23.12.27 페이지네이션 구현
+ * @author 이승준
+ * 구조, 클래스명, css 통일 24.01.01 ~ 24.01.01 
  -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,31 +16,12 @@
 <title>결재 문서 관리</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
-<style type="text/css">
-.aside ul span {
-	color: #222;
-}
-.aside ul span.selected {
-	font-weight: 800;
-	color: #345de3;
-}
-.table-group-divider tr td a {
-	color: #222;
-}
-.pagination a {
-	color: #222;
-}
-.error {
-	color: #f00;
-	font-size: 0.8em;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body onLoad="javaScript:searchType('${param.search}', '${param.searchValue}')">
+<body onLoad="javaScript:searchType('${param.search}', '${param.searchValue}')" id="admin-approval-total">
 	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -47,60 +29,58 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2 class="lgmg">결재 문서 관리</h2>
-					<div>
-						<form id="searchForm" class="row" action="${context}admin/approvals/search" method="get">
-							<div class="col-2">
-								<select id="search" class="form-select" name="search" onChange="javaScript:searchApproval()">
-										<option value="approvalNo">문서번호</option>
-										<option value="userName">기안자</option>
-										<option value="title">문서 제목</option>
-										<option value="deptName">부서</option>
-										<option value="date">기안일</option>
-										<option value="checkDate">완료일</option>
-								</select>
-							</div>
-							<div class="col-4">
-								<input type="text" id="searchValue" name="searchValue" class="searchValue form-control" placeholder="검색 키워드를 입력하세요" required>
-								<span id="searchError" class="error" style="visibility: hidden;">숫자를 입력해주세요.</span>
-							</div>
-							<div class="col-4">
-								<button type="button" class="btn btn-dark" onClick="javaScript:searchValueIsNaN()">검색</button>
-								<a href="${context}admin/approvals" class="btn btn-dark">초기화</a>
-							</div>
-						</form>
-					</div>
-					<table>
+					<form id="searchForm" action="${context}admin/approvals/search" method="get">
+						<div class="search-box">
+							<select id="search" name="search" onChange="javaScript:searchApproval()">
+								<option value="approvalNo">문서번호</option>
+								<option value="userName">기안자</option>
+								<option value="title">문서 제목</option>
+								<option value="deptName">부서</option>
+								<option value="date">기안일</option>
+								<option value="checkDate">완료일</option>
+							</select>
+							<input type="text" id="searchValue" name="searchValue" class="searchValue form-control" placeholder="검색 키워드를 입력하세요" required>
+							<span id="searchError" class="error" style="visibility: hidden; width:0; height:0;">숫자를 입력해주세요.</span>
+							<button type="button" class="btn btn-primary" onClick="javaScript:searchValueIsNaN()">검색</button>
+							<a href="${context}admin/approvals" class="btn btn-simple">초기화</a>
+						</div>
+					</form>
+					<table class="fixed">
 						<thead>
 							<tr>
-							<th>결재상태</th>
-								<th>문서번호</th>
-								<th>기안자</th>
-								<th>문서 제목</th>
-								<th>부서</th>
-								<th>기안일</th>
-								<th>완료일</th>
+								<th class="small-th">결재상태</th>
+								<th class="small-th">문서번호</th>
+								<th class="small-th">기안자</th>
+								<th class="large-th">문서 제목</th>
+								<th class="small-th">부서</th>
+								<th class="medium-th">기안일</th>
+								<th class="medium-th">완료일</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="approval" items="${approvals}">
 								<tr>
 									<td>
+										<span>
 										<c:set var="status" value="${approval.status}" />
 										<c:choose>
 											<c:when test="${status == 1}">신청</c:when>
 											<c:when test="${status == 2}">반려</c:when>
 											<c:when test="${status == 3}">완료</c:when>
 										</c:choose>
+										</span>
 									</td>
-									<td>${approval.approvalNo}</td>
-									<td>${approval.name}</td>
-									<td><a href="${context}admin/approvals/${approval.approvalNo}">${approval.title}</a></td>
-									<td>${approval.deptName}</td>
-									<td>${approval.date}</td>
+									<td><span>${approval.approvalNo}</span></td>
+									<td><span>${approval.name}</span></td>
+									<td><a href="${context}admin/approvals/${approval.approvalNo}"><span>${approval.title}</span></a></td>
+									<td><span>${approval.deptName}</span></td>
+									<td><span>${approval.date}</span></td>
 									<td>
+										<span>
 										<c:if test="${approval.checkDate != '9999-01-01'}">
 											${approval.checkDate}
 										</c:if>
+										</span>
 									</td>
 								</tr>
 							</c:forEach>

@@ -7,6 +7,8 @@
  * @author 박재용
  * @editDate 23.12.20 ~ 23.12.22
  * 페이지네이션 기능 추가 23.12.23 ~ 23.12.25
+ * @author 이승준
+ * 구조, 클래스명, css 통일 24.01.01 ~ 24.01.01 
 -->
 <!DOCTYPE html>
 <html>
@@ -16,55 +18,12 @@
 <script type="text/javascript" src="${resPath}/js/searchOption.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<style type="text/css">
-.aside ul span {
-	color: #222;
-}
-
-.aside ul span.selected {
-	font-weight: 800;
-	color: #345de3;
-}
-
-.table-group-divider tr td a {
-	color: #222;
-}
-
-.pagination nav ul li a {
-	color: #222;
-}
-
-.employeeIcons {
-	
-}
-
-.modifyIcon:after {
-	content: url("/officehi/resources/img/edit.svg");
-	margin-left: 1em;
-	vertical-align: top;
-}
-
-.retiredIcon:after {
-	content: url("/officehi/resources/img/retire.svg");
-	margin-left: 1em;
-	vertical-align: top;
-}
-
-tbody tr td a.retired  {
-	color: #bbb;
-	text-decoration: line-through;
-}
-
-button {
-	padding:0;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body>
+<body id="admin-employee-total">
 	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -73,31 +32,25 @@ button {
 				<div class="content-box floating">
 					<h2 class="lgmg">사원 정보 관리</h2>
 					<form action="${context}admin/employees/search" role="search" method="get">
-						<div class="row g-2 align-items-center mb-3" id="employeeSearch">
-							<div class="col-3">
-								<select id="searchType" class="form-select" name="searchType" aria-label="search">
-									<option value="name">사원명</option>
-									<option value="userNo">사번</option>
-									<option value="deptName">부서명</option>	
-								</select>
-							</div>
-							<div class="col-5">
-								<input name="name" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원정보 검색">
-							</div>
-							<div class="col-auto">
-								<button class="btn btn-dark" type="submit">검색</button>
-							</div>
+						<div class="search-box" id="employeeSearch">
+							<select id="searchType" name="searchType">
+								<option value="name">사원명</option>
+								<option value="userNo">사번</option>
+								<option value="deptName">부서명</option>	
+							</select>
+							<input name="name" class="searchInput" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원정보 검색">
+							<button class="btn btn-primary" type="submit">검색</button>
 						</div>
 					</form>
 
 					<!-- 등록버튼 -->
 					<div>
-						<button class="btn btn-dark" type="button" onclick="location.href='${context}admin/employees/add'">신규 사원 등록</button>
+						<button class="btn btn-primary add-form-btn" type="button" onclick="location.href='${context}admin/employees/add'">신규 사원 등록</button>
 					</div>
 
 					<!-- 리스트 -->
 					<form:form action="${context}admin/employees/${employee.userNo}/retired" method="post" id="userTable">
-						<table class="table mt-3">
+						<table class="fixed">
 							<thead>
 								<tr>
 									<th scope="col">사번</th>
@@ -105,29 +58,33 @@ button {
 									<th scope="col">부서명</th>
 									<th scope="col">직책</th>
 									<th scope="col">입사일</th>
-									<th scope="col">수정 / 퇴사</th>
+									<th scope="col" class="edit-delete-th">수정/퇴사</th>
 								</tr>
 							</thead>
-							<tbody class="table-group-divider">
+							<tbody>
 								<c:forEach var="employee" items="${employees}">
 									<tr>
 										<c:choose>
 											<c:when test="${employee.fromDate eq '9999-01-01'}">
-												<td><a href="${context}admin/employees/${employee.userNo}">${employee.userNo}</a></td>
-												<td><a href="${context}admin/employees/${employee.userNo}">${employee.name}</a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}"><span>${employee.userNo}</span></a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}"><span>${employee.name}</span></a></td>
 											</c:when>
 											<c:otherwise>
-												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.userNo}</a></td>
-												<td><a href="${context}admin/employees/${employee.userNo}" class="retired">${employee.name}</a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}" class="retired"><span>${employee.userNo}</span></a></td>
+												<td><a href="${context}admin/employees/${employee.userNo}" class="retired"><span>${employee.name}</span></a></td>
 											</c:otherwise>
 										</c:choose>
-										<td><a href="${context}admin/employees/${employee.userNo}">${employee.deptName}</a></td>
-										<td><a href="${context}admin/employees/${employee.userNo}">${employee.position}</a></td>
-										<td><a href="${context}admin/employees/${employee.userNo}">${employee.toDate}</a></td>
+										<td><a href="${context}admin/employees/${employee.userNo}"><span>${employee.deptName}</span></a></td>
+										<td><a href="${context}admin/employees/${employee.userNo}"><span>${employee.position}</span></a></td>
+										<td><a href="${context}admin/employees/${employee.userNo}"><span>${employee.toDate}</span></a></td>
 										<td>
-											<div class="employeeIcons">
-												<button type="button" class="modifyIcon" onclick="location.href='${context}admin/employees/${employee.userNo}'"></button>
-												<button type="button" class="retiredIcon" id="${employee.userNo}" name="${employee.name}"></button>
+											<div class="edit-btn-box">
+												<button type="button" class="edit-btn" onclick="location.href='${context}admin/employees/${employee.userNo}'">
+													<img alt="수정버튼" src="<c:url value='/resources/img/edit.svg' />">
+												</button>
+												<button type="button" class="delete-btn" id="${employee.userNo}" name="${employee.name}">
+													<img alt="삭제버튼" src="<c:url value='/resources/img/delete.svg'/>">
+												</button>
 											</div>
 										</td>
 									</tr>
@@ -149,7 +106,7 @@ button {
 						<input type="hidden" name="deptName" value="${param.deptName}" />
 						<form:hidden path="pageNum" />
 						<form:hidden path="amount" />
-						<div class="pagination d-flex justify-content-center mt-2">
+						<div class="pagination">
 							<nav aria-label="Page navigation">
 								<ul class="pagination">
 									<c:if test="${pageMarker.prev}">

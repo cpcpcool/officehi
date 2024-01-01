@@ -5,6 +5,8 @@
 <!--
  * @author 박재용
  * @editDate 23.12.18 ~ 23.12.20
+ * @author 이승준
+ * 구조, 클래스명, css 통일 23.01.01 ~ 24.01.01 
 -->
 <!DOCTYPE html>
 <html>
@@ -12,20 +14,10 @@
 <meta charset="UTF-8">
 <title>근무 시간 확인</title>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<style type="text/css">
-.aside ul span {
-	color: #222;
-}
-
-.aside ul span.selected {
-	font-weight: 800;
-	color: #345de3;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
@@ -35,7 +27,7 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>근무 시간 확인</h2>
-					<table class="table">
+					<table>
 						<thead>
 							<tr>
 								<th scope="col">근무일</th>
@@ -46,7 +38,7 @@
 								<th scope="col">근무 시간</th>
 							</tr>
 						</thead>
-						<tbody class="table-group-divider">
+						<tbody>
 							<c:forEach var="work" items="${works}">
 								<tr>
 									<td>${work.date}</td>

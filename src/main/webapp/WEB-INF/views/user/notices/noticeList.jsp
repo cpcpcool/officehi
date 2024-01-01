@@ -4,12 +4,14 @@
 <c:url var="context" value="/" />
 <c:url var="resPath" value="/resources" />
 <!--  
-* @author 정유진
-* @editDate 23.12.19 ~ 23.12.20
-* 페이지네이션
-* @editDate 23.12.26 ~ 23.12.28
-* css 수정
-* @editDate 23.12.28 ~ 23.12.28
+ * @author 정유진
+ * @editDate 23.12.19 ~ 23.12.20
+ * 페이지네이션
+ * @editDate 23.12.26 ~ 23.12.28
+ * css 수정
+ * @editDate 23.12.28 ~ 23.12.28
+ * @author 이승준
+ * 구조, 클래스명, css 통일 23.12.31 ~ 24.01.01 
  -->
 <!DOCTYPE html>
 <html>
@@ -18,43 +20,12 @@
 <title>공지사항</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<style>
-thead {
-	text-align: left
-}
-
-.pagination nav ul li a {
-	color: #222;
-}
-
-.pagination {
-	--bs-pagination-active-bg: #222;
-	--bs-pagination-active-border-color: #fff;
-	--bs-pagination-hover-color: #c7c7c7;
-	--bs-link-hover-color: #222;
-	--bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgb(199 199 199/ 48%);
-}
-
-.form-select:focus {
-	box-shadow: 0 0 0 0.27rem rgb(199 199 199/ 48%);
-	border: #c7c7c7;
-}
-
-.searchInput:focus {
-	box-shadow: 0 0 0 0.27rem rgb(199 199 199/ 48%);
-	border: #c7c7c7;
-}
-
-td {
-	line-height: 1.5;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body>
+<body id="user-notice-list">
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -63,22 +34,16 @@ td {
 				<div class="content-box floating">
 					<h2>공지사항 조회</h2>
 					<form action="${context}notices/search" role="search" method="post">
-						<div class="row g-2 align-items-center mb-3" id="noticeSearch" >
-							<div class="col-3">
-								<select class="form-select" name="searchType" aria-label="search Default select example">
-									<option value="title">제목</option>
-									<option value="content">내용</option>
-								</select>
-							</div>
-							<div class="col-5">
-								<input name="title" class="searchInput form-control col-auto" type="text" placeholder="검색 키워드를 입력하세요" aria-label="공지사항 검색">
-							</div>
-							<div class="col-auto">
-								<button class="btn btn-dark" type="submit">검색</button>
-							</div>
+						<div class="search-box" id="noticeSearch" >
+							<select class="form-select" name="searchType">
+								<option value="title">제목</option>
+								<option value="content">내용</option>
+							</select>
+							<input name="title" class="searchInput" type="text" placeholder="검색 키워드를 입력하세요" aria-label="공지사항 검색">
+							<button class="btn btn-primary" type="submit">검색</button>
 						</div>
 					</form>
-					<table>
+					<table class="fixed">
 						<thead>
 							<tr>
 								<th>제목</th>
@@ -88,8 +53,8 @@ td {
 						<tbody class="table-group-divider">
 							<c:forEach var="notice" items="${notices}">
 								<tr>
-									<td><a href="${context}notices/${notice.noticeNo}">${notice.title}</a></td>
-									<td><a href="${context}notices/${notice.noticeNo}">${notice.date}</a></td>
+									<td><a href="${context}notices/${notice.noticeNo}"><span>${notice.title}</span></a></td>
+									<td><a href="${context}notices/${notice.noticeNo}"><span>${notice.date}</span></a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
