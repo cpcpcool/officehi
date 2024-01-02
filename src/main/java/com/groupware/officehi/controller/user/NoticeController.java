@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
  *  페이지네이션
  * @editDate 23.12.26 ~ 23.12.28
 */
-
+	
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/notices")
@@ -73,22 +73,28 @@ public class NoticeController {
 		return "/user/notices/notice";
 	}
 	
-	@PostMapping("/search")
-	public String search(@RequestParam("searchType") String searchType, 
-			@RequestParam(name="title", required=false) String title,
-			@RequestParam(name="content", required=false) String content,
-			@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
+	@GetMapping("/search")
+	public String search(@RequestParam("search") String search, @RequestParam("searchValue") String searchValue, 
+			@ModelAttribute("paging") Paging paging, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
-		List<NoticeDTO> notices = null;
+		List<NoticeDTO> notices;
 		int totalRow = 0;
 		
-		if ("title".equals(searchType)) {
-			notices = noticeService.findAllByTitle(title);
-		} else if ("content".equals(searchType)) {
-			notices = noticeService.findAllByContent(content);
+		switch(search) {
+		case "title":
+			totalRow = noticeService.findAllByTitle(searchValue).size();
+			notices = noticeService.findAllByTitlePaging(searchValue, paging);
+			break;
+		case "content":
+			totalRow = noticeService.findAllByContent(searchValue).size();
+			notices = noticeService.findAllByContentPaging(searchValue, paging);
+			break;
+		default:
+			return "/user/notices/noticeList";
 		}
+		
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "/user/notices/noticeList";

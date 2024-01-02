@@ -32,11 +32,11 @@
 						<div class="form-row">
 							<div class="label-input-box">
 								<label for="noticeNo">공지 번호</label>
-								<form:input path="noticeNo" id="noticeNo" disabled="true"/>
+								<form:input path="noticeNo" id="noticeNo" readonly="true"/>
 							</div>
 							<div class="label-input-box">
 								<label for="date">등록일</label>
-								<form:input path="date" id="date" disabled="true"/>
+								<form:input path="date" id="date" readonly="true"/>
 							</div>
 						</div>
 						<div class="label-input-box mb">

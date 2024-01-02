@@ -28,7 +28,6 @@ import com.groupware.officehi.service.EmployeeService;
 import com.groupware.officehi.service.LoginService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author 박재용

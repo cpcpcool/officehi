@@ -38,6 +38,8 @@
 									<option>대금 결재</option>
 								</form:select>
 							</div>
+						</div>
+						<div class="form-row">
 							<div class="label-input-box">	
 								<label for="checker">1차 승인자</label>
 								<select id="checker1" name="checker1" class="form-select">

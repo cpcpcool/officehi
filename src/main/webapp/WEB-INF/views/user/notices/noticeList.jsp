@@ -33,13 +33,13 @@
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>공지사항 조회</h2>
-					<form action="${context}notices/search" role="search" method="post">
-						<div class="search-box" id="noticeSearch" >
-							<select class="form-select" name="searchType">
+					<form action="${context}notices/search" method="get">
+						<div class="search-box" >
+							<select id="search" name="search">
 								<option value="title">제목</option>
 								<option value="content">내용</option>
 							</select>
-							<input name="title" class="searchInput" type="text" placeholder="검색 키워드를 입력하세요" aria-label="공지사항 검색">
+							<input name="searchValue" class="searchValue" type="text" placeholder="검색 키워드를 입력하세요" aria-label="공지사항 검색">
 							<button class="btn btn-primary" type="submit">검색</button>
 						</div>
 					</form>
@@ -92,6 +92,5 @@
 	</main>
 	<%@ include file="/WEB-INF/views/footer/userFooter.jsp"%>
 	<script type="text/javascript" src="<c:url value='/resources/js/pagination.js' />"></script>
-
 </body>
 </html>

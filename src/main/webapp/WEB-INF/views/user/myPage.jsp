@@ -22,7 +22,7 @@
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body id="mypage">
+<body id="user-mypage">
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">

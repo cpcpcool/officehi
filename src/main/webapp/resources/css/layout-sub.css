@@ -148,14 +148,14 @@
 	background-color: #345de3;
 }
 
-/* mypage */
-#mypage label {
+/* user-mypage */
+#user-mypage label {
 	width: 100px;
 }
-#mypage input {
+#user-mypage input {
 	width: 220px;
 }
-#mypage div.hr {
+#user-mypage div.hr {
 	margin: 16px 0 20px;
 }
 .form-row {
@@ -167,11 +167,11 @@
 .form-row .label-input-box {
 	width: calc(50% - 10px);
 }
-#mypage .form-row .label-input-box {
+#user-mypage .form-row .label-input-box {
     width: calc(50% - 32px);
 }
 
-#mypage input, #mypage select {
+#user-mypage input, #user-mypage select {
 	flex: 1;
 }
 
@@ -206,7 +206,7 @@
 .btn-area {
 	display: flex;
 }
-#mypage .btn-area {
+#user-mypage .btn-area {
 	margin-top: 32px;
 }
 
@@ -261,32 +261,25 @@ tr span {
 	margin-top: 20px;
 }
 
-/* user-approval */
-#user-approval h2 {
+/* approval-detail */
+#approval-detail h2 {
 	margin-bottom: 36px;
 }
-#user-approval form span {
+#approval-detail form span {
 	font-size: 16px;
 	font-weight: 600;
 }
-#user-approval label {
-	width: 105px;
+#approval-detail label {
+	width: 90px;
 }
-#user-approval input {
+#approval-detail input, #approval-detail select {
 	width: auto;
 	flex: 1;
 }
-#approval .form-row .label-input-box{
-	display: flex;
-    align-items: center;
-	width: 32%;
-	flex-wrap: nowrap;	
-}
-
 .label-input-box.mb {
 	margin-bottom: 16px;
 }
-#user-approval textarea {
+#approval-detail textarea {
 	margin: 10px 0 16px;
 }
 

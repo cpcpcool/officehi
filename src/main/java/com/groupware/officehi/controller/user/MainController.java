@@ -82,8 +82,6 @@ public class MainController {
 		List<ApprovalDTO> approvals = approvalService.findApprovalByUserNoOrChecker(loginUser.getUserNo(), null);
 		model.addAttribute("approvals", approvals.stream().limit(7).collect(Collectors.toList()));
 		
-		String realFilePath = servletContext.getRealPath("/");
-		
 		return "/user/main";
 	}
 

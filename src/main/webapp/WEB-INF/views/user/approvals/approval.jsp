@@ -27,7 +27,7 @@
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body id="user-approval">
+<body id="approval-detail">
 	<c:choose>
 		<c:when test="${loginUser.admin == 0 }">
 			<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
@@ -56,6 +56,8 @@
 									<label for="category">서식</label>
 									<form:input path="category" cssClass="form-control" value="${approval.category}" readonly="${login}" />
 								</div>
+							</div>
+							<div class="form-row">
 								<div class="label-input-box">	
 									<label for="checker">1차 승인자</label>
 									<c:choose>
