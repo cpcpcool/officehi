@@ -1,5 +1,6 @@
 package com.groupware.officehi.dto;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,7 @@ public class FileDTO {
 	private String fileTypeNo;
 	private MultipartFile multipartFile;
 	
-	public FileDTO(String originalFileName) {
+	public FileDTO(@Param("originalFileName") String originalFileName) {
 		this.originalFileName = originalFileName;
 	}
 }

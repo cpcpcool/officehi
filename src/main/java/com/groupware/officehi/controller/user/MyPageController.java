@@ -59,20 +59,17 @@ public class MyPageController {
 		}
 		model.addAttribute("mypageuser", mypageuser.get());
 
-		try {
-			Optional<FileDTO> profile = employeeService.findProfileFileByUserNo(loginUser.getUserNo());
-			model.addAttribute("profile", profile.get().getOriginalFileName());
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("profile", "-");
-		}
-		try {
-			Optional<FileDTO> stamp = employeeService.findStampFileByUserNo(loginUser.getUserNo());
-			model.addAttribute("stamp", stamp.get().getOriginalFileName());
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("stamp", "-");
-		}
+		Optional<FileDTO> profileFile = employeeService.findProfileFileByUserNo(loginUser.getUserNo());
+		if (profileFile.isPresent())
+			model.addAttribute("profileFile", profileFile.get());
+		else
+			model.addAttribute("profileFile", profileFile.orElse(new FileDTO("-")));
+
+		Optional<FileDTO> stampFile = employeeService.findStampFileByUserNo(loginUser.getUserNo());
+		if (stampFile.isPresent())
+			model.addAttribute("stampFile", stampFile.get());
+		else
+			model.addAttribute("stampFile", stampFile.orElse(new FileDTO("-")));
 
 		return "user/myPage";
 	}
@@ -87,17 +84,30 @@ public class MyPageController {
 		// 이미지파일 변경 로직
 		FileDTO fileDTO = new FileDTO();
 		fileDTO.setUserNo(loginUser.getUserNo());
+		
+		Optional<FileDTO> profileFile = employeeService.findProfileFileByUserNo(loginUser.getUserNo());
+		Optional<FileDTO> stampFile = employeeService.findStampFileByUserNo(loginUser.getUserNo());
 
-		// profile 증명사진 변경저장
-		fileDTO.setMultipartFile(profileMultipartFile);
-		fileDTO.setFileTypeNo("1");
-		employeeService.updateFileInfo(fileDTO);
-
-		// stamp 인감 변경저장
-		fileDTO.setMultipartFile(stampMultipartFile);
-		fileDTO.setFileTypeNo("2");
-		employeeService.updateFileInfo(fileDTO);
-
+		if(profileFile.isEmpty()) {
+			// profile 증명사진 최초등록
+			fileDTO.setMultipartFile(profileMultipartFile);
+			fileDTO.setFileTypeNo("1");
+			employeeService.insertFileInfo(fileDTO);			
+		}else {
+			// profile 증명사진 변경저장
+			fileDTO.setMultipartFile(profileMultipartFile);
+			fileDTO.setFileTypeNo("1");
+			employeeService.updateFileInfo(fileDTO);
+		}
+		if(stampFile.isEmpty()) {
+			fileDTO.setMultipartFile(stampMultipartFile);
+			fileDTO.setFileTypeNo("2");
+			employeeService.insertFileInfo(fileDTO); 
+		}else {
+			fileDTO.setMultipartFile(stampMultipartFile);
+			fileDTO.setFileTypeNo("2");
+			employeeService.updateFileInfo(fileDTO); 
+		}
 		employeeService.updateUserInfo(employeeDTO);
 
 		return "redirect:/mypage";

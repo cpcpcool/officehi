@@ -6,6 +6,8 @@
 <!--  
  * @author 정유진
  * @editDate 23.12.20 ~ 23.12.21
+ * @author 박재용
+ * 파일수정기능, 수정 Message 추가 23.12.29 ~23.12.31
  * @author 이승준
  * 구조, 클래스명, css 통일 23.12.31 ~ 24.01.01 
  -->
@@ -74,7 +76,7 @@
 							<div class="label-input-box">
 								<label for="profile">프로필이미지</label>
 								<div class="file-field profile-field">
-									<input type="text" id="profileFileName" name="profileFileName" class="ellipsis" value="${profile}">
+									<input type="text" id="profileFileName" name="profileFileName" class="ellipsis" value="${profileFile.originalFileName}">
 									<input type="file" id="profile" name="profile" style="display: none;" onchange="updateFileName('profile', 'profileFileName')">
 									<button type="button" class="btn" onclick="document.getElementById('profile').click()">파일 추가</button>
 								</div>
@@ -82,14 +84,14 @@
 							<div class="label-input-box">
 								<label for="stamp">인감이미지</label>
 								<div class="file-field stamp-filed">
-									<input type="text" id="stampFileName" name="stampFileName" class="ellipsis" value="${stamp}"> 
+									<input type="text" id="stampFileName" name="stampFileName" class="ellipsis" value="${stampFile.originalFileName}"> 
 									<input type="file" id="stamp" name="stamp" style="display: none;" onchange="updateFileName('stamp', 'stampFileName')">
 									<button type="button" class="btn" onclick="document.getElementById('stamp').click()">파일 추가</button>
 								</div>
 							</div>
 						</div>
 						<div class="btn-area">
-							<button type="submit" class="btn btn-primary">수정</button>
+							<button type="submit" class="btn btn-primary" onclick="alert('사원정보 수정이 완료되었습니다.');">수정</button>
 							<button type="button" class="btn btn-simple" onclick="history.go(-1); return false;">취소</button>
 						</div>
 					</form:form>
