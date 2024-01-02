@@ -51,12 +51,12 @@
 						<form id="searchForm" class="row" action="${context}admin/approvals/search" method="get">
 							<div class="col-2">
 								<select id="search" class="form-select" name="search" onChange="javaScript:searchApproval()">
-										<option value="approvalNo">문서번호</option>
-										<option value="userName">기안자</option>
 										<option value="title">문서 제목</option>
+										<option value="userName">기안자</option>
 										<option value="deptName">부서</option>
 										<option value="date">기안일</option>
 										<option value="checkDate">완료일</option>
+										<option value="approvalNo">문서번호</option>
 								</select>
 							</div>
 							<div class="col-4">
@@ -88,8 +88,9 @@
 										<c:set var="status" value="${approval.status}" />
 										<c:choose>
 											<c:when test="${status == 1}">신청</c:when>
-											<c:when test="${status == 2}">반려</c:when>
-											<c:when test="${status == 3}">완료</c:when>
+											<c:when test="${status == 2}">진행중</c:when>
+											<c:when test="${status == 3}">반려</c:when>
+											<c:when test="${status == 4}">완료</c:when>
 										</c:choose>
 									</td>
 									<td>${approval.approvalNo}</td>

@@ -8,10 +8,12 @@
 function updateApproval(context, approvalNo, status) {
 	let isFormUpdate;
 	
-	if(status == 2) 
+	if(status == 3) 
 		isFormUpdate = confirm("반려하시겠습니까?");
-	else if(status == 3)
-		isFormUpdate = confirm("승인하시겠습니까?");
+	else if(status == 2)
+		isFormUpdate = confirm("진행하시겠습니까?");
+	else if(status == 4)
+		isFormUpdate = confirm("최종 승인 하시겠습니까?");
 		
 	if(isFormUpdate) {
 		let form = document.getElementById('approval');

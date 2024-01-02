@@ -81,7 +81,16 @@ public class AdminApprovalController {
 			return "alert/alert";
 
 		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
-		EmployeeDTO checker1 = employeeService.findUserInfoByUserNo(approval.getChecker1()).get();
+		List<ApprovalDTO.Checker> checker = approvalService.findChekcerByApprovalNo(approval_no);
+		
+		EmployeeDTO checker1 = employeeService.findUserInfoByUserNo(checker.get(0).getUserNo()).get();
+		
+		if(checker.size() > 1) {
+			EmployeeDTO checker2 = employeeService.findUserInfoByUserNo(checker.get(1).getUserNo()).get();
+			model.addAttribute("checker2", checker2);
+		} else {
+			model.addAttribute("checker2", null);
+		}
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("checker1", checker1);

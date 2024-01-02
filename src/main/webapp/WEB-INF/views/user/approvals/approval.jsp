@@ -76,22 +76,72 @@ color: #222;
 							<div class="col-3">
 								<form:input path="category" cssClass="form-control" value="${approval.category}" readonly="${login}" />
 							</div>
-							<div class="col-2 mb-2">	
-								<label class="form-label mt-2" for="checker">참조자</label>
+							<div class="col-1 mb-2" style="padding: 0;">
+								<label class="form-label mt-2" for="checker">1차 승인자</label>
 							</div>
 							<div class="col">
 								<c:choose>
 									<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
-										<form:select path="checker1" class="form-select">
-											<form:option value="${checker1.userNo}" label="[${checker1.position}] ${checker1.name}" selected="true" />
+										<select id="checker1" name="checker1" class="form-select">
+											<option value="${checker1.userNo}" selected>[${checker1.position}] ${checker1.name}</option>
 											<c:forEach items="${userList}" var="user">
 												<option value="${user.userNo}">[${user.position}] ${user.name}</option>
 											</c:forEach>
-										</form:select>
+										</select>
+										<input type="hidden" id="confirm" name="confirm" value="0" />
+									</c:when>
+									<c:when test="${login && loginUser.admin == 0 && approval.status == 2}">
+										<input type="text" value="[${checker1.position}] ${checker1.name}" class="form-select" readonly>
+										<input type="hidden" id="confirm" name="confirm" value="1" />
 									</c:when>
 									<c:otherwise>
-										<span class="form-control">[${checker1.position}] ${checker1.name}</span>
+										<select id="checker1" name="checker1" class="form-select">
+											<option value="${checker1.userNo}" selected>[${checker1.position}] ${checker1.name}</option>
+										</select>
 									</c:otherwise>
+								</c:choose>
+							</div>
+							<div class="col-1 mb-2" style="padding: 0;">
+								<label class="form-label mt-2" for="checker">2차 승인자</label>
+							</div>
+							<div class="col">
+								<c:choose>
+									<c:when test="${checker2 != null}">
+										<c:choose>
+											<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
+												<select id="checker2" name="checker2" class="form-select">
+													<option value="${checker2.userNo}" selected>[${checker2.position}] ${checker2.name}</option>
+													<c:forEach items="${userList}" var="user">
+														<option value="${user.userNo}">[${user.position}] ${user.name}</option>
+													</c:forEach>
+													<option value="0">없음</option>
+												</select>
+												<input type="hidden" id="checkerNo2" name="checkerNo2" value="2" />
+											</c:when>
+											<c:otherwise>
+												<select id="checker2" name="checker2" class="form-select">
+													<option value="${checker2.userNo}" selected>[${checker2.position}] ${checker2.name}</option>
+												</select>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:when test="${checker2 == null}">
+										<c:choose>
+											<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
+												<select id="checker2" name="checker2" class="form-select">
+													<option value="0" selected>없음</option>
+													<c:forEach items="${userList}" var="user">
+														<option value="${user.userNo}">[${user.position}] ${user.name}</option>
+													</c:forEach>
+												</select>
+											</c:when>
+											<c:otherwise>
+												<select id="checker2" name="checker2" class="form-select">
+													<option value="0">없음</option>
+												</select>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
 								</c:choose>
 							</div>
 						</div>
@@ -133,8 +183,19 @@ color: #222;
 									<button type="submit" class="btn btn-dark btn-small me-2">수정</button>
 								</c:when>
 								<c:when test="${!login && loginUser.admin == 0 && approval.status == 1}">
-									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">승인</a>
-									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">반려</a>
+									<c:if test="${loginUser.userNo == checker1.userNo && checker2 != null}"> <!-- 결재자 1번이고 결재자 2번이 있다면  -->
+										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">진행</a>
+									</c:if>
+									<c:if test="${loginUser.userNo == checker1.userNo && checker2 == null}"> <!-- 결재자 1번이고 결재자 2번이 없다면  -->
+										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 4)">최종승인</a>
+									</c:if>
+									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">반려</a>
+								</c:when>
+								<c:when test="${!login && loginUser.admin == 0 && approval.status == 2}">
+									<c:if test="${loginUser.userNo == checker2.userNo}">
+										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 4)">최종승인</a>
+										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">반려</a>
+									</c:if>
 								</c:when>
 							</c:choose>
 							<a class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">뒤로 가기</a>

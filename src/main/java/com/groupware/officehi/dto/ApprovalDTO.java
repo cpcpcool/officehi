@@ -25,6 +25,13 @@ public class ApprovalDTO {
 	private String category;
 	private String checkDate;
 	private String position;
-	private Long checker1;
 	
+	@Getter @Setter
+	@NoArgsConstructor @AllArgsConstructor
+	public static class Checker {
+		private Long approvalNo;
+		private Integer checkerNo;
+		private Integer confirm;
+		private Long userNo;
+	}
 }

@@ -71,9 +71,47 @@ public class ApprovalController {
 		return "user/approvals/approvalList";
 	}
 	
+	// 결재 문서 수정 버튼 선택
+	@PutMapping("/{approvalNo}")
+	public String editApproval(@PathVariable Long approvalNo, @ModelAttribute ApprovalDTO approval,
+			@RequestParam Long checker1, @RequestParam Long checker2, @RequestParam int confirm,
+			Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+
+		approval.setApprovalNo(approvalNo);
+		approvalService.updateApproval(approval);
+		
+		approvalService.updateChecker(new ApprovalDTO.Checker(approvalNo, 1, confirm, checker1));
+		
+		if(checker2 != 0) {
+			if(approvalService.findChekcerByApprovalNo(approvalNo).size() < 2) {
+				approvalService.insertChecker(new ApprovalDTO.Checker(approvalNo, 2, 0, checker2));
+			} else {
+				approvalService.updateChecker(new ApprovalDTO.Checker(approvalNo, 2, 0, checker2));
+			}
+		} else {
+			approvalService.deleteChecker(approvalNo, 2);
+		}
+		
+		return "redirect:/approvals";
+	}
+
+	// 결재 문서 삭제 버튼 선택
+	@DeleteMapping("/{approvalNo}")
+	public String deleteApproval(@PathVariable Long approvalNo, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+
+		approvalService.delete(approvalNo);
+
+		return "redirect:/approvals";
+	}
+
 	// 기안문, 참조문 보기 버튼 선택
 	@GetMapping("/search")
-	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging, Model model, HttpServletRequest request) {
+	public String getApprovalListSearch(@RequestParam String search, @ModelAttribute Paging paging,
+			Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 		
@@ -106,32 +144,47 @@ public class ApprovalController {
 		
 		model.addAttribute("userList", userList);
 		model.addAttribute("approval", new ApprovalDTO());
+		model.addAttribute("checker", new ApprovalDTO.Checker());
 		
 		return "user/approvals/approvalAddForm";
 	}
-
+	
 	// 결재 문서 작성 버튼 선택
 	@PostMapping("/add")
-	public String addApproval(@ModelAttribute ApprovalDTO approval, Model model, HttpServletRequest request) {
+	public String addApproval(@RequestParam Long checker1, @RequestParam Long checker2, @ModelAttribute ApprovalDTO approval,
+			Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
 		approval.setUserNo(loginUser.getUserNo());
 		approvalService.insertApproval(approval);
 		
+		approvalService.insertChecker(new ApprovalDTO.Checker(approval.getApprovalNo(), 1, 0, checker1));
+		
+		if(checker2 != 0)
+			approvalService.insertChecker(new ApprovalDTO.Checker(approval.getApprovalNo(), 2, 0, checker2));
+		
 		return "redirect:/approvals";
 	}
 
 	// 결재 문서 상세 보기
-	@GetMapping("/{approval_no}")
-	public String getApproval(@PathVariable Long approval_no, Model model, HttpServletRequest request) {
+	@GetMapping("/{approvalNo}")
+	public String getApproval(@PathVariable Long approvalNo, Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
-		ApprovalDTO approval = approvalService.findByApprovalNo(approval_no).get();
+		ApprovalDTO approval = approvalService.findByApprovalNo(approvalNo).get();
 		List<ApprovalDTO> userList = approvalService.findUserNameAndDeptNameByApprovalNo(approval.getApprovalNo(), loginUser.getUserNo());
+		List<ApprovalDTO.Checker> checker = approvalService.findChekcerByApprovalNo(approvalNo);
 		
-		EmployeeDTO checker1 = employeeService.findUserInfoByUserNo(approval.getChecker1()).get();
+		EmployeeDTO checker1 = employeeService.findUserInfoByUserNo(checker.get(0).getUserNo()).get();
+		
+		if(checker.size() > 1) {
+			EmployeeDTO checker2 = employeeService.findUserInfoByUserNo(checker.get(1).getUserNo()).get();
+			model.addAttribute("checker2", checker2);
+		} else {
+			model.addAttribute("checker2", null);
+		}
 		
 		model.addAttribute("approval", approval);
 		model.addAttribute("userList", userList);
@@ -140,38 +193,27 @@ public class ApprovalController {
 		return "user/approvals/approval";
 	}
 
-	// 결재 문서 수정 버튼 선택
-	@PutMapping("/{approval_no}")
-	public String editApproval(@PathVariable Long approval_no, @ModelAttribute ApprovalDTO approval,
-			Model model, HttpServletRequest request) {
-		if(loginCheck(request, model))
-			return "redirect:/login";
-
-		approval.setApprovalNo(approval_no);
-		approvalService.updateApproval(approval);
-
-		return "redirect:/approvals";
-	}
-
-	// 결재 문서 삭제 버튼 선택
-	@DeleteMapping("/{approvalNo}")
-	public String deleteApproval(@PathVariable Long approvalNo, Model model, HttpServletRequest request) {
-		if(loginCheck(request, model))
-			return "redirect:/login";
-		
-		approvalService.delete(approvalNo);
-		
-		return "redirect:/approvals";
-	}
-
-	// 승인, 반려버튼 선택시
+	// 수정, 진행, 반려, 최종승인 버튼 선택시
 	@PutMapping("status/{approvalNo}")
 	public String setApprovalStatus(@PathVariable Long approvalNo, @ModelAttribute ApprovalDTO approval,
+			@RequestParam Long checker1, @RequestParam Long checker2,
 			Model model, HttpServletRequest request) {
 		if(loginCheck(request, model))
 			return "redirect:/login";
 
 		approvalService.updateStatus(approval);
+		
+		switch(approval.getStatus()) {
+		case 2:
+			approvalService.updateChecker(new ApprovalDTO.Checker(approvalNo, 1, 1, checker1));
+			break;
+		case 3:
+			approvalService.updateChecker(new ApprovalDTO.Checker(approvalNo, 1, 1, checker1));
+			break;
+		case 4:
+			approvalService.updateChecker(new ApprovalDTO.Checker(approvalNo, 2, 1, checker2));
+			break;
+		}
 		
 		return "redirect:/approvals";
 	}

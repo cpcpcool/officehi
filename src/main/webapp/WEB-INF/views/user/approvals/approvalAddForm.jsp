@@ -61,15 +61,26 @@ color: #222;
 									<option>대금 결재</option>
 								</form:select>
 							</div>
-							<div class="col-2 mb-2">	
-								<label class="form-label mt-2" for="checker">참조자</label>
+							<div class="col-1 mb-2" style="padding: 0;">
+								<label class="form-label mt-2" for="checker">1차 승인자</label>
 							</div>
 							<div class="col">
-								<form:select path="checker1" class="form-select" id="checker1" name="checker1">
+								<select id="checker1" name="checker1" class="form-select">
 									<c:forEach items="${userList}" var="user">
 										<option value="${user.userNo}">[${user.position}] ${user.name}</option>
 									</c:forEach>
-								</form:select>
+								</select>
+							</div>
+							<div class="col-1 mb-2" style="padding: 0;">
+								<label class="form-label mt-2" for="checker">2차 승인자</label>
+							</div>
+							<div class="col">
+								<select id="checker2" name="checker2" class="form-select">
+									<option value="0">없음</option>
+									<c:forEach items="${userList}" var="user">
+										<option value="${user.userNo}">[${user.position}] ${user.name}</option>
+									</c:forEach>
+								</select>
 							</div>
 						</div>
 						<div class="row mb-3">
