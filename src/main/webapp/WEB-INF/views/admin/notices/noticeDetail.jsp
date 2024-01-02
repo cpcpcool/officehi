@@ -6,6 +6,8 @@
 <!--
  * @author 박재용
  * @editDate 23.12.21 ~ 23.12.23
+ * @author 이승준
+ * 구조, 클래스명, css 통일 24.01.01 ~ 24.01.01 
 -->
 <!DOCTYPE html>
 <html>
@@ -13,22 +15,12 @@
 <meta charset="UTF-8">
 <title>공지사항 상세</title>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<style type="text/css">
-.aside ul span {
-	color: #222;
-}
-
-.aside ul span.selected {
-	font-weight: 800;
-	color: #345de3;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body>
+<body id="admin-notice">
 	<%@ include file="/WEB-INF/views/header/adminHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -37,25 +29,26 @@
 				<div class="content-box floating">
 					<h2>공지사항 상세</h2>
 					<form:form action="${context}admin/notices/${notice.noticeNo}" modelAttribute="notice" method="post">
-					<%-- <form action="${context}admin/notices" method="post"> --%>
-						<div class="mt-4 mb-4 row g-1 align-items-center">
-							<div class="col-1">
-								<label for="" class="form-label mb-0">제목</label>
+						<div class="form-row">
+							<div class="label-input-box">
+								<label for="noticeNo">공지 번호</label>
+								<form:input path="noticeNo" id="noticeNo" disabled="true"/>
 							</div>
-							<div class="col-11">
-								<form:input path="title" cssClass="form-control" id="noticeName"/>
-								<%-- <input type="text" class="form-control" id="noticeName" value="${notice.title}"> --%>
+							<div class="label-input-box">
+								<label for="date">등록일</label>
+								<form:input path="date" id="date" disabled="true"/>
 							</div>
 						</div>
-						<div class="mb-4">
-							<label for="noticeContent" class="form-label mb-3">내용</label>
-							<form:textarea path="content" class="form-control" id="noticeContent" rows="3" style="height: 400px; resize: none;"/>
+						<div class="label-input-box mb">
+							<label for="title">제목</label>
+							<form:input path="title" id="noticeName"/>
 						</div>
-						<div class="noticeModify">
-							<button class="btn btn-dark mt-3 me-3" id="arrival" type="submit">수정 하기</button>
-							<button class="btn btn-outline-dark mt-3" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
+						<label for="noticeContent" class="form-label mb-3">내용</label>
+						<form:textarea path="content" id="noticeContent" rows="3"/>
+						<div class="btn-area">
+							<button class="btn btn-primary" id="arrival" type="submit">수정 하기</button>
+							<button class="btn btn-simple" id="leave" onclick="history.go(-1)" type="button">뒤로 가기</button>
 						</div>
-					<!-- </form> -->
 					</form:form>
 				</div>
 			</div>

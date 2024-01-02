@@ -8,6 +8,8 @@
  * @author 엄다빈
  * @editDate 23.12.15 ~ 23.12.18
  * @editDate 23.12.27 페이지네이션 구현
+ * @author 이승준
+ * 구조, 클래스명, css 통일 23.01.01 ~ 24.01.01 
  -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,35 +18,12 @@
 <title>결재 현황 조회</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
-<link href="${resPath}/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
-<style type="text/css">
-form {
-	font-size: 16px;
-	font-weight: bold;
-	line-height: 16px;
-}
-.aside ul span {
-color: #222;
-}
-.aside ul span.selected {
-	font-weight: 800;
-	color: #345de3;
-}
-.table-group-divider tr td a {
-	color: #222;
-}
-.pagination nav ul li a {
-	color: #222;
-}
-table img {
-	vertical-align: top;
-}
-</style>
+<link href="${resPath}/css/layout-sub.css" rel="stylesheet">
 </head>
-<body>
+<body id="user-approval-list">
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp"%>
 	<main>
 		<div class="main-container">
@@ -52,21 +31,21 @@ table img {
 			<div class="main-box">
 				<div class="content-box floating">
 					<h2>결재 현황 조회</h2>
-					<div>
-						<a href="${context}approvals" class="btn btn-dark btn-small me-2">전체 보기</a>
-						<a href="${context}approvals/search?search=my" class="btn btn-dark btn-small me-2">기안문 보기</a>
-						<a href="${context}approvals/search?search=other" class="btn btn-dark btn-small me-2">참조문 보기</a>
+					<div class="filter-btn-box">
+						<a href="${context}approvals" class="btn btn-primary  ">전체 보기</a>
+						<a href="${context}approvals/search?search=my" class="btn btn-simple">기안문 보기</a>
+						<a href="${context}approvals/search?search=other" class="btn btn-simple">참조문 보기</a>
 					</div>
-					<table>
+					<table class="fixed">
 						<thead>
 							<tr>
-								<th>결재상태</th>
-								<th>기안자</th>
-								<th>문서 제목</th>
-								<th>부서</th>
+								<th class="small-th">결재상태</th>
+								<th class="small-th">기안자</th>
+								<th class="large-th">문서 제목</th>
+								<th class="small-th">부서</th>
 								<th>기안일</th>
 								<th>완료일</th>
-								<th>수정/삭제</th>
+								<th class="edit-delete-th">수정/삭제</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -74,6 +53,7 @@ table img {
 								<c:forEach var="approval" items="${approvals}">
 									<tr>
 										<td>
+											<span>
 											<c:set var="status" value="${approval.status}" />
 											<c:choose>
 												<c:when test="${status == 1}">신청</c:when>
@@ -81,22 +61,31 @@ table img {
 												<c:when test="${status == 3}">반려</c:when>
 												<c:when test="${status == 4}">완료</c:when>
 											</c:choose>
+											</span>
 										</td>
-										<td>${approval.name}</td>
-										<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
-										<td>${approval.deptName}</td>
-										<td>${approval.date}</td>
+										<td><span>${approval.name}</span></td>
+										<td><a href="${context}approvals/${approval.approvalNo}"><span>${approval.title}</span></a></td>
+										<td><span>${approval.deptName}</span></td>
+										<td><span>${approval.date}</span></td>
 										<td>
+											<span>
 											<c:if test="${approval.checkDate != '9999-01-01'}">
 												${approval.checkDate}
 											</c:if>
+											</span>
 										</td>
+										<td>
 										<c:if test="${approval.status == 1 && loginUser.userNo == approval.userNo}">
-											<td>
-												<a href="${context}approvals/${approval.approvalNo}" class="px-3" ><img src="${resPath}/img/edit.svg" alt="수정"></a>
-												<button onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})" class="p-0"><img src="${resPath}/img/delete.svg" alt="삭제"></button>
-											</td>
+												<div class="edit-btn-box">
+													<button type="button" class="edit-btn" onclick="location.href='${context}approvals/${approval.approvalNo}'">
+														<img alt="수정버튼" src="<c:url value='/resources/img/edit.svg' />">
+													</button>
+													<button onClick="javascript:deleteApproval(${context}, ${approval.approvalNo})" class="delete-btn" type="button">
+														<img src="<c:url value='/resources/img/delete.svg'/>" alt="삭제버튼">
+													</button>
+												</div>
 										</c:if>
+										</td>
 									</tr>
 								</c:forEach>
 							</form:form>

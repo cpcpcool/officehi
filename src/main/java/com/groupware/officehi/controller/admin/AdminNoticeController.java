@@ -116,6 +116,18 @@ public class AdminNoticeController {
 		return "redirect:/admin/notices";
 	}
 	
+	@DeleteMapping("/{noticeNo}")
+	public String delete(@PathVariable Long noticeNo, Model model, HttpServletRequest request) {
+		if(loginCheck(request, model))
+			return "redirect:/login";
+		
+		if (loginUser.getAdmin() != 1)
+			return "alert/alert";
+		
+		noticeService.deleteNotice(noticeNo);
+		return "redirect:/admin/notices";
+	}
+	
 	@GetMapping("/search")
 	public String search(String search, String searchValue, 
 			@ModelAttribute Paging paging, Model model, HttpServletRequest request) {
@@ -148,17 +160,5 @@ public class AdminNoticeController {
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageMaker", new PagingDTO(paging, totalRow));
 		return "admin/notices/noticeTotal";
-	}
-	
-	@DeleteMapping("/{noticeNo}")
-	public String delete(@PathVariable Long noticeNo, Model model, HttpServletRequest request) {
-		if(loginCheck(request, model))
-			return "redirect:/login";
-		
-		if (loginUser.getAdmin() != 1)
-			return "alert/alert";
-		
-		noticeService.deleteNotice(noticeNo);
-		return "redirect:/admin/notices";
 	}
 }

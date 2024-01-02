@@ -6,6 +6,7 @@
 <!--  
 * @author 이승준
 * @editDate 23.12.20 ~ 23.12.21
+* 구조, 클래스명, css 통일 23.12.31 ~ 24.01.01 
 -->
 <!DOCTYPE html>
 <html>
@@ -15,10 +16,10 @@
 <link rel="icon" type="image/x-icon" href="<c:url value='/resources/img/favicon.ico'/>" />
 <script type="text/javascript" src="${resPath}/js/time.js"></script>
 <script type="text/javascript" src="${resPath}/js/workMessage.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link href="${resPath}/css/reset.css" rel="stylesheet">
 <link href="${resPath}/css/layout.css" rel="stylesheet">
 <link href="${resPath}/css/layout-sub.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 </head>
 <body id="main" onload="getTime()">
 	<%@ include file="/WEB-INF/views/header/userHeader.jsp" %>
@@ -72,12 +73,16 @@
 			<div class="main-box">
 				<div class="notice-wrapper">
 					<a href="${context}notices" class="notice-box floating">공지사항</a>
-					<a href="${context}notices/${notice.noticeNo}" class="notice-title floating">${notice.title}</a>
+					<a href="${context}notices/${notice.noticeNo}" class="notice-title floating">
+						<span class="ellipsis">
+							${notice.title}&nbsp;&nbsp;-&nbsp;&nbsp;${notice.content}
+						</span>
+					</a>
 				</div>
 				<div class="content-box-wrapper">
 					<div class="content-box wrapping-2 floating">
 						<h3>결재 현황</h3>
-						<table>
+						<table class="fixed">
 							<tbody>
 								<c:if test="${empty approvals}">
 									<tr style="text-align: center; font-size:18px;">
@@ -86,9 +91,9 @@
 								</c:if>
 								<c:forEach var="approval" items="${approvals}">
 									<tr>
-										<td>${approval.name}</td>
-										<td><a href="${context}approvals/${approval.approvalNo}">${approval.title}</a></td>
-										<td>${approval.date}</td>
+										<td><span>${approval.name}</span></td>
+										<td><a href="${context}approvals/${approval.approvalNo}"><span>${approval.title}</span></a></td>
+										<td><span>${approval.date}</span></td>
 									</tr>
 								</c:forEach>
 							</tbody>
