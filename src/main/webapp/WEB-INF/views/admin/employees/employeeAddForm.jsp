@@ -57,24 +57,6 @@
 						</div>
 						<div class="form-row">
 							<div class="label-input-box">
-								<label for="profile">프로필이미지</label>
-								<div class="file-field profile-field">
-									<input type="text" id="profileFileName" name="profileFileName" value="${profileFile.originalFileName}">
-									<input type="file" id="profile" name="profile" style="display: none;" onchange="updateFileName('profile', 'profileFileName')">
-									<button type="button" class="btn" onclick="document.getElementById('profile').click()">등록</button>
-								</div>
-							</div>
-							<div class="label-input-box">
-								<label for="stamp">인감이미지</label>
-								<div class="file-field stamp-filed">
-									<input type="text" id="stampFileName" name="stampFileName" value="${stampFile.originalFileName}"> 
-									<input type="file" id="stamp" name="stamp" style="display: none;" onchange="updateFileName('stamp', 'stampFileName')">
-									<button type="button" class="btn" onclick="document.getElementById('stamp').click()">등록</button>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="label-input-box">
 								<label for="toDate">입사일</label>
 								<form:input path="toDate" id="toDate" type="date" />
 								<form:errors path="toDate" cssClass="error" />
@@ -88,8 +70,13 @@
 						<div class="form-row">
 							<div class="label-input-box">
 								<label for="deptName">부서명</label>
-								<form:input path="deptName" id="deptName" placeholder="부서명"/>
-								<form:errors path="deptName" cssClass="error" />
+								<select id="deptName" name="deptName">
+									<option selected>인사</option>
+									<option>회계</option>
+									<option>마케팅</option>
+									<option>CS</option>
+									<option>개발</option>
+								</select>
 							</div>
 							<div class="label-input-box">
 								<label for="position">직급</label>
@@ -102,9 +89,27 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-row">
+							<div class="label-input-box">
+								<label for="profile">프로필이미지</label>
+								<div class="file-field profile-field">
+									<input type="text" id="profileFileName" name="profileFileName" class="ellipsis" value="${profileFile.originalFileName}">
+									<input type="file" id="profile" name="profile" style="display: none;" onchange="updateFileName('profile', 'profileFileName')">
+									<button type="button" class="btn" onclick="document.getElementById('profile').click()">파일 추가</button>
+								</div>
+							</div>
+							<div class="label-input-box">
+								<label for="stamp">인감이미지</label>
+								<div class="file-field stamp-filed">
+									<input type="text" id="stampFileName" name="stampFileName" class="ellipsis" value="${stampFile.originalFileName}"> 
+									<input type="file" id="stamp" name="stamp" style="display: none;" onchange="updateFileName('stamp', 'stampFileName')">
+									<button type="button" class="btn" onclick="document.getElementById('stamp').click()">파일 추가</button>
+								</div>
+							</div>
+						</div>
 						<div class="btn-area">
-							<button class="btn btn-primary" id="add" type="submit">등록 하기</button>
-							<button class="btn btn-simple" id="cancel" onclick="history.go(-1)" type="button">뒤로 가기</button>
+							<button class="btn btn-primary" id="add" type="submit">등록</button>
+							<button class="btn btn-simple" id="cancel" onclick="history.go(-1)" type="button">취소</button>
 						</div>
 					</form:form>
 				</div>

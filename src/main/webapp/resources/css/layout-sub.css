@@ -16,7 +16,7 @@
 	min-height: 5em;
 	width: 5em;
 	height: 5em;
-	object-fit: contain;
+	object-fit: cover;
 }
 #main .profile-image-box + span {
 	margin: 18px 0 6px;
@@ -161,14 +161,24 @@
 .form-row {
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start;
 	margin-bottom: 16px;
 }
 .form-row .label-input-box {
 	width: calc(50% - 10px);
 }
+#mypage .form-row .label-input-box {
+    width: calc(50% - 32px);
+}
+
+#mypage input, #mypage select {
+	flex: 1;
+}
+
 .label-input-box {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 }
 .file-field {
 	display: flex;
@@ -260,12 +270,19 @@ tr span {
 	font-weight: 600;
 }
 #user-approval label {
-	width: 72px;
+	width: 105px;
 }
 #user-approval input {
 	width: auto;
 	flex: 1;
 }
+#approval .form-row .label-input-box{
+	display: flex;
+    align-items: center;
+	width: 32%;
+	flex-wrap: nowrap;	
+}
+
 .label-input-box.mb {
 	margin-bottom: 16px;
 }
@@ -369,14 +386,17 @@ tr span {
 #admin-employee-total #pagingForm {
 	margin-top: 20px;
 }
-
+#admin-employee-total .retired {
+	color: #bbb;
+	text-decoration: line-through;
+}
 
 /* admin-employee-detail */
 #admin-employee-detail label {
 	width: 100px;
 }
 #admin-employee-detail input, #admin-employee-detail select {
-	width: 220px;
+	flex:1;
 }
 #admin-employee-detail div.hr {
 	margin: 16px 0 20px;
@@ -384,19 +404,25 @@ tr span {
 #admin-employee-detail .btn-area {
 	margin-top: 32px;
 }
+#admin-employee-detail .form-row .label-input-box {
+    width: calc(50% - 32px);
+}
 
 /* admin-employee-addForm */
 #admin-employee-addForm label {
 	width: 100px;
 }
 #admin-employee-addForm input, #admin-employee-addForm select {
-	width: 220px;
+	flex: 1;
 }
 #admin-employee-addForm div.hr {
 	margin: 16px 0 20px;
 }
 #admin-employee-addForm .btn-area {
 	margin-top: 32px;
+}
+#admin-employee-addForm .form-row .label-input-box {
+    width: calc(50% - 32px);
 }
 
 /* admin-approval-total */
@@ -414,4 +440,8 @@ tr span {
 }
 #admin-approval-total th.large-th {
 	width: 33%;
+}
+#admin-approval-total .searchError {
+	display: none;
+	padding-left: calc(162px + 0.5em);
 }

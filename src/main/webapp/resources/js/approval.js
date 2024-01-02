@@ -37,7 +37,7 @@ function deleteApproval(context, approvalNo) {
 	if(isFormDelete) {
 		let form = document.getElementById('approval');
 		
-		form.setAttribute('action', context + '/' + approvalNo);
+		form.setAttribute('action', context + 'approvals/'+ approvalNo);
 		approvals
 		form.submit();
 	}
@@ -49,8 +49,6 @@ function searchApproval() {
 	let search = document.getElementById('search');
 	let searchOption = search.options[search.selectedIndex].value;
 	let searchError = document.getElementById('searchError');
-	
-	searchError.style.visibility = 'hidden';
 	
 	if(searchOption == 'date' || searchOption == 'checkDate') {
 		searchValue.setAttribute('type', 'date');
@@ -68,10 +66,10 @@ function searchValueIsNaN() {
 	let searchError = document.getElementById('searchError');
 	
 	if(searchOption == 'approvalNo' && isNaN(searchValue.value)) {
-		searchError.style.visibility = 'visible';
+		searchError.style.display = 'inline-block';
 		searchError.innerText = '숫자만 입력하세요.';
 	} else if(searchValue.value == '') {
-		searchError.style.visibility = 'visible';
+		searchError.style.display = 'inline-block';
 		searchError.innerText = '검색어를 입력하세요.';
 	} else {
 		form.submit();

@@ -52,24 +52,6 @@
 						</div>
 						<div class="form-row">
 							<div class="label-input-box">
-								<label for="profileFileName">프로필 이미지</label>
-								<div class ="file-field profile-field">
-									<input type="text" id="profileFileName" name="profileFileName" value="${profile}">
-									<input type="file" id="profile" name="profile" style="display: none;" onchange="updateFileName('profile', 'profileFileName')">
-									<button type="button" id="profilebtn" class="btn" onclick="document.getElementById('profile').click()">등록</button>
-								</div>
-							</div>
-							<div class="label-input-box">
-								<label for="stampFileName">인감 이미지</label>
-								<div class="file-field stamp-filed">
-									<input type="text" id="stampFileName" name="stampFileName" value="${stamp}">
-									<input type="file" id="stamp" name="stamp" style="display: none;" onchange="updateFileName('stamp', 'stampFileName')">
-									<button type="button" id="stampbtn" class="btn" onclick="document.getElementById('stamp').click()">등록</button>
-								</div>
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="label-input-box">
 								<label for="to_date">입사일</label>
 								<input type=text name=to_date id="to_date" value="${mypageuser.toDate}" readonly>
 							</div>
@@ -88,8 +70,26 @@
 								<input type=text name=position id="position" value="${mypageuser.position}" readonly>
 							</div>
 						</div>
+						<div class="form-row">
+							<div class="label-input-box">
+								<label for="profile">프로필이미지</label>
+								<div class="file-field profile-field">
+									<input type="text" id="profileFileName" name="profileFileName" class="ellipsis" value="${profile}">
+									<input type="file" id="profile" name="profile" style="display: none;" onchange="updateFileName('profile', 'profileFileName')">
+									<button type="button" class="btn" onclick="document.getElementById('profile').click()">파일 추가</button>
+								</div>
+							</div>
+							<div class="label-input-box">
+								<label for="stamp">인감이미지</label>
+								<div class="file-field stamp-filed">
+									<input type="text" id="stampFileName" name="stampFileName" class="ellipsis" value="${stamp}"> 
+									<input type="file" id="stamp" name="stamp" style="display: none;" onchange="updateFileName('stamp', 'stampFileName')">
+									<button type="button" class="btn" onclick="document.getElementById('stamp').click()">파일 추가</button>
+								</div>
+							</div>
+						</div>
 						<div class="btn-area">
-							<button type="submit" class="btn btn-primary">정보 수정</button>
+							<button type="submit" class="btn btn-primary">수정</button>
 							<button type="button" class="btn btn-simple" onclick="history.go(-1); return false;">취소</button>
 						</div>
 					</form:form>

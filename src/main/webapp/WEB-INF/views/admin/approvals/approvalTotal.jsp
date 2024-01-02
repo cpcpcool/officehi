@@ -43,12 +43,12 @@
 												</select>
 												<input type="text" id="searchValue" name="searchValue" class="searchValue form-control"
 													placeholder="검색 키워드를 입력하세요" required>
-												<span id="searchError" class="error" style="visibility: hidden; width:0; height:0;">숫자를
-													입력해주세요.</span>
 												<button type="button" class="btn btn-primary"
 													onClick="javaScript:searchValueIsNaN()">검색</button>
 												<a href="${context}admin/approvals" class="btn btn-simple">초기화</a>
 											</div>
+												<span id="searchError" class="searchError">숫자를
+													입력해주세요.</span>
 										</form>
 										<table class="fixed">
 											<thead>

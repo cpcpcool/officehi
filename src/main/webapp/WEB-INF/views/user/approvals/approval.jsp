@@ -55,33 +55,8 @@
 									<form:input path="category" cssClass="form-control" value="${approval.category}" readonly="${login}" />
 								</div>
 								<div class="label-input-box">	
-									<label for="checker">참조자</label>
+									<label for="checker">1차 승인자</label>
 									<c:choose>
-										<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
-											<form:select path="checker1" class="form-select">
-												<form:option value="${checker1.userNo}" label="[${checker1.position}] ${checker1.name}" selected="true" />
-												<c:forEach items="${userList}" var="user">
-													<option value="${user.userNo}">[${user.position}] ${user.name}</option>
-												</c:forEach>
-											</form:select>
-										</c:when>
-										<c:otherwise>
-											<span class="form-control">[${checker1.position}] ${checker1.name}</span>
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</div>
-							<div class="label-input-box mb">
-									<label class="form-label" for="title">문서 제목</label>
-									<form:input path="title" cssClass="form-control" value="${approval.title}" readonly="${!login}" />
-							</div>
-							<div class="col-1 mb-2" style="padding: 0;">
-								<label class="form-label mt-2" for="checker">1차 승인자</label>
-							</div>
-							<label class="form-label" for="content">내용</label>
-							<form:textarea path="content" cssClass="form-control w-100" style="height: 400px; resize: none;" readonly="${!login}" />
-							<div class="btn-area">
-								<c:choose>
 									<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
 										<select id="checker1" name="checker1" class="form-select">
 											<option value="${checker1.userNo}" selected>[${checker1.position}] ${checker1.name}</option>
@@ -101,13 +76,10 @@
 										</select>
 									</c:otherwise>
 								</c:choose>
-								<a class="btn btn-simple" onClick="history.back()">뒤로 가기</a>
-							</div>
-							<div class="col-1 mb-2" style="padding: 0;">
-								<label class="form-label mt-2" for="checker">2차 승인자</label>
-							</div>
-							<div class="col">
-								<c:choose>
+								</div>
+								<div class="label-input-box">	
+									<label for="checker">2차 승인자</label>
+									<c:choose>
 									<c:when test="${checker2 != null}">
 										<c:choose>
 											<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
@@ -145,62 +117,49 @@
 										</c:choose>
 									</c:when>
 								</c:choose>
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-2 mt-2">
-								<label class="form-label" for="title">문서 제목</label>
-							</div>
-							<div class="col">
-								<form:input path="title" cssClass="form-control" value="${approval.title}" readonly="${!login}" />
-							</div>
-						</div>
-						<div class="row mb-3">
-							<div class="col-2">
-								<label class="form-label mt-2" for="date">기안일</label>
-							</div>
-							<div class="col-3">
-								<input type="date" id="date" name="date" value="${approval.date}" class="form-control" readonly />
-							</div>
-							<c:if test="${approval.checkDate != '9999-01-01'}">
-								<div class="col-2 mb-2">	
-									<label class="form-label mt-2" for="checkDate">완료일</label>
 								</div>
-								<div class="col">
-									<input type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" class="form-control" readonly />
+							</div>
+							<div class="label-input-box mb">
+									<label class="form-label" for="title">문서 제목</label>
+									<form:input path="title" cssClass="form-control" value="${approval.title}" readonly="${!login}" />
+							</div>
+							<div class="form-row">
+								<div class="label-input-box">
+									<label for="date">기안일</label>
+									<input type="date" id="date" name="date" value="${approval.date}" class="form-control" readonly />
 								</div>
-							</c:if>
-						</div>
-						<div class="row mb-3">
-							<div class="">
-								<label class="form-label" for="content">내용</label>
+								<c:if test="${approval.checkDate != '9999-01-01'}">
+									<div class="label-input-box">	
+										<label for="checkDate">완료일</label>
+										<input type="date" id="checkDate" name="checkDate" value="${approval.checkDate}" class="form-control" readonly />
+									</div>
+								</c:if>
 							</div>
-							<div class="">
-								<form:textarea path="content" cssClass="form-control w-100" style="height: 400px; resize: none;" readonly="${!login}" />
-							</div>
-						</div>
-						<div>
-							<c:choose>
+							<label class="form-label" for="content">내용</label>
+							<form:textarea path="content" cssClass="form-control w-100" style="height: 400px; resize: none;" readonly="${!login}" />
+							<div class="btn-area">
+								<c:choose>
 								<c:when test="${login && loginUser.admin == 0 && approval.status == 1}">
-									<button type="submit" class="btn btn-dark btn-small me-2">수정</button>
+									<button type="submit" class="btn btn-primary">수정</button>
 								</c:when>
 								<c:when test="${!login && loginUser.admin == 0 && approval.status == 1}">
 									<c:if test="${loginUser.userNo == checker1.userNo && checker2 != null}"> <!-- 결재자 1번이고 결재자 2번이 있다면  -->
-										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">진행</a>
+										<a class="btn btn-primary" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 2)">진행</a>
 									</c:if>
 									<c:if test="${loginUser.userNo == checker1.userNo && checker2 == null}"> <!-- 결재자 1번이고 결재자 2번이 없다면  -->
-										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 4)">최종승인</a>
+										<a class="btn btn-primary" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 4)">최종승인</a>
 									</c:if>
-									<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">반려</a>
+									<a class="btn btn-primary" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">반려</a>
 								</c:when>
 								<c:when test="${!login && loginUser.admin == 0 && approval.status == 2}">
 									<c:if test="${loginUser.userNo == checker2.userNo}">
-										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 4)">최종승인</a>
-										<a class="btn btn-dark btn-small me-2" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">반려</a>
+										<a class="btn btn-primary" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 4)">최종승인</a>
+										<a class="btn btn-primary" onClick="javascript:updateApproval(${context}, ${approval.approvalNo}, 3)">반려</a>
 									</c:if>
 								</c:when>
 							</c:choose>
-							<a class="btn btn-white btn-outline-dark btn-small" onClick="history.back()">뒤로 가기</a>
+								<a class="btn btn-simple" onClick="history.back()">뒤로 가기</a>
+							</div>
 						</div>
 					</form:form>
 				</div>

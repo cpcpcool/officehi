@@ -49,7 +49,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<form:form modelAttribute="approval" action="" method="delete">
+							<form:form modelAttribute="approval" method="delete">
 								<c:forEach var="approval" items="${approvals}">
 									<tr>
 										<td>

@@ -40,6 +40,7 @@
 							</select>
 							<input name="name" class="searchInput" type="text" placeholder="검색 키워드를 입력하세요" aria-label="관리자 사원정보 검색">
 							<button class="btn btn-primary" type="submit">검색</button>
+							<a href="${context}admin/employees" class="btn btn-simple">초기화</a>
 						</div>
 					</form>
 
