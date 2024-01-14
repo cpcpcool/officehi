@@ -68,7 +68,7 @@
 		SELECT *
 		FROM user u JOIN approval a
 		WHERE a.approval_no = #{approvalNo} AND
-		u.user_no NOT IN (SELECT user_no FROM CHECKER WHERE approval_no = #{approvalNo}) AND
+		u.user_no NOT IN (SELECT user_no FROM checker WHERE approval_no = #{approvalNo}) AND
 		position NOT IN
 		<foreach collection="position" item="item" index="index" open="(" close=")" separator=",">
 			#{item}

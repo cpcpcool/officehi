@@ -12,7 +12,7 @@
 <mapper namespace="com.groupware.officehi.repository.NoticeRepository">
 
 	<insert id="insert" useGeneratedKeys="true" keyProperty="noticeNo" parameterType="NoticeDTO">
-		INSERT INTO NOTICE(title, date, content)
+		INSERT INTO notice(title, date, content)
 		VALUES (#{title}, curdate(), #{content})
 	</insert>
 	

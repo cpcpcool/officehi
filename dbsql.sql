@@ -23,8 +23,8 @@ PRIMARY KEY(user_no)
 ALTER TABLE user AUTO_INCREMENT = 10000;
 
 ## 파일관리 테이블 생성
-DROP TABLE IF EXISTS FILE;
-CREATE TABLE IF NOT EXISTS FILE (
+DROP TABLE IF EXISTS file;
+CREATE TABLE IF NOT EXISTS file (
     FILE_NO INT AUTO_INCREMENT,
     FILE_NAME VARCHAR(200),
     ORIGINAL_FILE_NAME VARCHAR(200),
@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS FILE (
 );
 
 ## 파일 유형 테이블 생성user
-DROP TABLE IF EXISTS FILE_TYPE;
-CREATE TABLE IF NOT EXISTS FILE_TYPE (
+DROP TABLE IF EXISTS file_type;
+CREATE TABLE IF NOT EXISTS file_type (
     FILE_TYPE_NO VARCHAR(2),
     FILE_TYPE_NAME VARCHAR(30),
     FILE_PATH VARCHAR(250),
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS FILE_TYPE (
 );
 
 ## 파일 유형 VALUE
-INSERT INTO FILE_TYPE(FILE_TYPE_NO, FILE_TYPE_NAME, FILE_PATH)
+INSERT INTO file_type(FILE_TYPE_NO, FILE_TYPE_NAME, FILE_PATH)
 VALUES('1', '증명사진', 'resources/storage/profile')
 	 ,('2', '인감', 'resources/storage/stamp');
 
@@ -247,3 +247,6 @@ VALUES
 ('청소업체 호출 관련 공지', '2023-11-10' ,'사무실 바닥 청소작업을 위해 청소업체를 호출했습니다.\n내일 점심시간을 이용해 청소를 진행할 예정이니 임직원분들께서는 관리담당 직원을 제외하고 점심시간동안 사무실 출입을 자제해주시기 바랍니다.'),
 ('연말기념 사내행사 공지', '2023-12-01' ,'임직원분들께서는 아래 연말기념으로 진행되는 사내행사 리스트를 확인해주시길 바랍니다.\n\n1. 연말 휴가사용 장려를 위해 휴가자들에게는 소정의 휴가지원 키트가 지급됩니다.\n2. 12월 매주 마지막 업무일에는 1시간 조기 퇴근을 진행합니다.\n3. 12월 매주 첫 업무일마다 탕비실에 연말기념 과자와 음료가 구비될 예정입니다.\n\n 행복한 연말 되시기 바랍니다♥'),
 ('오늘의 공지사항', '2023-12-30' ,'오늘의 공지사항입니다.\n편리하고 효율적인 그룹웨어 OfficeHi 모두 이용해 주세요!');
+
+use officehi;
+select * from user;

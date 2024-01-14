@@ -24,7 +24,7 @@
 	<select id="getFilePathByFileTypeNo" parameterType="String"
 		resultType="String">
 		SELECT FILE_PATH
-		FROM FILE_TYPE
+		FROM file_type
 		WHERE FILE_TYPE_NO = #{fileTypeNo}
 	</select>
 
