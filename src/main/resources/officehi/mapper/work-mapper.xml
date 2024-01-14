@@ -6,17 +6,17 @@
 <mapper namespace="com.groupware.officehi.repository.WorkRepository">
 	
 	<insert id="insert" keyProperty="userNo">
-		INSERT INTO WORK(user_no, date, arrival_time) 
+		INSERT INTO work(user_no, date, arrival_time) 
 		values(#{userNo}, curdate(), curtime())
 	</insert>
 	
 	<update id="update" keyProperty="userNo">
-		UPDATE WORK SET leave_time = curtime()
+		UPDATE work SET leave_time = curtime()
 		WHERE user_no = #{userNo} AND date = curdate()
 	</update>
 	
 	<select id="checkDateDuplicate">
-		SELECT * FROM WORK 
+		SELECT * FROM work 
 		WHERE 
 		user_no = #{userNo} AND date = curdate() AND arrival_time IS NOT NULL
 	</select>

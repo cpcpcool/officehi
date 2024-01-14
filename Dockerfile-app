@@ -1,0 +1,8 @@
+## base image
+FROM tomcat:8.5.98-jre11-temurin-jammy
+
+## war file -> webapps copy
+COPY target/officehi-1.0.0-BUILD-SNAPSHOT.war /usr/local/tomcat/webapps
+
+## tomcat run
+ENTRYPOINT ["catalina.sh", "run"]

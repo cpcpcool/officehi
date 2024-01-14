@@ -1,0 +1,5 @@
+## baseimage
+FROM mysql/mysql-server:8.0.22
+
+## mysql run
+CMD ["mysqld"]

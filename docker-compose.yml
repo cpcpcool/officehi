@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: office-hi
+    build: 
+      context: .
+      dockerfile: Dockerfile-app
+    environment:
+      - TZ=Asia/Seoul
+    ports:
+      - 9999:8080
+    depends_on:
+      - database
+  
+  database:
+    container_name: office-hi-db
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    hostname: docker-mysql
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: officehi
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_ROOT_PASSWORD: 1111
