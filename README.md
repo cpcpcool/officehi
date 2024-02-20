@@ -1,6 +1,9 @@
 # 🖥️ Spring MVC Legacy Project
 ### 온라인 회사 업무 관리 서비스
 
+배포링크
+[AWS] http://54.180.31.7:9999/officehi-1.0.0-BUILD-SNAPSHOT
+
 최종 보고서, 기획서등을 포함한 최종 산출물 링크
 [구글 드라이브] https://drive.google.com/drive/folders/1fItYaOcz05qKoLrdA7tQZNDzokkkGbXS?usp=sharing
 <br>
