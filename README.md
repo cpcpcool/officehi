@@ -2,7 +2,7 @@
 ### 온라인 회사 업무 관리 서비스
 
 배포링크
-[AWS] http://54.180.31.7:9999/officehi-1.0.0-BUILD-SNAPSHOT](http://3.39.21.174:9999/officehi-1.0.0-BUILD-SNAPSHOT
+[AWS] http://3.39.21.174:9999/officehi-1.0.0-BUILD-SNAPSHOT
 관리자 아이디 : 10000 / 비밀번호 : 1111
 사용자 아이디 : 10001~10012 / 비밀번호  1111)
 
